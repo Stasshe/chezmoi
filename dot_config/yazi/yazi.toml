@@ -1,0 +1,11 @@
+[mgr]
+show_hidden = true
+linemode = "size_and_mtime"
+
+[opener]
+edit = [
+  { run = 'nvim "$@"', block = true },
+  { run = 'code "$@"', block = true },
+]
+
+[plugin]
