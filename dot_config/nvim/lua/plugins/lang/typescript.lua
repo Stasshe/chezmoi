@@ -1,0 +1,123 @@
+return {
+  { import = "astrocommunity.lsp.nvim-lsp-file-operations" },
+  {
+    "AstroNvim/astrocore",
+    optional = true,
+    ---@type AstroCoreOpts
+    opts = {
+      treesitter = { ensure_installed = { "javascript", "typescript", "tsx", "jsdoc" } },
+    },
+  },
+  {
+    "AstroNvim/astrolsp",
+    optional = true,
+    ---@type AstroLSPOpts
+    opts = {
+      mappings = {
+        n = {
+          gs = {
+            function() require("vtsls").commands.goto_source_definition() end,
+            desc = "Goto Source Definition (vtsls)",
+            cond = function(client) return client.name == "vtsls" end,
+          },
+        },
+      },
+      servers = {
+        "tsgo",
+      },
+      ---@diagnostic disable: missing-fields
+      config = {
+        tsgo = {
+          filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+          settings = {
+            typescript = {
+              format = { enable = false },
+              updateImportsOnFileMove = { enabled = "always" },
+              inlayHints = {
+                enumMemberValues = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                parameterNames = { enabled = "all" },
+                parameterTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                variableTypes = { enabled = true },
+              },
+            },
+            javascript = {
+              format = { enable = false },
+              updateImportsOnFileMove = { enabled = "always" },
+              inlayHints = {
+                enumMemberValues = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                parameterNames = { enabled = "literals" },
+                parameterTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                variableTypes = { enabled = true },
+              },
+            },
+            vtsls = {
+              enableMoveToFileCodeAction = true,
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    "vuki656/package-info.nvim",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    opts = {},
+    event = "BufRead package.json",
+  },
+  {
+    "yioneko/nvim-vtsls",
+    lazy = true,
+    ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+    dependencies = {
+      "AstroNvim/astrocore",
+      opts = {
+        autocmds = {
+          nvim_vtsls = {
+            {
+              event = "LspAttach",
+              desc = "Load nvim-vtsls with vtsls",
+              callback = function(args)
+                if assert(vim.lsp.get_client_by_id(args.data.client_id)).name == "vtsls" then
+                  require("vtsls")._on_attach(args.data.client_id, args.buf)
+                  vim.api.nvim_del_augroup_by_name "nvim_vtsls"
+                end
+              end,
+            },
+          },
+        },
+      },
+    },
+    config = function(_, opts) require("vtsls").config(opts) end,
+  },
+  {
+    "dmmulroy/tsc.nvim",
+    cmd = "TSC",
+    opts = {},
+  },
+  {
+    "nvim-mini/mini.icons",
+    optional = true,
+    opts = function(_, opts)
+      if not opts.file then opts.file = {} end
+      opts.file[".nvmrc"] = { glyph = "", hl = "MiniIconsGreen" }
+      opts.file[".node-version"] = { glyph = "", hl = "MiniIconsGreen" }
+      opts.file["package.json"] = { glyph = "", hl = "MiniIconsGreen" }
+      opts.file["tsconfig.json"] = { glyph = "", hl = "MiniIconsAzure" }
+      opts.file["tsconfig.build.json"] = { glyph = "", hl = "MiniIconsAzure" }
+      opts.file["yarn.lock"] = { glyph = "", hl = "MiniIconsBlue" }
+    end,
+  },
+  {
+    "nvim-neotest/neotest",
+    optional = true,
+    dependencies = { { "nvim-neotest/neotest-jest", config = function() end } },
+    opts = function(_, opts)
+      if not opts.adapters then opts.adapters = {} end
+      table.insert(opts.adapters, require "neotest-jest"(require("astrocore").plugin_opts "neotest-jest"))
+    end,
+  },
+}
