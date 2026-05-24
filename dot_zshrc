@@ -47,6 +47,11 @@ esac
 
 alias youtube-dl='cd ~/dev/tools/youtube-downloader && npm run start'
 
+
+alias ls='eza --icons --group-directories-first'
+alias ll= 'eza --la --icons --group-directories-first --git'
+alias lt='eza --tree --level=2 --icons'
+
 # Created by pipx
 export PATH="$PATH:$HOME/.local/bin"
 
@@ -54,3 +59,5 @@ alias qc='ollama run qwen2.5-coder-12k'
 eval "$(mise activate zsh)"
 eval "$(zoxide init zsh)"
 source <(fzf --zsh)
+
+export OLLAMA_CONTEXT_LENGTH=16384
