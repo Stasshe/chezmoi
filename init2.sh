@@ -3,6 +3,12 @@ set -euo pipefail
 
 echo "[init02] check GitHub auth"
 
+if ! command -v gh >/dev/null 2>&1; then
+  echo "[init02] gh is not installed."
+  echo "Run scripts/init.sh first."
+  exit 1
+fi
+
 if ! gh auth status >/dev/null 2>&1; then
   echo "[init02] gh is not authenticated."
   echo "Run:"
@@ -19,6 +25,12 @@ if [ ! -x "$HOME/.local/bin/mise" ]; then
 fi
 
 export PATH="$HOME/.local/bin:$PATH"
+
+mise settings set github_token "$GITHUB_TOKEN" || true
+
+echo "[init02] mise install"
+
+mise install
 
 echo "[init02] install Oh My Zsh"
 
@@ -42,17 +54,45 @@ if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
     "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 fi
 
-echo "[init02] mise install"
+echo "[init02] install oh-my-posh theme"
 
-mise install
+mkdir -p "$HOME/.poshthemes"
 
-echo "[init02] shell"
+if [ ! -f "$HOME/.poshthemes/unicorn.omp.json" ]; then
+  curl -fsSL \
+    https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/unicorn.omp.json \
+    -o "$HOME/.poshthemes/unicorn.omp.json"
+fi
+
+echo "[init02] apply chezmoi"
+
+if command -v chezmoi >/dev/null 2>&1; then
+  chezmoi apply
+fi
+
+echo "[init02] set default shell"
 
 if command -v zsh >/dev/null 2>&1; then
-  if [ "${SHELL:-}" != "$(command -v zsh)" ]; then
-    echo "To change default shell, run:"
-    echo "  chsh -s \"$(command -v zsh)\""
+  ZSH_PATH="$(command -v zsh)"
+
+  if ! grep -qx "$ZSH_PATH" /etc/shells; then
+    echo "$ZSH_PATH" | sudo tee -a /etc/shells >/dev/null
+  fi
+
+  if [ "${SHELL:-}" != "$ZSH_PATH" ]; then
+    chsh -s "$ZSH_PATH"
   fi
 fi
 
+echo "[init02] verification"
+
+echo "zsh:        $(command -v zsh || true)"
+echo "mise:       $(command -v mise || true)"
+echo "oh-my-posh: $(command -v oh-my-posh || true)"
+echo "eza:        $(command -v eza || true)"
+echo "fzf:        $(command -v fzf || true)"
+echo "zoxide:     $(command -v zoxide || true)"
+
+echo
 echo "[init02] done"
+echo "Close this WSL window and open Ubuntu again."
