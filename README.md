@@ -10,3 +10,8 @@ when you finish to login the gh, run the following code to install the rest of d
 ```bash
 ./init2.sh
 ```
+
+
+```powershell
+wsl.exe -d Ubuntu --exec zsh -l
+```
