@@ -26,8 +26,6 @@ fi
 
 export PATH="$HOME/.local/bin:$PATH"
 
-mise settings set github_token "$GITHUB_TOKEN" || true
-
 echo "[init02] mise install"
 
 mise install
