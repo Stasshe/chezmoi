@@ -39,8 +39,8 @@ setopt auto_cd
 alias d='docker'
 alias dc='docker compose'
 
-alias bd="$HOME/dev/experiments/atcoder/sh/build.sh"
-alias io="$HOME/dev/experiments/atcoder/sh/io.sh"
+alias bd="$HOME/competitive/atcoder/sh/build.sh"
+alias io="$HOME/competitive/atcoder/sh/io.sh"
 
 alias youtube-dl='cd ~/dev/tools/youtube-downloader && npm run start'
 alias qc='ollama run qwen2.5-coder-12k'
