@@ -16,7 +16,8 @@ if ! gh auth status >/dev/null 2>&1; then
   exit 1
 fi
 
-export GITHUB_TOKEN="$(gh auth token)"
+export GITHUB_TOKEN
+GITHUB_TOKEN="$(gh auth token)"
 
 echo "[init02] install mise"
 
@@ -66,20 +67,6 @@ echo "[init02] apply chezmoi"
 
 chezmoi apply
 
-echo "[init02] set default shell"
-
-ZSH_PATH="$(command -v zsh)"
-
-if ! grep -qx "$ZSH_PATH" /etc/shells; then
-  echo "$ZSH_PATH" | sudo tee -a /etc/shells >/dev/null
-fi
-
-CURRENT_SHELL="$(getent passwd "$USER" | awk -F: '{print $7}')"
-
-if [ "$CURRENT_SHELL" != "$ZSH_PATH" ]; then
-  sudo usermod -s "$ZSH_PATH" "$USER"
-fi
-
 echo "[init02] verification"
 
 echo "zsh:        $(command -v zsh)"
@@ -88,8 +75,8 @@ echo "oh-my-posh: $(command -v oh-my-posh)"
 echo "eza:        $(command -v eza)"
 echo "fzf:        $(command -v fzf)"
 echo "zoxide:     $(command -v zoxide)"
-echo "shell:      $(getent passwd "$USER" | awk -F: '{print $7}')"
 
 echo
 echo "[init02] done"
-echo "Close this WSL window and open Ubuntu again."
+echo "Run zsh manually with:"
+echo "  zsh"
