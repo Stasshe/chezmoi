@@ -64,32 +64,31 @@ fi
 
 echo "[init02] apply chezmoi"
 
-if command -v chezmoi >/dev/null 2>&1; then
-  chezmoi apply
-fi
+chezmoi apply
 
 echo "[init02] set default shell"
 
-if command -v zsh >/dev/null 2>&1; then
-  ZSH_PATH="$(command -v zsh)"
+ZSH_PATH="$(command -v zsh)"
 
-  if ! grep -qx "$ZSH_PATH" /etc/shells; then
-    echo "$ZSH_PATH" | sudo tee -a /etc/shells >/dev/null
-  fi
+if ! grep -qx "$ZSH_PATH" /etc/shells; then
+  echo "$ZSH_PATH" | sudo tee -a /etc/shells >/dev/null
+fi
 
-  if [ "${SHELL:-}" != "$ZSH_PATH" ]; then
-    chsh -s "$ZSH_PATH"
-  fi
+CURRENT_SHELL="$(getent passwd "$USER" | awk -F: '{print $7}')"
+
+if [ "$CURRENT_SHELL" != "$ZSH_PATH" ]; then
+  sudo usermod -s "$ZSH_PATH" "$USER"
 fi
 
 echo "[init02] verification"
 
-echo "zsh:        $(command -v zsh || true)"
-echo "mise:       $(command -v mise || true)"
-echo "oh-my-posh: $(command -v oh-my-posh || true)"
-echo "eza:        $(command -v eza || true)"
-echo "fzf:        $(command -v fzf || true)"
-echo "zoxide:     $(command -v zoxide || true)"
+echo "zsh:        $(command -v zsh)"
+echo "mise:       $(command -v mise)"
+echo "oh-my-posh: $(command -v oh-my-posh)"
+echo "eza:        $(command -v eza)"
+echo "fzf:        $(command -v fzf)"
+echo "zoxide:     $(command -v zoxide)"
+echo "shell:      $(getent passwd "$USER" | awk -F: '{print $7}')"
 
 echo
 echo "[init02] done"
