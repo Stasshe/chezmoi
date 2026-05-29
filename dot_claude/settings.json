@@ -1,64 +1,5 @@
 {
   "permissions": {
-    "deny": [
-      "Bash(rm -rf /)",
-      "Bash(rm -rf /*)",
-      "Bash(rm -rf ~)",
-      "Bash(rm -rf ~/*)",
-      "Bash(rm -rf $HOME)",
-      "Bash(rm -rf $HOME/*)",
-
-      "Bash(sudo *)",
-      "Bash(su *)",
-      "Bash(chmod -R 777 *)",
-      "Bash(chown -R *)",
-
-      "Bash(mkfs *)",
-      "Bash(dd *)",
-      "Bash(mount *)",
-      "Bash(umount *)",
-
-      "Bash(curl * | sh)",
-      "Bash(curl * | bash)",
-      "Bash(wget * | sh)",
-      "Bash(wget * | bash)",
-
-      "Bash(git commit)",
-      "Bash(git commit *)",
-      "Bash(git push)",
-      "Bash(git push *)",
-      "Bash(git reset --hard)",
-      "Bash(git reset --hard *)",
-      "Bash(git clean -fd *)",
-      "Bash(git clean -fdx *)",
-      "Bash(git rebase *)",
-
-      "Bash(npm publish *)",
-      "Bash(pnpm publish *)",
-      "Bash(yarn publish *)",
-
-      "Bash(npm unpublish *)",
-      "Bash(pnpm unpublish *)",
-
-      "Bash(docker system prune *)",
-      "Bash(docker volume rm *)",
-      "Bash(docker volume prune *)",
-      "Bash(docker compose down -v *)",
-
-      "Bash(gh repo delete *)",
-      "Bash(gh auth token *)",
-      "Bash(gh secret set *)",
-
-      "Bash(pass *)",
-
-      "Read(~/.ssh/**)",
-      "Read(~/.aws/**)",
-      "Read(~/.config/gh/**)",
-      "Read(~/.npmrc)",
-      "Read(~/.pypirc)",
-      "Read(**/.env)",
-      "Read(**/.env.local)"
-    ],
     "allow": [
       "Bash(ls)",
       "Bash(pwd)",
@@ -71,18 +12,69 @@
       "Bash(free -h)",
       "Bash(top -n 1 -b)",
       "Bash(sed -n *p *)",
-
-
       "Bash(pnpm add *)",
       "Bash(pnpm run *)",
       "Bash(pnpm exec *)"
-
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~)",
+      "Bash(rm -rf ~/*)",
+      "Bash(rm -rf $HOME)",
+      "Bash(rm -rf $HOME/*)",
+      "Bash(sudo *)",
+      "Bash(su *)",
+      "Bash(chmod -R 777 *)",
+      "Bash(chown -R *)",
+      "Bash(mkfs *)",
+      "Bash(dd *)",
+      "Bash(mount *)",
+      "Bash(umount *)",
+      "Bash(curl * | sh)",
+      "Bash(curl * | bash)",
+      "Bash(wget * | sh)",
+      "Bash(wget * | bash)",
+      "Bash(git commit)",
+      "Bash(git commit *)",
+      "Bash(git push)",
+      "Bash(git push *)",
+      "Bash(git reset --hard)",
+      "Bash(git reset --hard *)",
+      "Bash(git clean -fd *)",
+      "Bash(git clean -fdx *)",
+      "Bash(git rebase *)",
+      "Bash(npm publish *)",
+      "Bash(pnpm publish *)",
+      "Bash(yarn publish *)",
+      "Bash(npm unpublish *)",
+      "Bash(pnpm unpublish *)",
+      "Bash(docker system prune *)",
+      "Bash(docker volume rm *)",
+      "Bash(docker volume prune *)",
+      "Bash(docker compose down -v *)",
+      "Bash(gh repo delete *)",
+      "Bash(gh auth token *)",
+      "Bash(gh secret set *)",
+      "Bash(pass *)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.config/gh/**)",
+      "Read(~/.npmrc)",
+      "Read(~/.pypirc)",
+      "Read(**/.env)",
+      "Read(**/.env.local)"
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"/home/stasshe_c/.claude/plugins/marketplaces/genshijin/hooks/genshijin-statusline.sh\""
   },
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true,
     "caveman@caveman": true,
-    "genshijin@genshijin": true
+    "genshijin@genshijin": true,
+    "rust-analyzer-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -99,5 +91,27 @@
     }
   },
   "theme": "dark",
-  "statusLine": { "type": "command", "command": "bash \"/home/stasshe_c/.claude/plugins/marketplaces/genshijin/hooks/genshijin-statusline.sh\"" }
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node '/home/stasshe_c/.local/share/mise/installs/node/24/bin/gle' _user-prompt-submit"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node '/home/stasshe_c/.local/share/mise/installs/node/24/bin/gle' _stop",
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
 }
