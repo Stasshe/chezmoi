@@ -98,5 +98,6 @@
       }
     }
   },
-  "theme": "dark"
+  "theme": "dark",
+  "statusLine": { "type": "command", "command": "bash \"/home/stasshe_c/.claude/plugins/marketplaces/genshijin/hooks/genshijin-statusline.sh\"" }
 }
