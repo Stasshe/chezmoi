@@ -3,6 +3,7 @@ run following code to install dependencies:
 ```bash
 chmod +x init1.sh
 chmod +x init2.sh
+chmod +x init3.sh
 ./init1.sh
 ```
 
