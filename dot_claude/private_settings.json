@@ -22,14 +22,12 @@
       "Bash(rm -rf /* *)",
       "Bash(rm -rf -- /)",
       "Bash(rm -rf -- /*)",
-
       "Bash(rm -rf ~)",
       "Bash(rm -rf ~/*)",
       "Bash(rm -rf ~/.*)",
       "Bash(rm -rf $HOME)",
       "Bash(rm -rf $HOME/*)",
       "Bash(rm -rf $HOME/.*)",
-
       "Bash(rm -rf /bin)",
       "Bash(rm -rf /bin/*)",
       "Bash(rm -rf /boot)",
@@ -68,7 +66,6 @@
       "Bash(rm -rf /usr/*)",
       "Bash(rm -rf /var)",
       "Bash(rm -rf /var/*)",
-
       "Bash(rm -fr /)",
       "Bash(rm -fr /*)",
       "Bash(rm -fr ~)",
@@ -83,7 +80,6 @@
       "Bash(rm -fr /usr/*)",
       "Bash(rm -fr /home)",
       "Bash(rm -fr /home/*)",
-
       "Bash(find / -delete)",
       "Bash(find / * -delete)",
       "Bash(find ~ -delete)",
@@ -92,7 +88,6 @@
       "Bash(find /etc -delete)",
       "Bash(find /usr -delete)",
       "Bash(find /home -delete)",
-
       "Bash(find / -exec rm *)",
       "Bash(find ~ -exec rm *)",
       "Bash(find $HOME -exec rm *)",
@@ -100,37 +95,30 @@
       "Bash(find /etc -exec rm *)",
       "Bash(find /usr -exec rm *)",
       "Bash(find /home -exec rm *)",
-
       "Bash(truncate -s 0 /etc/*)",
       "Bash(truncate -s 0 /var/*)",
       "Bash(truncate -s 0 /usr/*)",
       "Bash(shred *)",
-
       "Bash(mv /var *)",
       "Bash(mv /etc *)",
       "Bash(mv /usr *)",
       "Bash(mv /home *)",
       "Bash(mv ~/.ssh *)",
       "Bash(mv $HOME/.ssh *)",
-
       "Bash(sudo *)",
       "Bash(su *)",
       "Bash(doas *)",
-
       "Bash(chmod -R 777 *)",
       "Bash(chmod -R 000 *)",
       "Bash(chown -R *)",
-
       "Bash(mkfs *)",
       "Bash(dd *)",
       "Bash(mount *)",
       "Bash(umount *)",
-
       "Bash(curl * | sh)",
       "Bash(curl * | bash)",
       "Bash(wget * | sh)",
       "Bash(wget * | bash)",
-
       "Bash(git commit)",
       "Bash(git commit *)",
       "Bash(git push)",
@@ -140,24 +128,19 @@
       "Bash(git clean -fd *)",
       "Bash(git clean -fdx *)",
       "Bash(git rebase *)",
-
       "Bash(npm publish *)",
       "Bash(pnpm publish *)",
       "Bash(yarn publish *)",
       "Bash(npm unpublish *)",
       "Bash(pnpm unpublish *)",
-
       "Bash(docker system prune *)",
       "Bash(docker volume rm *)",
       "Bash(docker volume prune *)",
       "Bash(docker compose down -v *)",
-
       "Bash(gh repo delete *)",
       "Bash(gh auth token *)",
       "Bash(gh secret set *)",
-
       "Bash(pass *)",
-
       "Read(~/.ssh/**)",
       "Read(~/.aws/**)",
       "Read(~/.config/gh/**)",
@@ -210,6 +193,17 @@
             "type": "command",
             "command": "node '/home/stasshe_c/.local/share/mise/installs/node/24/bin/gle' _stop",
             "async": true
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/stasshe_c/.claude/hooks/rtk-rewrite.sh"
           }
         ]
       }
