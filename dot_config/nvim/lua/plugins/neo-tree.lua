@@ -35,9 +35,9 @@ return {
 
       filesystem = {
         filtered_items = {
-          visible = false,
-          hide_dotfiles = true,
-          hide_hidden = true,
+          visible = true,
+          hide_dotfiles = false,
+          hide_hidden = false,
           hide_by_pattern = {
             "*.meta",
             "*.unity",
