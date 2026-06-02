@@ -1,0 +1,6 @@
+prefix_rule(pattern=["pnpm", "run", "dev"], decision="allow")
+prefix_rule(pattern=["curl"], decision="allow")
+prefix_rule(pattern=["rm", ".next/lock"], decision="allow")
+prefix_rule(pattern=["pnpm", "run", "build"], decision="allow")
+prefix_rule(pattern=["rm", "-rf", "/tmp/uv-venv-test"], decision="allow")
+prefix_rule(pattern=["rm", "-rf", "/tmp/py-venv-test"], decision="allow")
