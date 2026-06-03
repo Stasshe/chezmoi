@@ -22,7 +22,7 @@ else
   python_bin="python3"
 fi
 
-uv tool install --python "$python_bin" "headroom-ai[all]"
+curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
 
 echo "[init03] verification"
 echo "codex:    $(command -v codex)"
