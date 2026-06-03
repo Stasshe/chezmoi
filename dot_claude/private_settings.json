@@ -196,17 +196,6 @@
           }
         ]
       }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/home/stasshe_c/.claude/hooks/rtk-rewrite.sh"
-          }
-        ]
-      }
     ]
   }
 }
