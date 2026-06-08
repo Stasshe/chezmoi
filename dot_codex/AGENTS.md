@@ -8,9 +8,16 @@ Don't use pip directory. use uv.
 git操作はするな。git操作は、readonly。
 restore, staging, commitなどは禁止する。
 git diffなどの読み取りのみは完全に許可する。
+git restoreは例外として許可する
 
 <!-- headroom:rtk-instructions -->
 # RTK (Rust Token Killer) - Token-Optimized Commands
+
+Use raw commands when editing code or verifying diffs.
+
+Use rtk only for broad exploration, large logs, large search results, and noisy test output.
+
+Do not create patches from rtk-compressed output. Before editing a file, read the exact target range with raw sed, awk, cat, or an editor-aware tool. After editing, verify with raw git diff.
 
 When running shell commands, **always prefix with `rtk`**. This reduces context
 usage by 60-90% with zero behavior change. If rtk has no filter for a command,
@@ -50,4 +57,5 @@ rtk pip list            rtk pnpm install        rtk npm run <script>
 - In command chains, prefix each segment: `rtk git add . && rtk git commit -m "msg"`
 - For debugging, use raw command without rtk prefix
 - `rtk proxy <cmd>` runs command without filtering but tracks usage
+- never do `rtk init -g`
 <!-- /headroom:rtk-instructions -->

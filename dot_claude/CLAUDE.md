@@ -9,5 +9,6 @@ Don't use pip directory. use uv.
 git操作はするな。git操作は、readonly。
 restore, staging, commitなどは禁止する。
 git diffなどの読み取りのみは完全に許可する。
+git restoreは例外として許可する
 
 @RTK.md

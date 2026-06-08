@@ -1,5 +1,10 @@
 # RTK - Rust Token Killer
 
+Use raw commands when editing code or verifying diffs.
+
+Use rtk only for broad exploration, large logs, large search results, and noisy test output.
+
+Do not create patches from rtk-compressed output. Before editing a file, read the exact target range with raw sed, awk, cat, or an editor-aware tool. After editing, verify with raw git diff.
 **Usage**: Token-optimized CLI proxy (60-90% savings on dev operations)
 
 ## Meta Commands (always use rtk directly)
