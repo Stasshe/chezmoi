@@ -44,6 +44,7 @@ alias io="$HOME/competitive/atcoder/sh/io.sh"
 
 alias youtube-dl='cd ~/dev/tools/youtube-downloader && npm run start'
 alias qc='ollama run qwen2.5-coder-12k'
+alias y='yazi'
 
 if command -v eza >/dev/null 2>&1; then
   alias ls='eza --icons --group-directories-first'
