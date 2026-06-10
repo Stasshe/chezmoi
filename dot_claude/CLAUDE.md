@@ -11,4 +11,10 @@ restore, staging, commitなどは禁止する。
 git diffなどの読み取りのみは完全に許可する。
 git restoreは例外として許可する
 
+
+
+
+コードファイルは英語で書け
+
+
 @RTK.md

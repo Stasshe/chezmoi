@@ -150,6 +150,29 @@
       "Read(**/.env.local)"
     ]
   },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node '/home/stasshe_c/.local/share/mise/installs/node/24/bin/gle' _user-prompt-submit"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node '/home/stasshe_c/.local/share/mise/installs/node/24/bin/gle' _stop",
+            "async": true
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "bash \"/home/stasshe_c/.claude/plugins/marketplaces/genshijin/hooks/genshijin-statusline.sh\""
@@ -175,27 +198,5 @@
     }
   },
   "theme": "dark",
-  "hooks": {
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node '/home/stasshe_c/.local/share/mise/installs/node/24/bin/gle' _user-prompt-submit"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node '/home/stasshe_c/.local/share/mise/installs/node/24/bin/gle' _stop",
-            "async": true
-          }
-        ]
-      }
-    ]
-  }
+  "model": "sonnet"
 }
