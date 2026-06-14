@@ -197,6 +197,6 @@
       }
     }
   },
-  "theme": "dark",
-  "model": "sonnet"
+  "effortLevel": "high",
+  "theme": "dark"
 }
