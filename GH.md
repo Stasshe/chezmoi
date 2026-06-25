@@ -36,3 +36,10 @@ ssh -T git@github.com
 gh auth login
 gh auth status
 ```
+
+
+
+```bash
+cd ~/.local/share
+git clone git@github.com:Stasshe/chezmoi.git
+```
