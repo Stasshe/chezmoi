@@ -1,6 +1,6 @@
 ```bash
 set -euo pipefail
-
+sudo apt update
 sudo apt install -y git curl wget gpg openssh-client ca-certificates
 
 (type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) \
