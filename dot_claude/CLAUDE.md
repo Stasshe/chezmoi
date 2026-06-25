@@ -17,4 +17,12 @@ git restoreは例外として許可する
 コードファイルは英語で書け
 無意味にechoを使うな。Readを使え。
 
+plan modeの時は、さいごにplan.txtだけでなく、プロジェクトに
+SPECIFICATION.md　を追加しろ。これはgenshijin口調で。
 
+
+
+release.ymlにはpatch minor majorの選択肢でbump versionするやつを。
+workflowの中のビルドにはキャッシュも使え。
+
+設計・仕様変更があった場合は必ずREADME,SPECIFICATIONに該当箇所があるか確認し、それを修正しろ
