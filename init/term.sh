@@ -20,6 +20,12 @@ if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
     "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 fi
 
+
+
+
+
+
+
 echo "[init02] install oh-my-posh theme"
 
 mkdir -p "$HOME/.poshthemes"
