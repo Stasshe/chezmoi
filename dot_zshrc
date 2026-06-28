@@ -46,42 +46,6 @@ alias youtube-dl='cd ~/dev/tools/youtube-downloader && npm run start'
 alias qc='ollama run qwen2.5-coder-12k'
 alias y='yazi'
 
-
-get_windows_home() {
-  local users_dir="/mnt/c/Users"
-  local homes=()
-
-  while IFS= read -r -d '' dir; do
-    [[ -d "$dir/Downloads" ]] && homes+=("$dir")
-  done < <(
-    find "$users_dir" \
-      -mindepth 1 \
-      -maxdepth 1 \
-      -type d \
-      ! -iname 'Public' \
-      ! -iname 'Default' \
-      ! -iname 'Default User' \
-      ! -iname 'All Users' \
-      -print0
-  )
-
-  if (( ${#homes[@]} != 1 )); then
-    printf 'Windows profile detection failed: found %d candidates\n' \
-      "${#homes[@]}" >&2
-    return 1
-  fi
-
-  printf '%s\n' "${homes[0]}"
-}
-
-dl() {
-  local windows_home
-  windows_home="$(get_windows_home)" || return
-
-  cp -- "$@" "$windows_home/Downloads/"
-}
-
-
 if command -v eza >/dev/null 2>&1; then
   alias ls='eza --icons --group-directories-first'
   alias ll='eza --la --icons --group-directories-first --git'
