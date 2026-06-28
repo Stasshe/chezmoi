@@ -20,13 +20,17 @@ def find_downloads() -> Path:
         print(f"dl: {users_dir} does not exist", file=sys.stderr)
         raise SystemExit(1)
 
-    candidates = [
-        user_dir / "Downloads"
-        for user_dir in users_dir.iterdir()
-        if user_dir.is_dir()
-        and user_dir.name.casefold() not in EXCLUDED_USERS
-        and (user_dir / "Downloads").is_dir()
-    ]
+    candidates = []
+    for user_dir in users_dir.iterdir():
+        if user_dir.name.casefold() in EXCLUDED_USERS:
+            continue
+
+        downloads = user_dir / "Downloads"
+        try:
+            if user_dir.is_dir() and downloads.is_dir():
+                candidates.append(downloads)
+        except OSError:
+            continue
 
     if len(candidates) != 1:
         print(
