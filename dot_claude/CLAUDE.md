@@ -20,7 +20,7 @@ git restoreは例外として許可する
 plan modeの時は、さいごにplan.txtだけでなく、プロジェクトに
 SPECIFICATION.md　を追加しろ。これはgenshijin口調で。
 
-
+ブラウザの表示を確認するときはagent-browserを使え
 
 release.ymlにはpatch minor majorの選択肢でbump versionするやつを。
 workflowの中のビルドにはキャッシュも使え。

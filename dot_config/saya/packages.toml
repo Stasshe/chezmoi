@@ -2,4 +2,20 @@ schema_version = 2
 
 [packages.build-essential]
 
+[packages.ca-certificates]
+
+[packages."containerd.io"]
+
+[packages.curl]
+
+[packages.docker-ce]
+
+[packages.docker-ce-cli]
+
+[packages.docker-compose-plugin]
+
 [packages.ffmpeg]
+
+[packages.gnupg]
+
+[packages.lsb-release]
