@@ -46,6 +46,18 @@ alias youtube-dl='cd ~/dev/tools/youtube-downloader && npm run start'
 alias qc='ollama run qwen2.5-coder-12k'
 alias y='yazi'
 
+
+upd-claudemd() (
+  set -e
+
+  cp ~/.claude/CLAUDE.md ~/.codex/AGENTS.md
+  cd "$(chezmoi source-path)"
+
+  chezmoi re-add
+  git add dot_claude/CLAUDE.md dot_codex/AGENTS.md
+  git commit -m "update-claude.md"
+)
+
 if command -v eza >/dev/null 2>&1; then
   alias ls='eza --icons --group-directories-first'
   alias ll='eza --la --icons --group-directories-first --git'
