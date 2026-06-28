@@ -1,7 +1,14 @@
-run following code to install dependencies:
+Set up the SSH key as described in [GH.md](./GH.md), then run:
 
-at first, setup SSH key.
-cf. GH.md
+```bash
+mkdir -p ~/.local/share/
+git clone git@github.com:Stasshe/chezmoi.git ~/.local/share/chezmoi
+cd ~/.local/share/chezmoi
+./setups.sh
+```
+
+The setup installs mise and chezmoi, applies the managed files, installs the
+configured tools, and starts zsh.
 
 
 
