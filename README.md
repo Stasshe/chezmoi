@@ -7,8 +7,8 @@ cd ~/.local/share/chezmoi
 ./setups.sh
 ```
 
-The setup configures the Docker APT repository before running Saya, installs
-mise and chezmoi, applies the managed files, installs the configured tools, and
+The setup configures the Docker APT repository, installs mise and chezmoi,
+applies the managed files, installs the configured mise and Saya packages, and
 starts zsh.
 
 

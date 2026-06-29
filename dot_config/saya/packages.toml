@@ -16,6 +16,14 @@ schema_version = 2
 
 [packages.ffmpeg]
 
+[packages.gh]
+
+[packages.git]
+
 [packages.gnupg]
 
 [packages.lsb-release]
+
+[packages.unzip]
+
+[packages.zsh]

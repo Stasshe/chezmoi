@@ -4,9 +4,9 @@ set -euo pipefail
 export PATH="$HOME/.local/bin:$PATH"
 
 ./init/docker.sh
-./init/base.sh
 ./init/mise.sh
 ./init/chezmoi.sh
+./init/base.sh
 
 eval "$(mise activate bash)"
 

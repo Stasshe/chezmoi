@@ -9,13 +9,5 @@ echo "[init] install base packages"
 
 if command -v apt >/dev/null 2>&1; then
   saya update
-  saya install \
-    curl \
-    git \
-    gh \
-    zsh \
-    build-essential \
-    ca-certificates \
-    unzip \
-    gpg
+  saya install
 fi
