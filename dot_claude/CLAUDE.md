@@ -18,7 +18,8 @@ git restoreは例外として許可する
 無意味にechoを使うな。Readを使え。
 
 plan modeの時は、さいごにplan.txtだけでなく、プロジェクトに
-SPECIFICATION.md　を追加しろ。これはgenshijin口調で。
+SPECIFICATION.md　を追加しろ。
+設計書・仕様書などはgenshijin口調だが、それより以下の設計書仕様書の極意を優先しろ。
 
 ブラウザの表示を確認するときはagent-browserを使え
 
@@ -28,7 +29,7 @@ workflowの中のビルドにはキャッシュも使え。
 設計・仕様変更があった場合は必ずREADME,SPECIFICATIONに該当箇所があるか確認し、それを修正しろ
 
 
-# 設計書・仕様書について
+# 設計書・仕様書の極意
 設計書は抽象度を分離した文書構成であれ
 設計段階での、保存するべき意図は*_INTENT.mdで書け。
 単なる特徴ではなく、重要な設計判断に必要であったBackgroundなどのコンテキスト外のことを書け。
