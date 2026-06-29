@@ -49,7 +49,7 @@ def find_downloads() -> Path:
 
 def main() -> None:
     if len(sys.argv) < 2:
-        print("Usage: dl FILE...", file=sys.stderr)
+        print("Usage: dl PATH...", file=sys.stderr)
         raise SystemExit(2)
 
     downloads = find_downloads()
@@ -58,6 +58,7 @@ def main() -> None:
         "cp",
         [
             "cp",
+            "-R",
             "--",
             *sys.argv[1:],
             f"{downloads}/",
