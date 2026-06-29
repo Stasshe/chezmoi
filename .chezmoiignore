@@ -6,6 +6,7 @@ setups.sh
 
 
 nvim.log
-
+.github/
+VERSION
 
 

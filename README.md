@@ -11,6 +11,12 @@ The setup configures the Docker APT repository, installs mise and chezmoi,
 applies the managed files, installs the configured mise and Saya packages, and
 starts zsh.
 
+## Release
+
+Run the **Release** workflow from the default branch and select `patch`, `minor`,
+or `major`. The workflow updates `VERSION`, commits and tags the version, and
+creates a GitHub release with generated notes.
+
 
 
 ```powershell
