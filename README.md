@@ -17,6 +17,12 @@ starts zsh.
 wsl --set-default Ubuntu
 ```
 
+```powershell
+winget install -e --id equalsraf.win32yank
+```
+
+
+
 
 管理者で実行
 ```powershell
