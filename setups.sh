@@ -3,6 +3,7 @@ set -euo pipefail
 
 export PATH="$HOME/.local/bin:$PATH"
 
+./init/docker.sh
 ./init/base.sh
 ./init/mise.sh
 ./init/chezmoi.sh
@@ -14,3 +15,5 @@ eval "$(mise activate bash)"
 ./init/zellij.sh
 
 exec zsh
+
+echo "Successfully setups Done!!!!"
