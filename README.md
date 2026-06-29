@@ -18,6 +18,25 @@ wsl --set-default Ubuntu
 ```
 
 
+管理者で実行
+```powershell
+$current = [Environment]::GetEnvironmentVariable("WSLENV", "Machine")
+$items = @($current -split ":" | Where-Object { $_ })
+
+foreach ($item in @("SSH_CONNECTION/u", "SSH_CLIENT/u", "SSH_TTY/u")) {
+  if ($items -notcontains $item) {
+    $items += $item
+  }
+}
+
+[Environment]::SetEnvironmentVariable(
+  "WSLENV",
+  ($items -join ":"),
+  "Machine"
+)
+
+Restart-Service sshd
+```
 
 ```json
 {
