@@ -44,7 +44,8 @@ alias io="$HOME/competitive/atcoder/sh/io.sh"
 
 alias youtube-dl='cd ~/dev/tools/youtube-downloader && npm run start'
 alias qd='ollama run qwen3.5:9b'
-
+alias qd4='ollama run qwen3.5:4b'
+alias qc='ollama run qwen2.5:7b'
 alias y='yazi'
 
 
@@ -77,4 +78,3 @@ if command -v fzf >/dev/null 2>&1; then
   source <(fzf --zsh)
 fi
 
-export OLLAMA_CONTEXT_LENGTH=16384
