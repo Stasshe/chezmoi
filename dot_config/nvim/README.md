@@ -35,5 +35,11 @@ nvim
 
 ## WSL clipboard
 
-Install `equalsraf.win32yank` with winget. On WSL, regular Neovim yanks then use
-`win32yank.exe` and are copied to the Windows clipboard without changing UTF-8 text.
+Install `win32yank` from PowerShell on Windows:
+
+```powershell
+winget install --id equalsraf.win32yank --exact
+```
+
+On WSL, regular Neovim yanks then use `win32yank.exe` and are copied to the
+Windows clipboard without changing UTF-8 text.
