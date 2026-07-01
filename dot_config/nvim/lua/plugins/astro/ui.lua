@@ -3,7 +3,7 @@ return {
   "AstroNvim/astroui",
   ---@type AstroUIOpts
   opts = {
-    colorscheme = "everforest",
+    colorscheme = "murphy",
     highlights = {
       init = function()
         local get_hlgroup = require("astroui").get_hlgroup
@@ -14,18 +14,31 @@ return {
         local red = get_hlgroup("Error").fg
         local gray = get_hlgroup("Comment").fg
 
+        local function transparent_bg(group)
+          local highlight = get_hlgroup(group)
+          highlight.bg = "NONE"
+          return highlight
+        end
+
         return {
-          SnacksPickerBorder = { fg = bg_alt, bg = bg },
-          SnacksPicker = { bg = bg },
-          SnacksPickerPreviewBorder = { fg = bg, bg = bg },
-          SnacksPickerPreview = { bg = bg },
+          Normal = transparent_bg "Normal",
+          NormalNC = transparent_bg "NormalNC",
+          NormalFloat = transparent_bg "NormalFloat",
+          SignColumn = transparent_bg "SignColumn",
+          EndOfBuffer = transparent_bg "EndOfBuffer",
+          NeoTreeNormal = transparent_bg "NeoTreeNormal",
+          NeoTreeNormalNC = transparent_bg "NeoTreeNormalNC",
+          SnacksPickerBorder = { fg = bg_alt, bg = "NONE" },
+          SnacksPicker = transparent_bg "SnacksPicker",
+          SnacksPickerPreviewBorder = { fg = bg, bg = "NONE" },
+          SnacksPickerPreview = transparent_bg "SnacksPickerPreview",
           SnacksPickerPreviewTitle = { fg = bg, bg = green },
-          SnacksPickerBoxBorder = { fg = bg, bg = bg },
-          SnacksPickerInputBorder = { fg = bg, bg = bg },
-          SnacksPickerInputSearch = { fg = red, bg = bg },
-          SnacksPickerListBorder = { fg = bg, bg = bg },
-          SnacksPickerList = { bg = bg },
-          SnacksPickerListTitle = { fg = bg, bg = bg },
+          SnacksPickerBoxBorder = { fg = bg, bg = "NONE" },
+          SnacksPickerInputBorder = { fg = bg, bg = "NONE" },
+          SnacksPickerInputSearch = { fg = red, bg = "NONE" },
+          SnacksPickerListBorder = { fg = bg, bg = "NONE" },
+          SnacksPickerList = transparent_bg "SnacksPickerList",
+          SnacksPickerListTitle = { fg = bg, bg = "NONE" },
           LspCodeLens = { fg = gray },
           SnacksDashboardDir = { fg = gray },
         }
