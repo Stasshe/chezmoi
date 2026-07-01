@@ -3,7 +3,7 @@ return {
   "AstroNvim/astroui",
   ---@type AstroUIOpts
   opts = {
-    colorscheme = "murphy",
+    colorscheme = "astrodark",
     highlights = {
       init = function()
         local get_hlgroup = require("astroui").get_hlgroup
@@ -28,6 +28,9 @@ return {
           EndOfBuffer = transparent_bg "EndOfBuffer",
           NeoTreeNormal = transparent_bg "NeoTreeNormal",
           NeoTreeNormalNC = transparent_bg "NeoTreeNormalNC",
+          WhichKeyNormal = transparent_bg "NormalFloat",
+          WhichKeyBorder = transparent_bg "FloatBorder",
+          WhichKeyTitle = transparent_bg "FloatTitle",
           SnacksPickerBorder = { fg = bg_alt, bg = "NONE" },
           SnacksPicker = transparent_bg "SnacksPicker",
           SnacksPickerPreviewBorder = { fg = bg, bg = "NONE" },
