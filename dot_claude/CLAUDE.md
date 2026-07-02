@@ -26,7 +26,7 @@ SPECIFICATION.md　を追加しろ。
 release.ymlにはpatch minor majorの選択肢でbump versionするやつを。
 workflowの中のビルドにはキャッシュも使え。
 
-設計・仕様変更があった場合は必ずREADME,SPECIFICATIONに該当箇所があるか確認し、それを修正しろ
+設計・仕様変更があった場合は必ずREADME,SPECIFICATION,docs/(specとdocsはない可能性がある。)に該当箇所があるか確認し、それを修正しろ
 
 
 # 設計書・仕様書の極意
