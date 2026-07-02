@@ -43,6 +43,7 @@ return {
           SnacksPickerList = transparent_bg "SnacksPickerList",
           SnacksPickerListTitle = { fg = bg, bg = "NONE" },
           LspCodeLens = { fg = gray },
+          LineNr = { fg = gray },
           SnacksDashboardDir = { fg = gray },
         }
       end,
