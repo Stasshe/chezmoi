@@ -51,7 +51,7 @@ return {
           end,
         },
         oxfmt = {
-          cmd = { "sh", "-c", [[NODE_PATH="$(npm root 2>/dev/null)" exec oxfmt --lsp]] },
+          cmd = { "oxfmt", "--lsp" },
           workspace_required = false,
           filetypes = {
             "javascript",
