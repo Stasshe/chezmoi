@@ -28,6 +28,7 @@ return {
       window = {
         width = 40,
         mappings = {
+          ["<space>"] = "none",
           ["<Tab>"] = "next_source",
           ["<S-Tab>"] = "prev_source",
         },
