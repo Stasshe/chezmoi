@@ -10,6 +10,7 @@ return {
 
         local bg = get_hlgroup("Normal").bg
         local bg_alt = get_hlgroup("Visual").bg
+        local foreground = get_hlgroup("Normal").fg
         local green = get_hlgroup("String").fg
         local red = get_hlgroup("Error").fg
         local gray = get_hlgroup("Comment").fg
@@ -39,6 +40,7 @@ return {
           SnacksPickerBoxBorder = { fg = bg, bg = "NONE" },
           SnacksPickerInputBorder = { fg = bg, bg = "NONE" },
           SnacksPickerInputSearch = { fg = red, bg = "NONE" },
+          SnacksPickerDir = { fg = foreground },
           SnacksPickerListBorder = { fg = bg, bg = "NONE" },
           SnacksPickerList = transparent_bg "SnacksPickerList",
           SnacksPickerListTitle = { fg = bg, bg = "NONE" },
