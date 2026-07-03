@@ -47,7 +47,7 @@ alias qd='ollama run qwen3.5:9b'
 alias qd4='ollama run qwen3.5:4b'
 alias qc='ollama run qwen2.5:7b'
 alias y='yazi'
-
+alias laz='lazygit'
 
 upd-claudemd() (
   set -e
