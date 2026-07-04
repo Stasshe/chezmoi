@@ -176,6 +176,16 @@
           }
         ]
       }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ~/.claude/hooks/shrink-mode-trackers.js"
+          }
+        ]
+      }
     ]
   },
   "statusLine": {

@@ -1,0 +1,11 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* Managed base lives in .chezmoitemplates/claude-settings.json.
+       Locally-volatile keys (changed by /model etc.) are preserved from the
+       current target so they never show up as drift. */ -}}
+{{- $managed := include ".chezmoitemplates/claude-settings.json" | fromJson -}}
+{{- $current := dict -}}
+{{- with .chezmoi.stdin -}}{{- $current = fromJson . -}}{{- end -}}
+{{- range $k := list "model" -}}
+{{- if hasKey $current $k -}}{{- $_ := set $managed $k (get $current $k) -}}{{- end -}}
+{{- end -}}
+{{ toPrettyJson $managed -}}
