@@ -6,10 +6,11 @@ Don't use pip directory. use uv.
 
 コードファイルは英語で書け
 
-git操作はするな。git操作は、readonly。
+git操作はするな。こちらでやる。git操作はreadonly。
 restore, staging, commitなどは禁止する。
 git diffなどの読み取りのみは完全に許可する。
 git restoreは例外として許可する
+git操作があった場合、大方私がやったことだから無視しろ
 
 親Folder名をFile名で繰り返さない規則
 
