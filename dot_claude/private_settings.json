@@ -18,7 +18,8 @@
       "Bash(pnpm lint)",
       "Bash(pnpm lint *)",
       "Bash(agent-browser *)",
-      "Bash(python3 *)"
+      "Bash(python3 *)",
+      "Bash(rg *)"
     ],
     "deny": [
       "Bash(rm -rf /)",
