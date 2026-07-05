@@ -1,3 +1,5 @@
+以下を必ず守れ
+
 余計な機能を勝手に作るな。
 コードは常にシンプルに。拡張性が高く洗練されたもの。
 リンたーを通すための読みにくいコードは作るな。
@@ -21,7 +23,7 @@ plan modeの時は、さいごにplan.txtだけでなく、プロジェクトに
 SPECIFICATION.md　を追加しろ。
 設計書・仕様書などはgenshijin口調だが、それより以下の設計書仕様書の極意を優先しろ。
 
-ブラウザの表示を確認するときはagent-browserを使え
+ブラウザの表示を確認するときはagent-browserを使え curlはnextjsで壊れる
 
 release.ymlにはpatch minor majorの選択肢でbump versionするやつを。
 workflowの中のビルドにはキャッシュも使え。
