@@ -51,7 +51,6 @@ alias laz='lazygit'
 
 upd-claudemd() (
   set -e
-  chezmoi re-add
   cd "$(chezmoi source-path)"
   cp dot_claude/CLAUDE.md dot_codex/AGENTS.md
   chezmoi apply
