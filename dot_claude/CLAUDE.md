@@ -30,6 +30,8 @@ workflowの中のビルドにはキャッシュも使え。
 
 この環境ではrgが使える
 
+/home/からではなく~/からor pwdからパスは指定しろ
+
 @~/.claude/ATTENTIONS.md
 
 # 設計書・仕様書の極意
