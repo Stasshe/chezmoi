@@ -43,6 +43,7 @@ alias bd="$HOME/competitive/atcoder/sh/build.sh"
 alias io="$HOME/competitive/atcoder/sh/io.sh"
 
 alias youtube-dl='cd ~/dev/tools/youtube-downloader && npm run start'
+alias ql='ollama launch claude --model qwen3.5:9b'
 alias qd='ollama run qwen3.5:9b'
 alias qd4='ollama run qwen3.5:4b'
 alias qc='ollama run qwen2.5:7b'
