@@ -75,6 +75,9 @@ Do NOT, however, skip: type correctness, the 800-line file rule, dead code remov
 - Never perform git write operations (no commit, restage, restore-as-undo). `git restore <file>` is the only permitted restore-type operation. Read-only git commands (status, diff, log) are fine.
 - Use `uv` for Python dependency management — never `pip` directly.
 - Use raw file-editing tools (sed/awk/cat/editor) for actual edits and diff verification; rtk is fine for broad exploration/search only.
+- **Never combine `cd` with output redirection or write operations in one Bash command.** Claude Code requires manual approval for these compound commands because it cannot safely resolve the final path. Use a command's working-directory option instead, such as `pnpm --dir <directory> ...`.
+- **For development servers and other long-running commands, always use the Bash tool's `run_in_background: true`.** Never emulate background execution with shell `&`, `$!`, `nohup`, manual `/tmp` log redirection, or an unnecessary shell-level `timeout`. Claude Code already manages background task output and lifecycle.
+- Keep Bash commands structurally simple. Do not bundle directory changes, process launch, logging, PID reporting, and cleanup into one compound command.
 
 ## When to Pause and Ask
 
