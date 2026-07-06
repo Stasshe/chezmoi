@@ -8,6 +8,8 @@ export PATH="$HOME/.local/bin:$PATH"
 ./init/chezmoi.sh
 ./init/base.sh
 
+sudo usermod -aG docker "$USER"
+
 eval "$(mise activate bash)"
 
 ./init/npmg.sh

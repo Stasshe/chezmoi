@@ -11,6 +11,8 @@ The setup configures the Docker APT repository, installs mise and chezmoi,
 applies the managed files, installs the configured mise and Saya packages, and
 starts zsh.
 
+Open a new WSL session after setup so the Docker group membership takes effect.
+
 ## Release
 
 Run the **Release** workflow from the default branch and select `patch`, `minor`,
