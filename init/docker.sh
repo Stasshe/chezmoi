@@ -23,3 +23,7 @@ Components: stable
 Architectures: $(dpkg --print-architecture)
 Signed-By: /etc/apt/keyrings/docker.asc
 EOF
+
+
+sudo usermod -aG docker "$USER"
+newgrp docker
