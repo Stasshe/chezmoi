@@ -12,10 +12,10 @@ sudo usermod -aG docker "$USER"
 
 eval "$(mise activate bash)"
 
-./init/npmg.sh
+./init/mise-tools.sh
 ./init/term.sh
 ./init/zellij.sh
 
-exec zsh
+echo "Setup completed."
 
-echo "Successfully setups Done!!!!"
+exec zsh

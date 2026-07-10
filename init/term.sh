@@ -1,8 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
 echo "[init02] install Oh My Zsh"
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh |
+    RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -s --
 fi
 
 echo "[init02] install Oh My Zsh plugins"
@@ -19,12 +22,6 @@ if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
   git clone https://github.com/zsh-users/zsh-autosuggestions \
     "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 fi
-
-
-
-
-
-
 
 echo "[init02] install oh-my-posh theme"
 

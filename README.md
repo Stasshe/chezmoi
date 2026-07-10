@@ -8,8 +8,8 @@ cd ~/.local/share/chezmoi
 ```
 
 The setup configures the Docker APT repository, installs mise and chezmoi,
-applies the managed files, installs the configured mise and Saya packages, and
-starts zsh.
+applies the managed files, installs the configured Saya packages, installs the
+configured mise tools, and starts zsh.
 
 Open a new WSL session after setup so the Docker group membership takes effect.
 

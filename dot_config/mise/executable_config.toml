@@ -9,10 +9,15 @@ go = "latest"
 jq = "latest"
 neovim = "nightly"
 node = "24"
-"npm:@typescript/native-preview" = "latest"
-"npm:vscode-langservers-extracted" = "latest"
+"npm:@openai/codex" = { version = "latest", depends = "node" }
+"npm:@typescript/native-preview" = { version = "latest", minimum_release_age = "0s", depends = "node" }
+"npm:agent-browser" = { version = "latest", depends = "node" }
+"npm:ctx-gleaner" = { version = "latest", depends = "node" }
+"npm:uipro-cli" = { version = "latest", depends = "node" }
+"npm:vscode-langservers-extracted" = { version = "latest", depends = "node" }
 oxfmt = "latest"
 oxlint = "latest"
+pnpm = "latest"
 python = "3.13"
 ripgrep = "latest"
 rust = "stable"
