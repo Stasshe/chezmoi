@@ -19,7 +19,8 @@
       "Bash(pnpm lint *)",
       "Bash(agent-browser *)",
       "Bash(python3 *)",
-      "Bash(rg *)"
+      "Bash(rg *)",
+      "Bash(git diff *)"
     ],
     "deny": [
       "Bash(rm -rf /)",
