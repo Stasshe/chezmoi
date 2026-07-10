@@ -25,3 +25,4 @@
 - Bash: `cd`とredirect/writeを同一複合commandにするな。作業dir指定option（`pnpm --dir`等）を使え。dev server等の長時間processは必ず`run_in_background: true`、shellの`&`/`$!`/`nohup`/手動`/tmp` log redirect/不要な`timeout`は禁止
 - rmはpwdパスから
 - 3項演算子は可読性が落ちるからやめろ。リーダブルコードを保て。
+- セキュリティチェックには悪意あるプレイやー/初学者/攻撃者の目線で
