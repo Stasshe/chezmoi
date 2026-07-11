@@ -13,6 +13,7 @@ sudo usermod -aG docker "$USER"
 eval "$(mise activate bash)"
 
 ./init/mise-tools.sh
+./init/desktop.sh
 ./init/term.sh
 ./init/zellij.sh
 
