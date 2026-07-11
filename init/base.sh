@@ -11,3 +11,6 @@ if command -v apt >/dev/null 2>&1; then
   saya update
   saya install
 fi
+
+
+curl -fsSL https://claude.ai/install.sh | bash
