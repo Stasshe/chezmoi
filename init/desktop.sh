@@ -42,6 +42,10 @@ gsettings set "$dock_schema" transparency-mode 'FIXED'
 gsettings set "$dock_schema" background-opacity 0.32
 gsettings set "$dock_schema" custom-theme-shrink true
 gsettings set "$dock_schema" running-indicator-style 'DOTS'
+gsettings set "$dock_schema" animation-time 0.16
+gsettings set "$dock_schema" show-delay 0.0
+gsettings set "$dock_schema" hide-delay 0.15
+gsettings set "$dock_schema" show-show-apps-button false
 gsettings set "$dock_schema" show-mounts false
 gsettings set "$dock_schema" show-trash false
 gsettings set "$dock_schema" scroll-action 'switch-workspace'
@@ -54,4 +58,38 @@ gsettings --schemadir "$HOME/.local/share/gnome-shell/extensions/wsmatrix@martin
 gsettings --schemadir "$HOME/.local/share/gnome-shell/extensions/wsmatrix@martin.zurowietz.de/schemas" \
   set "$matrix_schema" show-overview-grid true
 gsettings --schemadir "$HOME/.local/share/gnome-shell/extensions/wsmatrix@martin.zurowietz.de/schemas" \
-  set "$matrix_schema" scale 0.36
+  set "$matrix_schema" scale 0.30
+
+blur_schema_dir="$HOME/.local/share/gnome-shell/extensions/blur-my-shell@aunetx/schemas"
+gsettings --schemadir "$blur_schema_dir" \
+  set org.gnome.shell.extensions.blur-my-shell.overview blur true
+gsettings --schemadir "$blur_schema_dir" \
+  set org.gnome.shell.extensions.blur-my-shell.overview brightness 0.52
+gsettings --schemadir "$blur_schema_dir" \
+  set org.gnome.shell.extensions.blur-my-shell.panel blur true
+gsettings --schemadir "$blur_schema_dir" \
+  set org.gnome.shell.extensions.blur-my-shell.panel brightness 0.48
+gsettings --schemadir "$blur_schema_dir" \
+  set org.gnome.shell.extensions.blur-my-shell.panel static-blur false
+gsettings --schemadir "$blur_schema_dir" \
+  set org.gnome.shell.extensions.blur-my-shell.dash-to-dock blur true
+gsettings --schemadir "$blur_schema_dir" \
+  set org.gnome.shell.extensions.blur-my-shell.dash-to-dock brightness 0.52
+gsettings --schemadir "$blur_schema_dir" \
+  set org.gnome.shell.extensions.blur-my-shell.dash-to-dock corner-radius 18
+gsettings --schemadir "$blur_schema_dir" \
+  set org.gnome.shell.extensions.blur-my-shell.dash-to-dock static-blur false
+gsettings --schemadir "$blur_schema_dir" \
+  set org.gnome.shell.extensions.blur-my-shell.applications blur true
+gsettings --schemadir "$blur_schema_dir" \
+  set org.gnome.shell.extensions.blur-my-shell.applications enable-all true
+gsettings --schemadir "$blur_schema_dir" \
+  set org.gnome.shell.extensions.blur-my-shell.applications static-blur false
+gsettings --schemadir "$blur_schema_dir" \
+  set org.gnome.shell.extensions.blur-my-shell.applications dynamic-opacity true
+gsettings --schemadir "$blur_schema_dir" \
+  set org.gnome.shell.extensions.blur-my-shell.applications opacity 232
+gsettings --schemadir "$blur_schema_dir" \
+  set org.gnome.shell.extensions.blur-my-shell.applications brightness 0.82
+gsettings --schemadir "$blur_schema_dir" \
+  set org.gnome.shell.extensions.blur-my-shell.applications corner-radius 16

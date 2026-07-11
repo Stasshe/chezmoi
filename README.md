@@ -14,7 +14,7 @@ configured mise tools, and starts zsh.
 Open a new WSL session after setup so the Docker group membership takes effect.
 
 On Ubuntu GNOME, setup also applies the managed dark desktop, bottom dock,
-2×2 workspaces, icon theme, typography, and wallpaper.
+2×2 workspaces, icon theme, typography, wallpaper, blur, and window transitions.
 
 ## Release
 
