@@ -59,6 +59,8 @@ gsettings --schemadir "$HOME/.local/share/gnome-shell/extensions/wsmatrix@martin
 gsettings --schemadir "$HOME/.local/share/gnome-shell/extensions/wsmatrix@martin.zurowietz.de/schemas" \
   set "$matrix_schema" show-overview-grid true
 gsettings --schemadir "$HOME/.local/share/gnome-shell/extensions/wsmatrix@martin.zurowietz.de/schemas" \
+  set "$matrix_schema" show-popup false
+gsettings --schemadir "$HOME/.local/share/gnome-shell/extensions/wsmatrix@martin.zurowietz.de/schemas" \
   set "$matrix_schema" scale 0.30
 
 blur_schema_dir="$HOME/.local/share/gnome-shell/extensions/blur-my-shell@aunetx/schemas"
