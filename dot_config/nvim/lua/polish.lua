@@ -1,4 +1,7 @@
-if vim.fn.has "wsl" == 1 and vim.fn.executable "win32yank.exe" == 1 then
+if vim.fn.has "wsl" == 1 then
   vim.g.clipboard = "win32yank"
-  vim.opt.clipboard:append "unnamedplus"
+else
+  vim.g.clipboard = "osc52"
 end
+
+vim.opt.clipboard:append "unnamedplus"

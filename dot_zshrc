@@ -77,3 +77,5 @@ if command -v fzf >/dev/null 2>&1; then
   source <(fzf --zsh)
 fi
 
+unset LANGUAGE
+export LC_MESSAGES=C.UTF-8
