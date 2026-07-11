@@ -45,7 +45,8 @@ gsettings set "$dock_schema" running-indicator-style 'DOTS'
 gsettings set "$dock_schema" animation-time 0.16
 gsettings set "$dock_schema" show-delay 0.0
 gsettings set "$dock_schema" hide-delay 0.15
-gsettings set "$dock_schema" show-show-apps-button false
+gsettings set "$dock_schema" show-show-apps-button true
+gsettings set "$dock_schema" show-apps-at-top true
 gsettings set "$dock_schema" show-mounts false
 gsettings set "$dock_schema" show-trash false
 gsettings set "$dock_schema" scroll-action 'switch-workspace'
