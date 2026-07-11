@@ -10,7 +10,6 @@ jq = "latest"
 neovim = "nightly"
 node = "24"
 "npm:@openai/codex" = { version = "latest", depends = "node" }
-"npm:@typescript/native-preview" = { version = "latest", minimum_release_age = "0s", depends = "node" }
 "npm:agent-browser" = { version = "latest", depends = "node" }
 "npm:ctx-gleaner" = { version = "latest", depends = "node" }
 "npm:uipro-cli" = { version = "latest", depends = "node" }
