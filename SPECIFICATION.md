@@ -8,9 +8,11 @@ GNOME 50の標準シェルを土台にする。暗色、紫のアクセント、
 
 # Hyprland
 
-ArchのHyprlandはNebulaを視覚契約とする。Lua設定を正とする。暗い宇宙壁紙、半透明面、紫とシアンの細い光で統一し、情報は上部の一枚のWaybarへ圧縮する。ランチャー、通知、ネットワーク、音量、輝度、電池、ロック、休止、スクリーンショットをセッション内で完結させる。
+ArchのHyprlandはend-4/dots-hyprland(illogical impulse)をShellの正とする。QuickshellとLua設定、matugenによる壁紙連動の動的配色を使う。固定パレットは持たない。ランチャー・通知・バーはQuickshell内蔵、フォールバックランチャーはfuzzel。
 
-UbuntuのGNOME設定とは共有せず、`init/hypr.sh`がArchだけに必要な実行環境を導入する。
+上流ツリー(`hypr/hyprland/`, `quickshell/`, `matugen/`等)は無改変でベンダリングし、個人差分(JIS配列、Fcitx5環境変数、端末はghostty固定)だけを`hypr/custom/`に置く。アップデートは上流を丸ごと再ベンダリングして行う、パッチを重ねない。Waybar/Rofi/SwayNCは廃止。
+
+UbuntuのGNOME設定とは共有せず、`init/hypr.sh`がArchだけに必要な実行環境を導入する。依存パッケージはend-4本家のインストーラ(deps+setupフェーズのみ、`--skip-allfiles`)を呼ぶ。ファイル配布フェーズは使わず、設定ファイルはchezmoiが正とする。
 
 # Platform
 

@@ -12,22 +12,38 @@ chezmoi, applies the managed files, installs the configured Saya packages,
 installs the configured mise tools, and configures the desktop session.
 
 The repository supports Arch Linux with Hyprland and Ubuntu with GNOME. On
-Arch, `setups.sh` installs the complete Hyprland session: Waybar, Rofi,
-SwayNC, lock/idle handling, screenshots, clipboard support, and the required
-Wayland portals. Ubuntu remains GNOME-only. Japanese input uses Fcitx5 + Mozc
-and the keyboard layout is JIS (`jp`); sign out and back in after setup before
-using the IME.
+Arch, `setups.sh` installs the complete Hyprland session (Quickshell shell,
+lock/idle handling, screenshots, clipboard support, and the required Wayland
+portals) by running [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)'s
+own dependency installer. Ubuntu remains GNOME-only. Japanese input uses
+Fcitx5 + Mozc and the keyboard layout is JIS (`jp`); sign out and back in
+after setup before using the IME.
 
 ## Hyprland
 
 Choose **Hyprland** from the display manager after running setup on Arch. The
-session uses the `nebula.png` wallpaper and a translucent dark-violet desktop.
-Its Hyprland configuration is managed as `~/.config/hypr/hyprland.lua`.
-The primary shortcuts are `Super+R` (app launcher), `Super+Q` (terminal),
-`Super+C` (close the focused window), `Super+Ctrl+L` (lock), `Super+S` (copy
-an area screenshot), and `Super+Shift+S` (save a full-screen screenshot).
-`Super+1` through `Super+5` switch workspaces; holding Shift moves the focused
-window.
+session is [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)
+("illogical impulse") vendored as-is under `~/.config/{hypr,quickshell,matugen,fuzzel,...}`,
+pinned at a fixed upstream commit (see `init/hypr.sh`). Quickshell provides
+the bar, notifications, launcher search and settings; `fuzzel` is the app
+launcher fallback; `matugen` derives the color scheme dynamically from the
+current wallpaper, so there is no fixed palette — pick a wallpaper (e.g.
+`~/.local/share/backgrounds/nebula.png`) on first run.
+
+Personal deltas (JIS keyboard, Fcitx5 env vars, Ghostty as the terminal) live
+in `~/.config/hypr/custom/` and are never touched by upstream updates. The
+upstream tree itself (`hypr/hyprland/`, `quickshell/`, etc.) is unmodified —
+re-vendor it rather than hand-editing it.
+
+Key shortcuts (upstream defaults — note `Super+Q` now **closes** the focused
+window, it does not open a terminal):
+`Super+Return` (terminal), `Super+Q` (close window), `Super+F` (fullscreen),
+`Super+D` (maximize), `Super+Alt+Space` (float/tile toggle), `Super+L`
+(lock), `Super+Shift+L` (sleep), `Super+Shift+S` (region screenshot),
+`Print`/`Ctrl+Print` (fullscreen screenshot to clipboard/file), `Super+V`
+(clipboard history), `Super+E` (file manager), `Super+W` (browser), and a
+double-tap of `Super` to open search. Run `Ctrl+Super+Alt+/` to edit your own
+keybinds, or see `~/.config/hypr/hyprland/keybinds.lua` for the full list.
 
 Open a new WSL session after setup so the Docker group membership takes effect.
 
