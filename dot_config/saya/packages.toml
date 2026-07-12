@@ -34,6 +34,9 @@ pacman = ["fcitx5-qt"]
 [packages.gh]
 pacman = ["github-cli"]
 
+[packages.hyprshutdown]
+pacman = ["hyprshutdown"]
+
 [packages.git]
 
 [packages.gnupg]
