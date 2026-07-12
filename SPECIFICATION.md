@@ -8,7 +8,7 @@ GNOME 50の標準シェルを土台にする。暗色、紫のアクセント、
 
 # Hyprland
 
-ArchのHyprlandはend-4/dots-hyprland(illogical impulse)をShellの正とする。QuickshellとLua設定、matugenによる壁紙連動の動的配色を使う。固定パレットは持たない。ランチャー・通知・バーはQuickshell内蔵、フォールバックランチャーはfuzzel。
+ArchのHyprlandはend-4/dots-hyprland(illogical impulse)をShellの正とする。QuickshellとLua設定、matugenによる壁紙連動の動的配色を使う。`archlinux-wallpaper`の壁紙を起動時と30分ごとに切り替える。固定パレットは持たない。ランチャー・通知・バーはQuickshell内蔵、フォールバックランチャーはfuzzel。
 
 上流ツリー(`hypr/hyprland/`, `quickshell/`, `matugen/`等)は無改変でベンダリングし、個人差分(JIS配列、Fcitx5環境変数、端末はghostty固定)だけを`hypr/custom/`に置く。アップデートは上流を丸ごと再ベンダリングして行う、パッチを重ねない。Waybar/Rofi/SwayNCは廃止。
 

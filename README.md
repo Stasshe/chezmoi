@@ -27,10 +27,11 @@ session is [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)
 pinned at a fixed upstream commit (see `init/hypr.sh`). Quickshell provides
 the bar, notifications, launcher search and settings; `fuzzel` is the app
 launcher fallback; `matugen` derives the color scheme dynamically from the
-current wallpaper, so there is no fixed palette. `~/.config/illogical-impulse/config.json`
-seeds on first run only (`nebula.png` wallpaper, transparency on, the AI/anime
-sidebar toggle disabled) via chezmoi's `create_` file — later in-app setting
-changes are never overwritten by `chezmoi apply`.
+current wallpaper, so there is no fixed palette. `archlinux-wallpaper` provides
+the wallpaper set; Quickshell selects one at startup and every 30 minutes.
+`~/.config/illogical-impulse/config.json` seeds on first run only (transparency
+on and the AI/anime sidebar toggle disabled) via chezmoi's `create_` file —
+later in-app setting changes are never overwritten by `chezmoi apply`.
 
 Personal deltas (JIS keyboard, Fcitx5 env vars, Ghostty as the terminal) live
 in `~/.config/hypr/custom/` and are never touched by upstream updates. The

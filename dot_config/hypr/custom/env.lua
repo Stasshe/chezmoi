@@ -2,7 +2,6 @@
 for name, value in pairs({
     XCURSOR_SIZE = "24",
     HYPRCURSOR_SIZE = "24",
-    GTK_IM_MODULE = "fcitx",
     QT_IM_MODULE = "fcitx",
     XMODIFIERS = "@im=fcitx",
     SDL_IM_MODULE = "fcitx",

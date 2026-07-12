@@ -19,13 +19,14 @@ Singleton {
     property string generateThumbnailsMagickScriptPath: `${FileUtils.trimFileProtocol(Directories.scriptPath)}/thumbnails/generate-thumbnails-magick.sh`
     property alias directory: folderModel.folder
     readonly property string effectiveDirectory: FileUtils.trimFileProtocol(folderModel.folder.toString())
-    property url defaultFolder: Qt.resolvedUrl(`${Directories.pictures}/Wallpapers`)
+    property url defaultFolder: "file:///usr/share/backgrounds/archlinux"
     property alias folderModel: folderModel // Expose for direct binding when needed
     property string searchQuery: ""
     readonly property list<string> extensions: [ // TODO: add videos
         "jpg", "jpeg", "png", "webp", "avif", "bmp", "svg"
     ]
     property list<string> wallpapers: [] // List of absolute file paths (without file://)
+    property bool slideshowStarted: false
     readonly property bool thumbnailGenerationRunning: thumbgenProc.running
     property real thumbnailGenerationProgress: 0
 
@@ -68,11 +69,24 @@ Singleton {
     }
 
     function randomFromCurrentFolder(darkMode = Appearance.m3colors.darkmode) {
-        if (folderModel.count === 0) return;
-        const randomIndex = Math.floor(Math.random() * folderModel.count);
-        const filePath = folderModel.get(randomIndex, "filePath");
+        const imagePaths = [];
+        for (let index = 0; index < folderModel.count; index++) {
+            if (!folderModel.get(index, "fileIsDir")) {
+                imagePaths.push(folderModel.get(index, "filePath"));
+            }
+        }
+        if (imagePaths.length === 0) return;
+        const randomIndex = Math.floor(Math.random() * imagePaths.length);
+        const filePath = imagePaths[randomIndex];
         print("Randomly selected wallpaper:", filePath);
         root.select(filePath, darkMode);
+    }
+
+    function startSlideshow() {
+        if (root.slideshowStarted || !Config.ready || folderModel.count === 0) return;
+        root.slideshowStarted = true;
+        root.randomFromCurrentFolder();
+        slideshowTimer.start();
     }
 
     Process {
@@ -129,7 +143,23 @@ Singleton {
                 const path = folderModel.get(i, "filePath") || FileUtils.trimFileProtocol(folderModel.get(i, "fileURL"))
                 if (path && path.length) root.wallpapers.push(path)
             }
+            root.startSlideshow()
         }
+    }
+
+    Connections {
+        target: Config
+
+        function onReadyChanged() {
+            root.startSlideshow()
+        }
+    }
+
+    Timer {
+        id: slideshowTimer
+        interval: 30 * 60 * 1000
+        repeat: true
+        onTriggered: root.randomFromCurrentFolder()
     }
 
     // Thumbnail generation
