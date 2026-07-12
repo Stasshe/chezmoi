@@ -2,15 +2,14 @@
 set -euo pipefail
 
 
-curl -fsSL https://raw.githubusercontent.com/Stasshe/saya/main/install.sh | sh
-
-
-echo "[init] install base packages"
-
-if command -v apt >/dev/null 2>&1; then
-  saya update
-  saya install
+if ! command -v saya >/dev/null 2>&1; then
+  curl -fsSL https://raw.githubusercontent.com/Stasshe/saya/main/install.sh | sh
 fi
 
+saya update
+saya install
 
-curl -fsSL https://claude.ai/install.sh | bash
+
+if ! command -v claude >/dev/null 2>&1; then
+  curl -fsSL https://claude.ai/install.sh | bash
+fi

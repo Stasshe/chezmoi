@@ -7,9 +7,14 @@ cd ~/.local/share/chezmoi
 ./setups.sh
 ```
 
-The setup configures the Docker APT repository, installs mise and chezmoi,
-applies the managed files, installs the configured Saya packages, installs the
-configured mise tools, and starts zsh.
+The setup configures the Docker APT repository on Ubuntu, installs mise and
+chezmoi, applies the managed files, installs the configured Saya packages,
+installs the configured mise tools, and configures the desktop session.
+
+The repository supports Arch Linux with Hyprland and Ubuntu with GNOME. Saya
+selects the APT or pacman package names. Japanese input uses Fcitx5 + Mozc and
+the keyboard layout is JIS (`jp`); sign out and back in after setup before
+using the IME.
 
 Open a new WSL session after setup so the Docker group membership takes effect.
 

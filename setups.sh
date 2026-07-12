@@ -1,22 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+
 export PATH="$HOME/.local/bin:$PATH"
 
-./init/docker.sh
-./init/mise.sh
-./init/chezmoi.sh
-./init/base.sh
+"$root/init/docker.sh"
+"$root/init/mise.sh"
+"$root/init/chezmoi.sh" "$root"
+"$root/init/base.sh"
 
-sudo usermod -aG docker "$USER"
+if getent group docker >/dev/null; then
+  sudo usermod -aG docker "$USER"
+fi
 
 eval "$(mise activate bash)"
 
-./init/mise-tools.sh
-./init/desktop.sh
-./init/term.sh
-./init/zellij.sh
+"$root/init/mise-tools.sh"
+"$root/init/desktop.sh"
+"$root/init/term.sh"
 
-echo "Setup completed."
-
-exec zsh
+printf 'Setup completed. Start a new desktop session to use the keyboard and IME settings.\n'

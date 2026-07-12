@@ -1,22 +1,38 @@
 schema_version = 2
 
 [packages.build-essential]
+pacman = ["base-devel"]
 
 [packages.ca-certificates]
 
 [packages."containerd.io"]
+pacman = ["containerd"]
 
 [packages.curl]
 
 [packages.docker-ce]
+pacman = ["docker"]
 
 [packages.docker-ce-cli]
+pacman = ["docker"]
 
 [packages.docker-compose-plugin]
+pacman = ["docker-compose"]
 
 [packages.ffmpeg]
 
+[packages.fcitx5]
+
+[packages."fcitx5-frontend-gtk3"]
+pacman = ["fcitx5-gtk"]
+
+[packages."fcitx5-frontend-qt5"]
+pacman = ["fcitx5-qt"]
+
+[packages.fcitx5-mozc]
+
 [packages.gh]
+pacman = ["github-cli"]
 
 [packages.git]
 
@@ -27,3 +43,5 @@ schema_version = 2
 [packages.unzip]
 
 [packages.zsh]
+
+[packages.zellij]
