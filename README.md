@@ -22,6 +22,7 @@ using the IME.
 
 Choose **Hyprland** from the display manager after running setup on Arch. The
 session uses the `nebula.png` wallpaper and a translucent dark-violet desktop.
+Its Hyprland configuration is managed as `~/.config/hypr/hyprland.lua`.
 The primary shortcuts are `Super+Space` (app launcher), `Super+Return`
 (terminal), `Super+Ctrl+L` (lock), `Super+S` (copy an area screenshot), and
 `Super+Shift+S` (save a full-screen screenshot). `Super+1` through `Super+5`
