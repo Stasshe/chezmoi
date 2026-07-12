@@ -83,7 +83,7 @@ Singleton {
     }
 
     function startSlideshow() {
-        if (root.slideshowStarted || !Config.ready || folderModel.count === 0) return;
+        if (root.slideshowStarted || folderModel.count === 0) return;
         root.slideshowStarted = true;
         root.randomFromCurrentFolder();
         slideshowTimer.start();
@@ -143,15 +143,12 @@ Singleton {
                 const path = folderModel.get(i, "filePath") || FileUtils.trimFileProtocol(folderModel.get(i, "fileURL"))
                 if (path && path.length) root.wallpapers.push(path)
             }
-            root.startSlideshow()
         }
-    }
-
-    Connections {
-        target: Config
-
-        function onReadyChanged() {
-            root.startSlideshow()
+        onStatusChanged: {
+            if (status === FolderListModel.Ready) root.startSlideshow()
+        }
+        Component.onCompleted: {
+            if (status === FolderListModel.Ready) root.startSlideshow()
         }
     }
 
