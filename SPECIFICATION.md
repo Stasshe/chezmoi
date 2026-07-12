@@ -12,6 +12,8 @@ ArchのHyprlandはend-4/dots-hyprland(illogical impulse)をShellの正とする�
 
 上流ツリー(`hypr/hyprland/`, `quickshell/`, `matugen/`等)は無改変でベンダリングし、個人差分(JIS配列、Fcitx5環境変数、端末はghostty固定)だけを`hypr/custom/`に置く。アップデートは上流を丸ごと再ベンダリングして行う、パッチを重ねない。Waybar/Rofi/SwayNCは廃止。
 
+Quickshellの実行時状態(`~/.config/illogical-impulse/config.json`)は配布物でなくアプリ生成物。初期値(壁紙・透明度・AI/アニメサイドバー無効)はchezmoiの`create_`属性で初回のみ書く、以降はアプリ側の変更を正とし上書きしない。
+
 UbuntuのGNOME設定とは共有せず、`init/hypr.sh`がArchだけに必要な実行環境を導入する。依存パッケージはend-4本家のインストーラ(deps+setupフェーズのみ、`--skip-allfiles`)を呼ぶ。ファイル配布フェーズは使わず、設定ファイルはchezmoiが正とする。
 
 # Platform
