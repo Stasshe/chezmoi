@@ -11,10 +11,21 @@ The setup configures the Docker APT repository on Ubuntu, installs mise and
 chezmoi, applies the managed files, installs the configured Saya packages,
 installs the configured mise tools, and configures the desktop session.
 
-The repository supports Arch Linux with Hyprland and Ubuntu with GNOME. Saya
-selects the APT or pacman package names. Japanese input uses Fcitx5 + Mozc and
-the keyboard layout is JIS (`jp`); sign out and back in after setup before
+The repository supports Arch Linux with Hyprland and Ubuntu with GNOME. On
+Arch, `setups.sh` installs the complete Hyprland session: Waybar, Rofi,
+SwayNC, lock/idle handling, screenshots, clipboard support, and the required
+Wayland portals. Ubuntu remains GNOME-only. Japanese input uses Fcitx5 + Mozc
+and the keyboard layout is JIS (`jp`); sign out and back in after setup before
 using the IME.
+
+## Hyprland
+
+Choose **Hyprland** from the display manager after running setup on Arch. The
+session uses the `nebula.png` wallpaper and a translucent dark-violet desktop.
+The primary shortcuts are `Super+Space` (app launcher), `Super+Return`
+(terminal), `Super+Ctrl+L` (lock), `Super+S` (copy an area screenshot), and
+`Super+Shift+S` (save a full-screen screenshot). `Super+1` through `Super+5`
+switch workspaces; holding Shift moves the focused window.
 
 Open a new WSL session after setup so the Docker group membership takes effect.
 

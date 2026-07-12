@@ -6,6 +6,12 @@ GNOME 50の標準シェルを土台にする。暗色、紫のアクセント、
 
 `setups.sh`はchezmoi適用後にデスクトップ設定を冪等適用する。
 
+# Hyprland
+
+ArchのHyprlandはNebulaを視覚契約とする。暗い宇宙壁紙、半透明面、紫とシアンの細い光で統一し、情報は上部の一枚のWaybarへ圧縮する。ランチャー、通知、ネットワーク、音量、輝度、電池、ロック、休止、スクリーンショットをセッション内で完結させる。
+
+UbuntuのGNOME設定とは共有せず、`init/hypr.sh`がArchだけに必要な実行環境を導入する。
+
 # Platform
 
 Arch LinuxではHyprland、UbuntuではGNOMEを使う。配列はJIS、入力はFcitx5 + Mozcで統一する。SayaがAPTとpacmanの実パッケージを選ぶ。`setups.sh`が管理ファイル、パッケージ、ツール、該当デスクトップ設定を適用する。

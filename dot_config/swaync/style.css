@@ -1,0 +1,11 @@
+* { font-family: "Ubuntu Sans", sans-serif; }
+control-center, .notification {
+  background: rgba(10, 14, 32, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  color: #e2e8f0;
+}
+.notification { padding: 12px; margin: 8px; }
+.notification-default-action:hover, .notification-action:hover { background: rgba(196, 181, 253, 0.16); }
+widget-title { color: #c4b5fd; font-weight: 700; }
+

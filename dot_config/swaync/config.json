@@ -1,0 +1,12 @@
+{
+  "positionX": "right",
+  "positionY": "top",
+  "control-center-width": 380,
+  "control-center-margin-top": 58,
+  "control-center-margin-right": 16,
+  "notification-window-width": 380,
+  "notification-icon-size": 48,
+  "timeout": 8,
+  "widgets": ["title", "dnd", "notifications"]
+}
+
