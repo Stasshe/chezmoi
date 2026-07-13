@@ -40,7 +40,7 @@ wallpaper-driven app, shell, Qt, and terminal theming are disabled.
 `~/.config/illogical-impulse/config.json`
 is managed by chezmoi, so `chezmoi apply` restores these settings.
 
-Personal deltas (JIS keyboard, Fcitx5 env vars, Ghostty as the terminal, and
+Personal deltas (JIS keyboard, Fcitx5 env vars, Kitty as the Hyprland terminal, and
 fixed wallpaper behavior) are managed alongside the vendored configuration.
 Re-vendor the upstream tree when updating it, then reapply these deltas.
 
