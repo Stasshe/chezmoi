@@ -48,7 +48,7 @@ set_value org.gnome.desktop.interface document-font-name 'Ubuntu Sans 11'
 set_value org.gnome.desktop.interface monospace-font-name 'Ubuntu Sans Mono 11'
 set_value org.gnome.desktop.interface clock-show-weekday true
 set_value org.gnome.desktop.interface show-battery-percentage true
-input_sources="[('ibus', 'mozc-on')]"
+input_sources="[('ibus', 'mozc-jp')]"
 set_value org.gnome.desktop.input-sources sources "$input_sources"
 set_value org.gnome.desktop.input-sources mru-sources "$input_sources"
 gsettings reset org.gnome.desktop.wm.keybindings switch-input-source

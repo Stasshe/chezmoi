@@ -26,6 +26,9 @@ pacman = ["github-cli"]
 
 [packages.git]
 
+[packages.gnome-screenshot]
+apt = ["gnome-screenshot"]
+
 [packages.gnupg]
 
 [packages.lsb-release]

@@ -16,4 +16,4 @@ Workspace Matrixの切替ポップアップを表示する。サムネイルは�
 
 SambaはSayaで導入する。ローカルネットワーク上の認証済みLinuxユーザー本人に限り、`~/Documents`をSMB2以上で読み書き共有する。Apple SMB拡張で実効権限とメタデータを伝える。ゲストアクセスとホームディレクトリ全体の公開は行わない。共有設定は`init/samba.sh`で明示的に適用し、SMBパスワードは対話入力で登録する。
 
-Ubuntu GNOMEの日本語入力はIBus + Mozcを使う。GNOME入力ソースは選択時にひらがなで有効になるMozcだけに固定し、半角／全角キーはMozc内部の直接入力とひらがなを切り替える。Arch HyprlandはFcitx5 + Mozcを使い、入力基盤の環境変数をセッション間で共有しない。
+Ubuntu GNOMEの日本語入力はIBus + Mozcを使う。GNOME入力ソースは通常のMozcだけに固定し、半角／全角キーはMozc内部の直接入力とひらがなを切り替える。Arch HyprlandはFcitx5 + Mozcを使い、入力基盤の環境変数をセッション間で共有しない。
