@@ -12,6 +12,7 @@ export PATH="$HOME/.local/bin:$PATH"
 
 if getent group docker >/dev/null; then
   sudo usermod -aG docker "$USER"
+  sudo usermod -aG input "$USER"
 fi
 
 eval "$(mise activate bash)"
