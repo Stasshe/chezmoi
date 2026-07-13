@@ -100,7 +100,8 @@ set_extension_value "$matrix_schema_dir" "$matrix_schema" scale 0.30
 
 blur_schema_dir="$HOME/.local/share/gnome-shell/extensions/blur-my-shell@aunetx/schemas"
 blur_schema='org.gnome.shell.extensions.blur-my-shell.overview'
-set_extension_value "$blur_schema_dir" "$blur_schema" blur false
+set_extension_value "$blur_schema_dir" "$blur_schema" blur true
+set_extension_value "$blur_schema_dir" "$blur_schema" brightness 0.52
 
 blur_schema='org.gnome.shell.extensions.blur-my-shell.panel'
 set_extension_value "$blur_schema_dir" "$blur_schema" blur true
