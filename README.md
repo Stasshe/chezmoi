@@ -33,17 +33,16 @@ the display manager afterwards. The session is
 ("illogical impulse") vendored as-is under `~/.config/{hypr,quickshell,matugen,fuzzel,...}`,
 pinned at a fixed upstream commit (see `init/hypr.sh`). Quickshell provides
 the bar, notifications, launcher search and settings; `fuzzel` is the app
-launcher fallback; `matugen` derives the color scheme dynamically from the
-current wallpaper, so there is no fixed palette. `archlinux-wallpaper` provides
-the wallpaper set; Quickshell selects one at startup and every 30 minutes.
-`~/.config/illogical-impulse/config.json` seeds on first run only (transparency
-on and the AI/anime sidebar toggle disabled) via chezmoi's `create_` file —
-later in-app setting changes are never overwritten by `chezmoi apply`.
+launcher fallback. `archlinux-wallpaper` provides the managed
+`archwaveinv.png` wallpaper and the `mono` theme from
+`edb8b5b9c62a617ba8f4cd9a77cf465b27c9107d`. Wallpaper rotation and
+wallpaper-driven app, shell, Qt, and terminal theming are disabled.
+`~/.config/illogical-impulse/config.json`
+is managed by chezmoi, so `chezmoi apply` restores these settings.
 
-Personal deltas (JIS keyboard, Fcitx5 env vars, Ghostty as the terminal) live
-in `~/.config/hypr/custom/` and are never touched by upstream updates. The
-upstream tree itself (`hypr/hyprland/`, `quickshell/`, etc.) is unmodified —
-re-vendor it rather than hand-editing it.
+Personal deltas (JIS keyboard, Fcitx5 env vars, Ghostty as the terminal, and
+fixed wallpaper behavior) are managed alongside the vendored configuration.
+Re-vendor the upstream tree when updating it, then reapply these deltas.
 
 Key shortcuts (upstream defaults — note `Super+Q` now **closes** the focused
 window, it does not open a terminal):

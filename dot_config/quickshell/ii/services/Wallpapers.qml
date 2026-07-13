@@ -26,7 +26,6 @@ Singleton {
         "jpg", "jpeg", "png", "webp", "avif", "bmp", "svg"
     ]
     property list<string> wallpapers: [] // List of absolute file paths (without file://)
-    property bool slideshowStarted: false
     readonly property bool thumbnailGenerationRunning: thumbgenProc.running
     property real thumbnailGenerationProgress: 0
 
@@ -80,13 +79,6 @@ Singleton {
         const filePath = imagePaths[randomIndex];
         print("Randomly selected wallpaper:", filePath);
         root.select(filePath, darkMode);
-    }
-
-    function startSlideshow() {
-        if (root.slideshowStarted || folderModel.count === 0) return;
-        root.slideshowStarted = true;
-        root.randomFromCurrentFolder();
-        slideshowTimer.start();
     }
 
     Process {
@@ -144,19 +136,6 @@ Singleton {
                 if (path && path.length) root.wallpapers.push(path)
             }
         }
-        onStatusChanged: {
-            if (status === FolderListModel.Ready) root.startSlideshow()
-        }
-        Component.onCompleted: {
-            if (status === FolderListModel.Ready) root.startSlideshow()
-        }
-    }
-
-    Timer {
-        id: slideshowTimer
-        interval: 30 * 60 * 1000
-        repeat: true
-        onTriggered: root.randomFromCurrentFolder()
     }
 
     // Thumbnail generation
