@@ -21,16 +21,6 @@ pacman = ["docker-compose"]
 
 [packages.ffmpeg]
 
-[packages.fcitx5]
-
-[packages."fcitx5-frontend-gtk3"]
-pacman = ["fcitx5-gtk"]
-
-[packages."fcitx5-frontend-qt5"]
-pacman = ["fcitx5-qt"]
-
-[packages.fcitx5-mozc]
-
 [packages.gh]
 pacman = ["github-cli"]
 

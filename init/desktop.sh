@@ -6,6 +6,8 @@ case ":${XDG_CURRENT_DESKTOP:-}:" in
   *) exit 0 ;;
 esac
 
+sudo apt-get install -y ibus ibus-mozc mozc-utils-gui
+
 set_value() {
   local schema="$1"
   local key="$2"
@@ -46,7 +48,10 @@ set_value org.gnome.desktop.interface document-font-name 'Ubuntu Sans 11'
 set_value org.gnome.desktop.interface monospace-font-name 'Ubuntu Sans Mono 11'
 set_value org.gnome.desktop.interface clock-show-weekday true
 set_value org.gnome.desktop.interface show-battery-percentage true
-set_value org.gnome.desktop.input-sources sources "[('xkb', 'jp')]"
+input_sources="[('ibus', 'mozc-on')]"
+set_value org.gnome.desktop.input-sources sources "$input_sources"
+set_value org.gnome.desktop.input-sources mru-sources "$input_sources"
+gsettings reset org.gnome.desktop.wm.keybindings switch-input-source
 
 set_value org.gnome.desktop.background picture-uri "$wallpaper_uri"
 set_value org.gnome.desktop.background picture-uri-dark "$wallpaper_uri"

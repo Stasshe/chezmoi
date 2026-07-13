@@ -15,7 +15,14 @@ fi
 # (Hyprland itself, Quickshell, fuzzel, matugen, fonts, portals, polkit agent,
 # services/groups/kernel modules) comes from end-4/dots-hyprland's own
 # dependency installer below, run in deps+setup-only mode.
-sudo pacman -S --needed --noconfirm archlinux-wallpaper ghostty ttf-jetbrains-mono-nerd
+sudo pacman -S --needed --noconfirm \
+  archlinux-wallpaper \
+  fcitx5 \
+  fcitx5-gtk \
+  fcitx5-mozc \
+  fcitx5-qt \
+  ghostty \
+  ttf-jetbrains-mono-nerd
 
 DOTS_HYPRLAND_REF="c04b0bbc8143a2b2166c1f699f7583cb28ff78fe"
 DOTS_HYPRLAND_SRC="$HOME/.cache/dots-hyprland"

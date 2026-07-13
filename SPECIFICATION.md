@@ -11,3 +11,5 @@ Workspace Matrixの切替ポップアップを表示する。サムネイルは�
 外部テーマでShell構造を上書きしない。GNOME更新後も標準UIの可読性と操作を保つ。Shell 50対応版のBlur my ShellとBurn My Windowsだけを使い、パネルとDockの動的ぼかし、Overviewの静的ぼかし、短いGlideで動きを作る。拡張本体はGNOME Extensions Webで管理し、chezmoiは設定だけを持つ。
 
 `setups.sh`はchezmoi適用後にデスクトップ設定を冪等適用する。
+
+Ubuntu GNOMEの日本語入力はIBus + Mozcを使う。GNOME入力ソースは選択時にひらがなで有効になるMozcだけに固定し、半角／全角キーはMozc内部の直接入力とひらがなを切り替える。Arch HyprlandはFcitx5 + Mozcを使い、入力基盤の環境変数をセッション間で共有しない。
