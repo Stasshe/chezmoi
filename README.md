@@ -11,18 +11,25 @@ The setup configures the Docker APT repository on Ubuntu, installs mise and
 chezmoi, applies the managed files, installs the configured Saya packages,
 installs the configured mise tools, and configures the desktop session.
 
-The repository supports Arch Linux with Hyprland and Ubuntu with GNOME. On
-Arch, `setups.sh` installs the complete Hyprland session (Quickshell shell,
-lock/idle handling, screenshots, clipboard support, and the required Wayland
-portals) by running [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)'s
-own dependency installer. Ubuntu remains GNOME-only. Japanese input uses
-Fcitx5 + Mozc and the keyboard layout is JIS (`jp`); sign out and back in
-after setup before using the IME.
+The repository supports Arch Linux with Hyprland and Ubuntu with GNOME.
+`setups.sh` installs the common managed configuration and tools; it does not
+install Hyprland. Ubuntu remains GNOME-only. Japanese input uses Fcitx5 + Mozc
+and the keyboard layout is JIS (`jp`); sign out and back in after setup before
+using the IME.
 
 ## Hyprland
 
-Choose **Hyprland** from the display manager after running setup on Arch. The
-session is [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)
+On Arch, install the complete Hyprland session explicitly when needed:
+
+```bash
+./init/hypr.sh
+```
+
+It runs [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)'s own
+dependency installer for Quickshell, lock/idle handling, screenshots,
+clipboard support, and the required Wayland portals. Choose **Hyprland** from
+the display manager afterwards. The session is
+[end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)
 ("illogical impulse") vendored as-is under `~/.config/{hypr,quickshell,matugen,fuzzel,...}`,
 pinned at a fixed upstream commit (see `init/hypr.sh`). Quickshell provides
 the bar, notifications, launcher search and settings; `fuzzel` is the app

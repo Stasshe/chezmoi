@@ -4,7 +4,7 @@ GNOME 50の標準シェルを土台にする。暗色、紫のアクセント、
 
 外部テーマでShell構造を上書きしない。GNOME更新後も標準UIの可読性と操作を保つ。Shell 50対応版のBlur my ShellとBurn My Windowsだけを使い、動的ぼかしと短いGlideで動きを作る。拡張本体はGNOME Extensions Webで管理し、chezmoiは設定だけを持つ。
 
-`setups.sh`はchezmoi適用後にデスクトップ設定を冪等適用する。
+`setups.sh`、chezmoi適用後に共通設定とデスクトップ設定を冪等適用する。Hyprland導入、重い。通常実行から外す。必要な時だけ`init/hypr.sh`走らす。
 
 # Hyprland
 
@@ -12,7 +12,7 @@ ArchのHyprlandはend-4/dots-hyprland(illogical impulse)をShellの正とする�
 
 上流ツリー(`hypr/hyprland/`, `quickshell/`, `matugen/`等)は無改変でベンダリングし、個人差分(JIS配列、Fcitx5環境変数、端末はghostty固定)だけを`hypr/custom/`に置く。アップデートは上流を丸ごと再ベンダリングして行う、パッチを重ねない。Waybar/Rofi/SwayNCは廃止。
 
-UbuntuのGNOME設定とは共有せず、`init/hypr.sh`がArchだけに必要な実行環境を導入する。依存パッケージはend-4本家のインストーラ(deps+setupフェーズのみ、`--skip-allfiles`)を呼ぶ。ファイル配布フェーズは使わず、設定ファイルはchezmoiが正とする。
+UbuntuのGNOME設定とは共有せず、`init/hypr.sh`がArchだけに必要な実行環境を明示実行で導入する。依存パッケージはend-4本家のインストーラ(deps+setupフェーズのみ、`--skip-allfiles`)を呼ぶ。ファイル配布フェーズは使わず、設定ファイルはchezmoiが正とする。
 
 # Platform
 
