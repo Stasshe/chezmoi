@@ -61,6 +61,20 @@ Open a new WSL session after setup so the Docker group membership takes effect.
 On Ubuntu GNOME, setup also applies the managed dark desktop, persistent left dock,
 2×2 workspaces, icon theme, typography, wallpaper, blur, and window transitions.
 
+## iPhone file access
+
+Apply the chezmoi configuration so Saya knows about Samba, then run the share
+setup and enter a dedicated SMB password when prompted:
+
+```bash
+chezmoi apply
+./init/samba.sh
+```
+
+On the iPhone, open **Files → Browse → … → Connect to Server**, enter
+`smb://<computer-ip>`, sign in as the Linux user with that SMB password, then
+select **Documents**. The iPhone and computer must be on the same local network.
+
 ## Release
 
 Run the **Release** workflow from the default branch and select `patch`, `minor`,

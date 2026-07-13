@@ -22,6 +22,7 @@ sudo pacman -S --needed --noconfirm \
   fcitx5-mozc \
   fcitx5-qt \
   ghostty \
+  hyprshutdown \
   ttf-jetbrains-mono-nerd
 
 DOTS_HYPRLAND_REF="c04b0bbc8143a2b2166c1f699f7583cb28ff78fe"

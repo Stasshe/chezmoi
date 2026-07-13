@@ -24,20 +24,17 @@ pacman = ["docker-compose"]
 [packages.gh]
 pacman = ["github-cli"]
 
-[packages.hyprshutdown]
-pacman = ["hyprshutdown"]
-
 [packages.git]
 
 [packages.gnupg]
 
 [packages.lsb-release]
 
+[packages.samba]
+
 [packages.unzip]
 
 [packages.zsh]
-
-[packages.zellij]
 
 [packages.ydotool]
 apt = ["ydotool"]
