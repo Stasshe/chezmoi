@@ -48,3 +48,6 @@ pacman = ["hyprshutdown"]
 [packages.zsh]
 
 [packages.zellij]
+
+[packages.ydotool]
+apt = ["ydotool"]
