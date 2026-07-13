@@ -63,9 +63,9 @@ set_value org.gnome.desktop.wm.preferences num-workspaces 4
 set_value org.gnome.desktop.wm.preferences workspace-names "['I', 'II', 'III', 'IV']"
 
 dock_schema='org.gnome.shell.extensions.dash-to-dock'
-set_value "$dock_schema" dock-position 'BOTTOM'
-set_value "$dock_schema" dock-fixed false
-set_value "$dock_schema" intellihide true
+set_value "$dock_schema" dock-position 'LEFT'
+set_value "$dock_schema" dock-fixed true
+set_value "$dock_schema" intellihide false
 set_value "$dock_schema" extend-height false
 set_value "$dock_schema" dash-max-icon-size 42
 set_value "$dock_schema" icon-size-fixed false

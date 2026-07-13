@@ -56,7 +56,7 @@ keybinds, or see `~/.config/hypr/hyprland/keybinds.lua` for the full list.
 
 Open a new WSL session after setup so the Docker group membership takes effect.
 
-On Ubuntu GNOME, setup also applies the managed dark desktop, bottom dock,
+On Ubuntu GNOME, setup also applies the managed dark desktop, persistent left dock,
 2×2 workspaces, icon theme, typography, wallpaper, blur, and window transitions.
 
 ## Release
