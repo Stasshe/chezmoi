@@ -6,9 +6,11 @@ Workspace Matrixの切替ポップアップを表示する。サムネイルは�
 
 ワークスペース移動はSuper+Ctrl+矢印に統一する。
 
+Super+Shift+SとPrintはGNOME標準のスクリーンショットUIを開く。
+
 切替グリッドは半透明の暗いガラスと紫の選択枠で描く。Workspace Matrix本体は変更しない。
 
-外部テーマでShell構造を上書きしない。GNOME更新後も標準UIの可読性と操作を保つ。Shell 50対応版のBlur my ShellとBurn My Windowsだけを使い、パネルとDockの動的ぼかし、Overviewの静的ぼかし、短いGlideで動きを作る。拡張本体はGNOME Extensions Webで管理し、chezmoiは設定だけを持つ。
+外部テーマでShell構造を上書きしない。GNOME更新後も標準UIの可読性と操作を保つ。Shell 50対応版のBlur my ShellとBurn My Windowsだけを使い、壁紙はぼかさず、パネルとDockの動的ぼかし、短いGlideで動きを作る。拡張本体はGNOME Extensions Webで管理し、chezmoiは設定だけを持つ。
 
 `setups.sh`はchezmoi適用後にデスクトップ設定を冪等適用する。
 

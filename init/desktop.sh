@@ -52,6 +52,7 @@ input_sources="[('ibus', 'mozc-jp')]"
 set_value org.gnome.desktop.input-sources sources "$input_sources"
 set_value org.gnome.desktop.input-sources mru-sources "$input_sources"
 gsettings reset org.gnome.desktop.wm.keybindings switch-input-source
+set_value org.gnome.shell.keybindings show-screenshot-ui "['Print', '<Super><Shift>s']"
 
 set_value org.gnome.desktop.background picture-uri "$wallpaper_uri"
 set_value org.gnome.desktop.background picture-uri-dark "$wallpaper_uri"
@@ -99,8 +100,7 @@ set_extension_value "$matrix_schema_dir" "$matrix_schema" scale 0.30
 
 blur_schema_dir="$HOME/.local/share/gnome-shell/extensions/blur-my-shell@aunetx/schemas"
 blur_schema='org.gnome.shell.extensions.blur-my-shell.overview'
-set_extension_value "$blur_schema_dir" "$blur_schema" blur true
-set_extension_value "$blur_schema_dir" "$blur_schema" brightness 0.52
+set_extension_value "$blur_schema_dir" "$blur_schema" blur false
 
 blur_schema='org.gnome.shell.extensions.blur-my-shell.panel'
 set_extension_value "$blur_schema_dir" "$blur_schema" blur true
@@ -114,10 +114,4 @@ set_extension_value "$blur_schema_dir" "$blur_schema" corner-radius 18
 set_extension_value "$blur_schema_dir" "$blur_schema" static-blur false
 
 blur_schema='org.gnome.shell.extensions.blur-my-shell.applications'
-set_extension_value "$blur_schema_dir" "$blur_schema" blur true
-set_extension_value "$blur_schema_dir" "$blur_schema" enable-all true
-set_extension_value "$blur_schema_dir" "$blur_schema" static-blur false
-set_extension_value "$blur_schema_dir" "$blur_schema" dynamic-opacity true
-set_extension_value "$blur_schema_dir" "$blur_schema" opacity 232
-set_extension_value "$blur_schema_dir" "$blur_schema" brightness 0.82
-set_extension_value "$blur_schema_dir" "$blur_schema" corner-radius 16
+set_extension_value "$blur_schema_dir" "$blur_schema" blur false
