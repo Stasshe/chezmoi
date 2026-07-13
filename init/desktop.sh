@@ -60,6 +60,7 @@ set_value org.gnome.desktop.wm.preferences titlebar-uses-system-font true
 set_value org.gnome.mutter center-new-windows true
 set_value org.gnome.mutter dynamic-workspaces false
 set_value org.gnome.desktop.wm.preferences num-workspaces 4
+set_value org.gnome.desktop.wm.preferences workspace-names "['I', 'II', 'III', 'IV']"
 
 dock_schema='org.gnome.shell.extensions.dash-to-dock'
 set_value "$dock_schema" dock-position 'BOTTOM'
@@ -86,6 +87,9 @@ matrix_schema='org.gnome.shell.extensions.wsmatrix-settings'
 set_extension_value "$matrix_schema_dir" "$matrix_schema" num-columns 2
 set_extension_value "$matrix_schema_dir" "$matrix_schema" num-rows 2
 set_extension_value "$matrix_schema_dir" "$matrix_schema" show-overview-grid true
+set_extension_value "$matrix_schema_dir" "$matrix_schema" show-popup true
+set_extension_value "$matrix_schema_dir" "$matrix_schema" show-thumbnails false
+set_extension_value "$matrix_schema_dir" "$matrix_schema" show-workspace-names true
 set_extension_value "$matrix_schema_dir" "$matrix_schema" scale 0.30
 
 blur_schema_dir="$HOME/.local/share/gnome-shell/extensions/blur-my-shell@aunetx/schemas"

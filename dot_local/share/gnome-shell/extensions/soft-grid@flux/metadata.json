@@ -1,0 +1,7 @@
+{
+  "name": "Soft Grid",
+  "description": "Glass styling for the Workspace Matrix switcher.",
+  "shell-version": ["50"],
+  "uuid": "soft-grid@flux",
+  "version": 1
+}
