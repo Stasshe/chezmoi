@@ -71,6 +71,13 @@ focus-follows-mouse = true
 
 
 # ============================================================
+# Keybindings
+# ============================================================
+
+# unbind default search so ctrl+shift+f reaches nvim/tmux instead
+keybind = ctrl+shift+f=unbind
+
+# ============================================================
 # Shell integration
 # ============================================================
 
