@@ -16,8 +16,6 @@ case ":${XDG_CURRENT_DESKTOP:-}:" in
   *) exit 0 ;;
 esac
 
-sudo apt-get install -y ibus ibus-mozc mozc-utils-gui
-
 set_value() {
   local schema="$1"
   local key="$2"

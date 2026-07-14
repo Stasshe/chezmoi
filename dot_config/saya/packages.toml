@@ -1,43 +1,49 @@
-schema_version = 2
-
-[packages.build-essential]
-pacman = ["base-devel"]
-
-[packages.ca-certificates]
-
-[packages."containerd.io"]
-pacman = ["containerd"]
-
-[packages.curl]
-
-[packages.docker-ce]
-pacman = ["docker"]
-
-[packages.docker-ce-cli]
-pacman = ["docker"]
-
-[packages.docker-compose-plugin]
-pacman = ["docker-compose"]
-
-[packages.ffmpeg]
-
-[packages.gh]
-pacman = ["github-cli"]
-
-[packages.git]
-
-[packages.gnome-screenshot]
-apt = ["gnome-screenshot"]
-
-[packages.gnupg]
-
-[packages.lsb-release]
-
-[packages.samba]
-
-[packages.unzip]
-
-[packages.zsh]
-
-[packages.ydotool]
-apt = ["ydotool"]
+schema_version = 3
+apt = [
+    "build-essential",
+    "ca-certificates",
+    "containerd.io",
+    "curl",
+    "docker-ce",
+    "docker-ce-cli",
+    "docker-compose-plugin",
+    "ffmpeg",
+    "gh",
+    "git",
+    "gnome-screenshot",
+    "gnupg",
+    "ibus",
+    "ibus-mozc",
+    "lsb-release",
+    "mozc-utils-gui",
+    "samba",
+    "tar",
+    "unzip",
+    "ydotool",
+    "zsh",
+]
+pacman = [
+    "archlinux-wallpaper",
+    "base-devel",
+    "ca-certificates",
+    "containerd",
+    "curl",
+    "docker",
+    "docker-compose",
+    "fcitx5",
+    "fcitx5-gtk",
+    "fcitx5-mozc",
+    "fcitx5-qt",
+    "ffmpeg",
+    "ghostty",
+    "git",
+    "github-cli",
+    "gnupg",
+    "hyprshutdown",
+    "lsb-release",
+    "samba",
+    "ttf-jetbrains-mono-nerd",
+    "unzip",
+    "zellij",
+    "zsh",
+]

@@ -2,7 +2,9 @@
 set -euo pipefail
 
 
-if ! command -v saya >/dev/null 2>&1; then
+if command -v saya >/dev/null 2>&1; then
+  saya self-update
+else
   curl -fsSL https://raw.githubusercontent.com/Stasshe/saya/main/install.sh | sh
 fi
 
