@@ -162,7 +162,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node ~/.local/share/mise/installs/node/24/bin/gle _user-prompt-submit"
+            "command": "gle _user-prompt-submit"
           }
         ]
       }
@@ -172,7 +172,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node ~/.local/share/mise/installs/node/24/bin/gle _stop",
+            "command": "gle _stop",
             "async": true
           }
         ]
