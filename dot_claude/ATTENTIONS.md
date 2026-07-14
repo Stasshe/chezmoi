@@ -30,3 +30,4 @@
 - 作業開始前に提示済みのenvironment_contextと実行環境を認識する。OS・cwd・権限・sandbox・利用可能な経路を無視して、別環境前提の手順を案内しない。
 - 設定ファイルは常にchezmoi配下のものを触り、chezmoiからの一方向で反映する
 - 今の環境を必ず確認しろ。wsl/ubuntu/arch,gnome/hyprland
+- sudo権限を使うものはこちらで実行するからその時はコマンドを教えろ
