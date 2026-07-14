@@ -78,12 +78,15 @@ set_value org.gnome.shell.extensions.system-monitor show-memory true
 set_value org.gnome.shell.extensions.system-monitor show-swap false
 set_value org.gnome.shell.extensions.system-monitor show-upload false
 set_value org.gnome.shell.extensions.system-monitor show-download false
+enable_extension GPaste@gnome-shell-extensions.gnome.org
 enable_extension system-monitor@gnome-shell-extensions.gcampax.github.com
 input_sources="[('ibus', 'mozc-jp')]"
 set_value org.gnome.desktop.input-sources sources "$input_sources"
 set_value org.gnome.desktop.input-sources mru-sources "$input_sources"
 gsettings reset org.gnome.desktop.wm.keybindings switch-input-source
 set_value org.gnome.shell.keybindings show-screenshot-ui "['Print', '<Super><Shift>s']"
+set_value org.gnome.shell.keybindings toggle-message-tray "['<Super>m']"
+set_value org.gnome.GPaste show-history "'<Super>v'"
 
 set_value org.gnome.desktop.background picture-uri "$wallpaper_uri"
 set_value org.gnome.desktop.background picture-uri-dark "$wallpaper_uri"

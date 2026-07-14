@@ -62,7 +62,8 @@ Open a new WSL session after setup so the Docker group membership takes effect.
 On Ubuntu GNOME, setup also applies the managed dark desktop, persistent left dock,
 2×2 workspaces, icon theme, typography, unblurred wallpaper during normal use,
 Overview, panel and dock blur, window transitions, and CPU and memory usage in the
-top panel.
+top panel. GPaste provides clipboard history through a native GNOME Shell panel
+extension; `Super+V` opens the history.
 `Super+Shift+S` and `Print` open the standard GNOME screenshot interface.
 
 ## iPhone file access

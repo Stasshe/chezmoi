@@ -11,6 +11,7 @@ apt = [
     "gh",
     "git",
     "gnome-screenshot",
+    "gnome-shell-extension-gpaste",
     "gnome-shell-extension-system-monitor",
     "gnome-system-monitor",
     "gnupg",
