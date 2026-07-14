@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [[ ! -r /etc/os-release ]]; then
+  exit 0
+fi
+
+. /etc/os-release
+
+if [[ "$ID" != "ubuntu" ]]; then
+  exit 0
+fi
+
 case ":${XDG_CURRENT_DESKTOP:-}:" in
   *:GNOME:* | *:ubuntu:GNOME:*) ;;
   *) exit 0 ;;

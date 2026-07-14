@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [[ -e /etc/arch-release ]]; then
+  sudo pacman -S --needed --noconfirm zellij
+  exit 0
+fi
+
 sudo apt-get update
 sudo apt-get install -y curl ca-certificates tar
 
