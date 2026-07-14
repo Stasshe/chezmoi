@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ -e /etc/arch-release ]]; then
-  sudo pacman -S --needed --noconfirm zellij
+if [[ ! -r /etc/os-release ]]; then
   exit 0
 fi
 
-sudo apt-get update
-sudo apt-get install -y curl ca-certificates tar
+. /etc/os-release
+
+if [[ "$ID" != "ubuntu" ]]; then
+  exit 0
+fi
 
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT

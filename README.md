@@ -27,10 +27,11 @@ On Arch, install the complete Hyprland session explicitly when needed:
 ./init/hypr.sh
 ```
 
-It runs [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)'s own
-dependency installer for Quickshell, lock/idle handling, screenshots,
-clipboard support, and the required Wayland portals. Choose **Hyprland** from
-the display manager afterwards. The session is
+Saya installs the Arch-specific terminal, IME, font, wallpaper, shutdown helper,
+and Zellij packages. The script then runs
+[end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)'s own dependency
+installer for the remaining session dependencies. Choose **Hyprland** from the
+display manager afterwards. The session is
 [end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)
 ("illogical impulse") vendored as-is under `~/.config/{hypr,quickshell,matugen,fuzzel,...}`,
 pinned at a fixed upstream commit (see `init/hypr.sh`). Quickshell provides
