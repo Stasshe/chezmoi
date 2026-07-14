@@ -128,6 +128,9 @@ set_value "$dock_schema" show-mounts false
 set_value "$dock_schema" show-trash false
 set_value "$dock_schema" scroll-action 'switch-workspace'
 
+copyous_schema_dir="$HOME/.local/share/gnome-shell/extensions/copyous@boerdereinar.dev/schemas"
+set_extension_value "$copyous_schema_dir" org.gnome.shell.extensions.copyous open-clipboard-dialog-shortcut "['<Alt><Super>v']"
+
 matrix_schema_dir="$HOME/.local/share/gnome-shell/extensions/wsmatrix@martin.zurowietz.de/schemas"
 matrix_schema='org.gnome.shell.extensions.wsmatrix-settings'
 set_extension_value "$matrix_schema_dir" "$matrix_schema" num-columns 2
