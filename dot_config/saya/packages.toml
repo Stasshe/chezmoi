@@ -24,6 +24,7 @@ apt = [
     "unzip",
     "ydotool",
     "zsh",
+    "flameshot",
 ]
 pacman = [
     "archlinux-wallpaper",
