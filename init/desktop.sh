@@ -43,6 +43,23 @@ set_extension_value() {
   printf '[desktop] skipped %s/%s: unavailable\n' "$schema" "$key"
 }
 
+enable_extension() {
+  local uuid="$1"
+  local enabled
+
+  enabled="$(gsettings get org.gnome.shell enabled-extensions)"
+  if [[ "$enabled" == *"'$uuid'"* ]]; then
+    return
+  fi
+
+  if [[ "$enabled" == '[]' || "$enabled" == '@as []' ]]; then
+    set_value org.gnome.shell enabled-extensions "['$uuid']"
+    return
+  fi
+
+  set_value org.gnome.shell enabled-extensions "${enabled%]}, '$uuid']"
+}
+
 wallpaper="$HOME/.local/share/backgrounds/orbit.png"
 wallpaper_uri="file://$wallpaper"
 
@@ -56,6 +73,12 @@ set_value org.gnome.desktop.interface document-font-name 'Ubuntu Sans 11'
 set_value org.gnome.desktop.interface monospace-font-name 'Ubuntu Sans Mono 11'
 set_value org.gnome.desktop.interface clock-show-weekday true
 set_value org.gnome.desktop.interface show-battery-percentage true
+set_value org.gnome.shell.extensions.system-monitor show-cpu true
+set_value org.gnome.shell.extensions.system-monitor show-memory true
+set_value org.gnome.shell.extensions.system-monitor show-swap false
+set_value org.gnome.shell.extensions.system-monitor show-upload false
+set_value org.gnome.shell.extensions.system-monitor show-download false
+enable_extension system-monitor@gnome-shell-extensions.gcampax.github.com
 input_sources="[('ibus', 'mozc-jp')]"
 set_value org.gnome.desktop.input-sources sources "$input_sources"
 set_value org.gnome.desktop.input-sources mru-sources "$input_sources"

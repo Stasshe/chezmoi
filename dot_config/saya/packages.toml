@@ -11,6 +11,8 @@ apt = [
     "gh",
     "git",
     "gnome-screenshot",
+    "gnome-shell-extension-system-monitor",
+    "gnome-system-monitor",
     "gnupg",
     "ibus",
     "ibus-mozc",
