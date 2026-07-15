@@ -2,6 +2,7 @@
 bat = "latest"
 bun = "latest"
 chezmoi = "latest"
+delta = "latest"
 eza = "latest"
 fd = "latest"
 fzf = "latest"
