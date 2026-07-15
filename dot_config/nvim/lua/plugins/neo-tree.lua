@@ -1,8 +1,19 @@
+local function show_tree(source)
+  vim.schedule(function()
+    require("neo-tree.command").execute {
+      action = "focus",
+      source = source,
+      position = "left",
+    }
+  end)
+end
+
 return {
   {
     "AstroNvim/astrocore",
     opts = function(_, opts)
       local maps = opts.mappings
+      local autocmds = opts.autocmds
       -- AstroNvim default `:Neotree toggle` always uses `default_source` (filesystem), so
       -- toggling from Git/Bufs resets the source selector to File. `source = "last"` matches
       -- the tab you picked (neo-tree updates `last` on next_source / prev_source).
@@ -19,6 +30,16 @@ return {
           end
         end,
         desc = "Toggle Explorer Focus",
+      }
+
+      autocmds.neo_tree_default = {
+        {
+          event = "User",
+          pattern = "VeryLazy",
+          once = true,
+          callback = function() show_tree "filesystem" end,
+          desc = "Open and focus Neo-tree on startup",
+        },
       }
     end,
   },
