@@ -20,7 +20,8 @@
       "Bash(agent-browser *)",
       "Bash(python3 *)",
       "Bash(rg *)",
-      "Bash(git diff *)"
+      "Bash(git diff *)",
+      "Bash(gh issue *)"
     ],
     "deny": [
       "Bash(rm -rf /)",
