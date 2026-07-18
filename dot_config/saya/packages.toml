@@ -30,6 +30,8 @@ apt = [
     "libfontconfig1-dev",
     "fastboot",
     "adb",
+    "openssh-server",
+    "kitty-terminfo",
 ]
 pacman = [
     "archlinux-wallpaper",
