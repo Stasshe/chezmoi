@@ -40,7 +40,7 @@ return {
     mappings = {
       n = {
         ["q"] = { "<cmd>quit<cr>", desc = "Quit window" },
-        ["<Leader>m"] = { "q", desc = "Record macro" },
+        ["<F2>"] = { "q", desc = "Record macro" },
         ["<Tab>"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
         ["<S-Tab>"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
 
