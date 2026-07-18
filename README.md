@@ -17,12 +17,15 @@ install Hyprland. Ubuntu remains GNOME-only. Japanese input uses IBus + Mozc on
 Ubuntu and Fcitx5 + Mozc on Arch. Both use the JIS (`jp`) keyboard layout. GNOME
 uses the standard Mozc engine; its direct and hiragana modes are switched
 internally with the JIS Hankaku/Zenkaku key. Sign out and back in after setup
-before using the IME.
+before using the IME. Chezmoi applies common files plus the matching desktop
+configuration; it excludes Arch/Hyprland files on Ubuntu and Ubuntu/GNOME files
+on Arch.
 
-In zsh, pipe command output to `h` to copy it to the OS clipboard:
+In zsh, prefix a command with `h` to copy its terminal-formatted output to the
+OS clipboard:
 
 ```bash
-printf 'text' | h
+h ls -la
 ```
 
 ## Hyprland

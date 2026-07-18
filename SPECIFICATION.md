@@ -16,7 +16,9 @@ Super+Shift+SとPrintはGNOME標準のスクリーンショットUIを開く。
 
 OSパッケージの宣言はSayaのschema v3マニフェストへ集約する。APTとpacmanのパッケージ名は独立した配列で保持し、OS間の論理名対応は持たない。UbuntuのIME依存、ArchのHyprland補助依存とZellijも同じマニフェストから導入する。外部リポジトリ設定や上流インストーラーによる構成処理は各initスクリプトが担う。
 
-zshの`h`は標準入力をOSクリップボードへコピーする。Arch HyprlandとUbuntu GNOMEでは`wl-copy`、Ubuntu WSLでは`clip.exe`を使い、`command | h`で呼び出す。
+chezmoiは共通設定と実行環境に対応する設定だけを適用する。UbuntuではArch・Hyprland固有ファイルを、ArchではUbuntu・GNOME固有ファイルを対象外にする。未対応ディストリビューションには固有設定を適用しない。
+
+`~/.local/bin/h`はコマンドを疑似端末で実行し、端末向けに整形されたテキスト出力をOSクリップボードへコピーする。Arch HyprlandとUbuntu GNOMEでは`wl-copy`、Ubuntu WSLでは`clip.exe`を使い、`h command`で呼び出す。
 
 # Local file sharing
 
