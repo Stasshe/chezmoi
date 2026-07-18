@@ -88,11 +88,15 @@ set_value org.gnome.shell.keybindings show-screenshot-ui "[]"
 set_value org.gnome.shell.keybindings toggle-message-tray "['<Super>m']"
 
 set_value org.gnome.settings-daemon.plugins.media-keys custom-keybindings \
-  "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
+  "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']"
 screenshot_key_path='/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/'
 set_value "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$screenshot_key_path" name 'flameshot-instant-clip'
 set_value "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$screenshot_key_path" command 'flameshot gui -s -c'
 set_value "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$screenshot_key_path" binding '<Super><Shift>s'
+terminal_key_path='/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/'
+set_value "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$terminal_key_path" name 'open-terminal'
+set_value "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$terminal_key_path" command 'ghostty'
+set_value "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$terminal_key_path" binding '<Super>Return'
 
 set_value org.gnome.desktop.background picture-uri "$wallpaper_uri"
 set_value org.gnome.desktop.background picture-uri-dark "$wallpaper_uri"

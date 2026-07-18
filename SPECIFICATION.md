@@ -18,7 +18,7 @@ OSパッケージの宣言はSayaのschema v3マニフェストへ集約する�
 
 chezmoiは共通設定と実行環境に対応する設定だけを適用する。UbuntuではArch・Hyprland固有ファイルを、ArchではUbuntu・GNOME固有ファイルを対象外にする。未対応ディストリビューションには固有設定を適用しない。
 
-Ubuntu GNOMEの端末はGhosttyとし、実行中のセッションを含めて終了確認を表示しない。Arch Hyprlandの端末はKittyとする。各端末の設定は対応するOSだけへ適用する。
+Ubuntu GNOMEの端末はGhosttyとし、Super+Enterで起動する。実行中のセッションを含めて終了確認を表示しない。Arch Hyprlandの端末はKittyとする。各端末の設定は対応するOSだけへ適用する。
 
 ArchのSDDM greeterはKWin Waylandで起動する。HyprlandではXwaylandを維持し、X11互換が必要なアプリを許容する。
 
