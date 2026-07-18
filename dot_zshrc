@@ -50,6 +50,21 @@ alias qc='ollama run qwen2.5:7b'
 alias y='yazi'
 alias laz='lazygit'
 
+h() {
+  if command -v wl-copy >/dev/null 2>&1; then
+    wl-copy
+    return
+  fi
+
+  if command -v clip.exe >/dev/null 2>&1; then
+    clip.exe
+    return
+  fi
+
+  print -u2 'h: no supported clipboard command found'
+  return 127
+}
+
 upd-claudemd() (
   set -e
   cd "$(chezmoi source-path)"

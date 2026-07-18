@@ -16,6 +16,8 @@ Super+Shift+SとPrintはGNOME標準のスクリーンショットUIを開く。
 
 OSパッケージの宣言はSayaのschema v3マニフェストへ集約する。APTとpacmanのパッケージ名は独立した配列で保持し、OS間の論理名対応は持たない。UbuntuのIME依存、ArchのHyprland補助依存とZellijも同じマニフェストから導入する。外部リポジトリ設定や上流インストーラーによる構成処理は各initスクリプトが担う。
 
+zshの`h`は標準入力をOSクリップボードへコピーする。Arch HyprlandとUbuntu GNOMEでは`wl-copy`、Ubuntu WSLでは`clip.exe`を使い、`command | h`で呼び出す。
+
 # Local file sharing
 
 SambaはSayaで導入する。ローカルネットワーク上の認証済みLinuxユーザー本人に限り、`~/Documents`をSMB2以上で読み書き共有する。Apple SMB拡張で実効権限とメタデータを伝える。ゲストアクセスとホームディレクトリ全体の公開は行わない。共有設定は`init/samba.sh`で明示的に適用し、SMBパスワードは対話入力で登録する。

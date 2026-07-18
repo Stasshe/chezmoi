@@ -19,6 +19,12 @@ uses the standard Mozc engine; its direct and hiragana modes are switched
 internally with the JIS Hankaku/Zenkaku key. Sign out and back in after setup
 before using the IME.
 
+In zsh, pipe command output to `h` to copy it to the OS clipboard:
+
+```bash
+printf 'text' | h
+```
+
 ## Hyprland
 
 On Arch, install the complete Hyprland session explicitly when needed:
