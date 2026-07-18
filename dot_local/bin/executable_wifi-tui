@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+# TUI wifi picker: nmcli + fzf + gum. Handles open/PSK/WPA-Enterprise (PEAP/MSCHAPv2).
+
+set -euo pipefail
+
+for bin in nmcli fzf gum; do
+  command -v "$bin" >/dev/null || {
+    printf '%s is required.\n' "$bin" >&2
+    exit 1
+  }
+done
+
+list_networks() {
+  nmcli device wifi rescan >/dev/null 2>&1 || true
+  nmcli -t -f IN-USE,SSID,SECURITY,SIGNAL device wifi list |
+    awk -F: 'BEGIN{OFS="\t"} $2!="" {
+      key=$2
+      sig=$4+0
+      if (!(key in best_sig) || sig>best_sig[key]) {
+        best_sig[key]=sig
+        best_line[key]=$0
+      }
+    } END { for (k in best_line) print best_line[k] }' |
+    sort -t: -k4 -rn
+}
+
+format_row() {
+  local in_use=$1 ssid=$2 security=$3 signal=$4
+  local mark=' '
+  [[ $in_use == '*' ]] && mark='*'
+  local lock='open'
+  [[ -n $security && $security != '--' ]] && lock=$security
+  printf '%s\t%s\t%s%%\t%s' "$mark" "$ssid" "$signal" "$lock"
+}
+
+selection=$(
+  list_networks | while IFS=: read -r in_use ssid security signal; do
+    format_row "$in_use" "$ssid" "$security" "$signal"
+  done | fzf --with-nth=1,2,3,4 --delimiter='\t' \
+    --header='IN-USE  SSID  SIGNAL  SECURITY   (enter: connect, esc: quit)' \
+    --prompt='wifi> '
+) || exit 0
+
+ssid=$(cut -f2 <<<"$selection")
+security=$(cut -f4 <<<"$selection")
+
+if nmcli -t -f NAME connection show | grep -Fxq "$ssid"; then
+  gum spin --title "Connecting to $ssid..." -- nmcli connection up "$ssid"
+  exit $?
+fi
+
+if [[ $security == 'open' ]]; then
+  gum spin --title "Connecting to $ssid..." -- nmcli device wifi connect "$ssid"
+  exit $?
+fi
+
+if [[ $security == *802.1X* ]]; then
+  identity=$(gum input --placeholder='Username')
+  password=$(gum input --password --placeholder='Password')
+
+  con_name="$ssid"
+  nmcli connection add type wifi con-name "$con_name" ssid "$ssid" \
+    wifi-sec.key-mgmt wpa-eap \
+    802-1x.eap peap \
+    802-1x.phase2-auth mschapv2 \
+    802-1x.identity "$identity" \
+    802-1x.password "$password" >/dev/null
+
+  gum spin --title "Connecting to $ssid..." -- nmcli connection up "$con_name"
+  exit $?
+fi
+
+password=$(gum input --password --placeholder='Password')
+gum spin --title "Connecting to $ssid..." -- nmcli device wifi connect "$ssid" password "$password"
