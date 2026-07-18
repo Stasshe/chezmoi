@@ -11,6 +11,7 @@ if [ "$ID" != "arch" ]; then
   exit 0
 fi
 
+root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 DOTS_HYPRLAND_REF="c04b0bbc8143a2b2166c1f699f7583cb28ff78fe"
 DOTS_HYPRLAND_SRC="$HOME/.cache/dots-hyprland"
 
@@ -21,3 +22,4 @@ git -C "$DOTS_HYPRLAND_SRC" fetch --depth 1 origin "$DOTS_HYPRLAND_REF"
 git -C "$DOTS_HYPRLAND_SRC" checkout --detach FETCH_HEAD
 
 (cd "$DOTS_HYPRLAND_SRC" && ./setup install --skip-allfiles --skip-sysupdate -f)
+sudo install -Dm644 "$root/sddm.conf" /etc/sddm.conf.d/10-wayland.conf

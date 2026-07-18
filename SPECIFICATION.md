@@ -18,6 +18,8 @@ OSパッケージの宣言はSayaのschema v3マニフェストへ集約する�
 
 chezmoiは共通設定と実行環境に対応する設定だけを適用する。UbuntuではArch・Hyprland固有ファイルを、ArchではUbuntu・GNOME固有ファイルを対象外にする。未対応ディストリビューションには固有設定を適用しない。
 
+ArchのSDDM greeterはKWin Waylandで起動する。HyprlandではXwaylandを維持し、X11互換が必要なアプリを許容する。
+
 `~/.local/bin/h`はコマンドを疑似端末で実行し、端末向けに整形されたテキスト出力をOSクリップボードへコピーする。Arch HyprlandとUbuntu GNOMEでは`wl-copy`、Ubuntu WSLでは`clip.exe`を使い、`h command`で呼び出す。
 
 # Local file sharing
