@@ -116,7 +116,7 @@ mouse-scroll-multiplier = 1.5
 # Safety and behavior
 # ============================================================
 
-confirm-close-surface = true
+confirm-close-surface = false
 
 clipboard-paste-protection = true
 clipboard-paste-bracketed-safe = true

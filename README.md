@@ -19,7 +19,8 @@ uses the standard Mozc engine; its direct and hiragana modes are switched
 internally with the JIS Hankaku/Zenkaku key. Sign out and back in after setup
 before using the IME. Chezmoi applies common files plus the matching desktop
 configuration; it excludes Arch/Hyprland files on Ubuntu and Ubuntu/GNOME files
-on Arch.
+on Arch. Ubuntu uses Ghostty without a close confirmation; Arch Hyprland uses
+Kitty.
 
 In zsh, prefix a command with `h` to copy its terminal-formatted output to the
 OS clipboard:

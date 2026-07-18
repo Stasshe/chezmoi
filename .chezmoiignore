@@ -22,7 +22,6 @@ memo.md
 .config/darklyrc
 .config/fcitx5/
 .config/fuzzel/
-.config/ghostty/
 .config/hypr/
 .config/illogical-impulse/
 .config/kde-material-you-colors/
@@ -36,6 +35,7 @@ memo.md
 
 {{- if ne $distribution "ubuntu" }}
 .config/burn-my-windows/
+.config/ghostty/
 .config/mozc/
 .local/share/backgrounds/
 .local/share/gnome-shell/
