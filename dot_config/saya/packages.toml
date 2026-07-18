@@ -41,7 +41,6 @@ pacman = [
     "fcitx5-mozc",
     "fcitx5-qt",
     "ffmpeg",
-    "ghostty",
     "git",
     "github-cli",
     "gnupg",
