@@ -79,3 +79,7 @@ fi
 
 unset LANGUAGE
 export LC_MESSAGES=C.UTF-8
+
+
+# Added by Antigravity CLI installer
+export PATH="~/.local/bin:$PATH"
