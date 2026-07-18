@@ -44,7 +44,6 @@
       "Bash(rm -rf /etc)",
       "Bash(rm -rf /etc/*)",
       "Bash(rm -rf /home)",
-      "Bash(rm -rf /home/*)",
       "Bash(rm -rf /lib)",
       "Bash(rm -rf /lib/*)",
       "Bash(rm -rf /lib64)",

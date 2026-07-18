@@ -27,6 +27,8 @@ apt = [
     "zsh",
     "flameshot",
     "libfontconfig1-dev",
+    "fastboot",
+    "adb",
 ]
 pacman = [
     "archlinux-wallpaper",
