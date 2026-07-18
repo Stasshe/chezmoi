@@ -49,6 +49,7 @@ alias qd4='ollama run qwen3.5:4b'
 alias qc='ollama run qwen2.5:7b'
 alias y='yazi'
 alias laz='lazygit'
+alias ch='chezmoi'
 
 upd-claudemd() (
   set -e
@@ -79,3 +80,7 @@ fi
 
 unset LANGUAGE
 export LC_MESSAGES=C.UTF-8
+
+
+# Added by Antigravity CLI installer
+export PATH="~/.local/bin:$PATH"

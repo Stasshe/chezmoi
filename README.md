@@ -17,7 +17,16 @@ install Hyprland. Ubuntu remains GNOME-only. Japanese input uses IBus + Mozc on
 Ubuntu and Fcitx5 + Mozc on Arch. Both use the JIS (`jp`) keyboard layout. GNOME
 uses the standard Mozc engine; its direct and hiragana modes are switched
 internally with the JIS Hankaku/Zenkaku key. Sign out and back in after setup
-before using the IME.
+before using the IME. Chezmoi applies common files plus the matching desktop
+configuration; it excludes Arch/Hyprland files on Ubuntu and Ubuntu/GNOME files
+on Arch.
+
+In zsh, prefix a command with `h` to copy its terminal-formatted output to the
+OS clipboard:
+
+```bash
+h ls -la
+```
 
 ## Hyprland
 
@@ -42,6 +51,9 @@ launcher fallback. `archlinux-wallpaper` provides the managed
 wallpaper-driven app, shell, Qt, and terminal theming are disabled.
 `~/.config/illogical-impulse/config.json`
 is managed by chezmoi, so `chezmoi apply` restores these settings.
+
+SDDM runs its greeter on KWin Wayland with the JIS keyboard layout. Hyprland
+keeps Xwayland available for applications that still require X11 compatibility.
 
 Personal deltas (JIS keyboard, Fcitx5 env vars, Kitty as the Hyprland terminal, and
 fixed wallpaper behavior) are managed alongside the vendored configuration.

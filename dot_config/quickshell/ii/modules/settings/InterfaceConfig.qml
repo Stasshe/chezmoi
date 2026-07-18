@@ -152,9 +152,6 @@ ContentPage {
             onCheckedChanged: {
                 Config.options.lock.useHyprlock = checked;
             }
-            StyledToolTip {
-                text: Translation.tr("If you want to somehow use fingerprint unlock...")
-            }
         }
 
         ConfigSwitch {
