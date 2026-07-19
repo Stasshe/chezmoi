@@ -21,7 +21,9 @@
       "Bash(python3 *)",
       "Bash(rg *)",
       "Bash(git diff *)",
-      "Bash(gh issue *)"
+      "Bash(gh issue *)",
+      "Bash(cargo clippy *)",
+      "Bash(cargo test *)"
     ],
     "deny": [
       "Bash(rm -rf /)",
