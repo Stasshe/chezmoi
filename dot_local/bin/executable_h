@@ -7,7 +7,8 @@ if (( $# == 0 )); then
   exit 2
 fi
 
-output="$(NO_COLOR=1 script -q -e /dev/null -- "$@" | sed $'s/\033\\[[0-9;]*[[:alpha:]]//g; s/\r$//')"
+command_line="${(j: :)${(@q)@}}"
+output="$(NO_COLOR=1 script -q -e -c "$command_line" /dev/null | sed $'s/\033\\[[0-9;]*[[:alpha:]]//g; s/\r$//')"
 command_status=$?
 
 if command -v wl-copy >/dev/null 2>&1; then
