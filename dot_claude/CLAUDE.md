@@ -37,6 +37,7 @@ workflowの中のビルドにはキャッシュも使え。
 /home/からではなく~/からor pwdからパスは指定しろ
 
 @~/.claude/ATTENTIONS.md
+@~/.claude/DESIGN.md
 
 # 設計書・仕様書の極意
 
