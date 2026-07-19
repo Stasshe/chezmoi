@@ -52,6 +52,8 @@ pacman = [
     "gnupg",
     "hyprshutdown",
     "imagemagick",
+    "kwallet-pam",
+    "kwalletmanager",
     "lsb-release",
     "samba",
     "ttf-jetbrains-mono-nerd",
