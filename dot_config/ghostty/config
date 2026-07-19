@@ -40,7 +40,7 @@ window-new-tab-position = current
 window-show-tab-bar = auto
 
 window-vsync = true
-scrollbar = never
+scrollbar = system
 
 resize-overlay = after-first
 resize-overlay-position = bottom-right
