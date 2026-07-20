@@ -64,4 +64,6 @@ pacman = [
     "zellij",
     "zsh",
     "gum",
+    "libinput-tools",
+    "hid-tools",
 ]
