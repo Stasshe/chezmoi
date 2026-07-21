@@ -66,4 +66,5 @@ pacman = [
     "gum",
     "libinput-tools",
     "hid-tools",
+    "gwenview",
 ]
