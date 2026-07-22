@@ -51,6 +51,15 @@ alias y='yazi'
 alias laz='lazygit'
 alias ch='chezmoi'
 
+diffnav() {
+  if [[ -t 0 && $# -eq 0 ]]; then
+    command diffnav --watch --watch-cmd "git diff HEAD"
+    return
+  fi
+
+  command diffnav "$@"
+}
+
 upd-claudemd() (
   set -e
   cd "$(chezmoi source-path)"
