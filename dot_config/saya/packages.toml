@@ -35,7 +35,7 @@ apt = [
     "openssh-server",
     "kitty-terminfo",
 ]
-pacman = [
+yay = [
     "archlinux-wallpaper",
     "base-devel",
     "ca-certificates",
