@@ -9,10 +9,22 @@ filename_pattern = "Screenshot_%Y-%m-%d_%H.%M.%S"
 copy_to_clipboard = true
 
 [bar.main]
-start = ["launcher", "wallhaven", "taskbar"]
+start = ["launcher", "wallhaven", "taskbar", "claude-pulse"]
+center = ["clock"]
+end = ["media", "media-offset", "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "control-center", "session"]
 
 [widget.wallhaven]
 type = "noctalia/wallhaven:wallhaven"
+
+[widget.claude-pulse]
+type = "lowcache/claude-companion:pulse"
+
+[widget.clock]
+format = "{:%m/%d (%a) %H:%M}"
+
+[widget.media-offset]
+type = "spacer"
+length = 12
 
 [widget.taskbar]
 scale = 0.9
@@ -47,7 +59,7 @@ path = "/usr/share/backgrounds/archlinux/archwaveinv.png"
 enabled = false
 
 [plugins]
-enabled = ["noctalia/wallhaven"]
+enabled = ["noctalia/wallhaven", "lowcache/claude-companion"]
 
 [theme]
 mode = "dark"

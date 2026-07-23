@@ -168,6 +168,15 @@
             "command": "gle _user-prompt-submit"
           }
         ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/noctalia-pulse turn_start"
+          }
+        ]
       }
     ],
     "Stop": [
@@ -179,6 +188,15 @@
             "async": true
           }
         ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/noctalia-pulse turn_end"
+          }
+        ]
       }
     ],
     "SessionStart": [
@@ -187,6 +205,59 @@
           {
             "type": "command",
             "command": "node ~/.claude/hooks/shrink-mode-trackers.js"
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/noctalia-pulse idle"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/noctalia-pulse tool_start"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/noctalia-pulse turn_start"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/noctalia-pulse needs_attention"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/noctalia-pulse session_end"
           }
         ]
       }

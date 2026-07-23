@@ -66,6 +66,7 @@ yay = [
     "noctalia",
     "noctalia-greeter",
     "pavucontrol",
+    "playerctl",
     "pipewire-pulse",
     "samba",
     "ttf-jetbrains-mono-nerd",
