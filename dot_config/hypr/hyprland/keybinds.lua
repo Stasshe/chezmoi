@@ -199,11 +199,22 @@ end
 
 --#/# bind = CTRL+SUPER, ←/→,, -- Focus left/right
 --#/# bind = CTRL+SUPER+ALT, ←/→,, -- # [hidden] Focus busy left/right
-for i = 1, 2 do
-    local keys = { "Left", "Right" }
-    local prefix = { "r-", "r+" }
-    local descdir = { "left", "right" }
-    hl.bind("CTRL + SUPER + " .. keys[i], hl.dsp.focus({ workspace = prefix[i] .. "1" }), {description = "Workspace: Focus " .. descdir[i]})
+local function focus_workspace_by_offset(offset)
+    local current = hl.get_active_workspace().id
+    local target = (current - 1 + offset) % workspaceGroupSize + 1
+    hl.dispatch(hl.dsp.focus({ workspace = tostring(target) }))
+end
+
+local workspaceDirections = {
+    { key = "Left", offset = -1, description = "left" },
+    { key = "Right", offset = 1, description = "right" },
+    { key = "Up", offset = -5, description = "up" },
+    { key = "Down", offset = 5, description = "down" },
+}
+for _, direction in ipairs(workspaceDirections) do
+    hl.bind("CTRL + SUPER + " .. direction.key, function()
+        focus_workspace_by_offset(direction.offset)
+    end, { description = "Workspace: Focus " .. direction.description })
 end
 for i = 1, 2 do
     local keys = { "Left", "Right" }
@@ -227,9 +238,9 @@ end
 --## Special
 hl.bind("SUPER + S", hl.dsp.workspace.toggle_special("special"), { description = "Workspace: Toggle scratchpad" })
 hl.bind("SUPER + mouse:275", hl.dsp.workspace.toggle_special("special"))
-for i = 1, 4 do
-    local key = { "BracketLeft", "BracketRight", "Up", "Down" }
-    local prefix = { "-1", "+1", "r-5", "r+5" }
+for i = 1, 2 do
+    local key = { "BracketLeft", "BracketRight" }
+    local prefix = { "-1", "+1" }
     hl.bind("CTRL + SUPER + " .. key[i], hl.dsp.focus({ workspace = prefix[i] }))
 end
 

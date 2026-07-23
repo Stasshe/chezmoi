@@ -20,7 +20,7 @@ chezmoiは共通設定と実行環境に対応する設定だけを適用する�
 
 Ubuntu GNOMEの端末はGhosttyとし、Super+Enterで起動する。実行中のセッションを含めて終了確認を表示しない。Arch Hyprlandの端末はKittyとする。各端末の設定は対応するOSだけへ適用する。
 
-ArchはHyprland上でネイティブWayland版Noctalia v5だけをデスクトップシェルとして起動する。バー、通知、ランチャー、設定、壁紙、クリップボード履歴、ロック、アイドル、スクリーンショット、セッション操作はNoctaliaへ集約する。Quickshell版シェルと個別代替デーモンを併用しない。
+ArchはHyprland上でネイティブWayland版Noctalia v5だけをデスクトップシェルとして起動する。バー、通知、ランチャー、設定、壁紙、クリップボード履歴、ロック、アイドル、スクリーンショット、セッション操作はNoctaliaへ集約する。バーは1から10までのワークスペース番号を常時表示し、番号内へ実行中アプリのアイコンをまとめ、非フォーカス状態を低い不透明度で残す。Quickshell版シェルと個別代替デーモンを併用しない。
 
 Archのログイン画面はgreetd上のNoctalia GreeterをWaylandで起動する。Electron、GTK、Firefox、Qt、SDLはWayland backendを優先する。XwaylandはネイティブWayland非対応アプリの互換用途に限り維持する。KDE Plasma、KWin、SDDM、KDE portal、KDEアプリをセッション要件にしない。
 

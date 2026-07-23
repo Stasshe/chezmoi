@@ -43,7 +43,8 @@ Wayland portals, Kitty, Fcitx5, the fixed Arch wallpaper, and supporting
 services. Noctalia is the only desktop shell and owns the bar, notifications,
 launcher, settings, wallpaper, clipboard history, lock screen, idle actions,
 screenshots, and session menu. Quickshell and the old standalone shell
-components are not used.
+components are not used. The bar groups running application icons by workspace;
+workspaces 1–10 remain visible, with unfocused windows at reduced opacity.
 
 `init/hypr.sh` configures Noctalia Greeter under greetd and schedules it to
 replace SDDM on the next reboot. The greeter and Hyprland session use Wayland

@@ -73,6 +73,17 @@ hl.window_rule({match = {class = "^(steam_app).*" }, immediate = true})
 hl.window_rule({match = {float = 0 }, no_shadow = true})
 
 -- ######## Workspace rules ########
+for workspace = 1, 10 do
+    local rule = {
+        workspace = tostring(workspace),
+        persistent = true,
+    }
+    if workspaceMonitor ~= "" then
+        rule.monitor = workspaceMonitor
+    end
+    hl.workspace_rule(rule)
+end
+
 hl.workspace_rule({ workspace = "special:special", gaps_out = 30 })
 
 -- ######## Layer rules ########
