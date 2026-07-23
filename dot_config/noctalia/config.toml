@@ -9,7 +9,10 @@ filename_pattern = "Screenshot_%Y-%m-%d_%H.%M.%S"
 copy_to_clipboard = true
 
 [bar.main]
-start = ["launcher", "wallpaper", "taskbar"]
+start = ["launcher", "wallhaven", "taskbar"]
+
+[widget.wallhaven]
+type = "noctalia/wallhaven:wallhaven"
 
 [widget.taskbar]
 scale = 0.9
@@ -35,13 +38,16 @@ empty_color = "surface_variant"
 
 [wallpaper]
 enabled = true
-directory = "/usr/share/backgrounds/archlinux"
+directory = "~/Pictures/Wallpapers"
 
 [wallpaper.default]
 path = "/usr/share/backgrounds/archlinux/archwaveinv.png"
 
 [wallpaper.automation]
 enabled = false
+
+[plugins]
+enabled = ["noctalia/wallhaven"]
 
 [theme]
 mode = "dark"

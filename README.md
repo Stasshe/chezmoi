@@ -45,6 +45,9 @@ launcher, settings, wallpaper, clipboard history, lock screen, idle actions,
 screenshots, and session menu. Quickshell and the old standalone shell
 components are not used. The bar groups running application icons by workspace;
 workspaces 1–10 remain visible, with unfocused windows at reduced opacity.
+The official Wallhaven plugin provides tag search, filters, thumbnail browsing,
+and downloads into `~/Pictures/Wallpapers`; the bar wallpaper button and
+`Ctrl+Super+T` open its browser.
 
 `init/hypr.sh` configures Noctalia Greeter under greetd and schedules it to
 replace SDDM on the next reboot. The greeter and Hyprland session use Wayland
@@ -126,7 +129,7 @@ Key shortcuts:
 (lock), `Super+Shift+L` (sleep), `Super+Shift+S` (region screenshot),
 `Print` (fullscreen screenshot), `Super+V` (clipboard history), `Super+N`
 (control center), `Ctrl+Alt+Delete` (session menu), `Ctrl+Super+T`
-(wallpaper), `Super+E` (Nautilus), `Super+W` (browser), `Super+I` (Noctalia
+(Wallhaven search), `Super+E` (Nautilus), `Super+W` (browser), `Super+I` (Noctalia
 settings), and a double-tap of `Super` to open the launcher.
 
 Open a new WSL session after setup so the Docker group membership takes effect.

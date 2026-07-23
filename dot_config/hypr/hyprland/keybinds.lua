@@ -16,8 +16,8 @@ hl.bind("SUPER + N", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"),
     { description = "Shell: Toggle control center" })
 hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd(ipc .. "panel-toggle session"),
     { description = "Shell: Toggle session menu" })
-hl.bind("CTRL + SUPER + T", hl.dsp.exec_cmd(ipc .. "panel-toggle wallpaper"),
-    { description = "Shell: Change wallpaper" })
+hl.bind("CTRL + SUPER + T", hl.dsp.exec_cmd(ipc .. "panel-toggle noctalia/wallhaven:browser"),
+    { description = "Shell: Search Wallhaven" })
 
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(ipc .. "brightness-up"),
     { locked = true, repeating = true })
