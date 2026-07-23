@@ -1,0 +1,43 @@
+[shell]
+clipboard_enabled = true
+polkit_agent = true
+
+[shell.screenshot]
+save_to_file = true
+directory = "~/Pictures/Screenshots"
+filename_pattern = "Screenshot_%Y-%m-%d_%H.%M.%S"
+copy_to_clipboard = true
+
+[wallpaper]
+enabled = true
+directory = "/usr/share/backgrounds/archlinux"
+
+[wallpaper.default]
+path = "/usr/share/backgrounds/archlinux/archwaveinv.png"
+
+[wallpaper.automation]
+enabled = false
+
+[theme]
+mode = "dark"
+source = "builtin"
+builtin = "Noctalia"
+
+[lockscreen]
+enabled = true
+
+[idle.behavior.lock]
+timeout = 300
+action = "lock"
+enabled = true
+
+[idle.behavior.screen-off]
+timeout = 600
+action = "screen_off"
+enabled = true
+
+[idle.behavior.suspend]
+timeout = 900
+action = "suspend"
+lock_before_suspend = true
+enabled = true

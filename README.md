@@ -34,41 +34,98 @@ h ls -la
 On Arch, install the complete Hyprland session explicitly when needed:
 
 ```bash
+./setups.sh
 ./init/hypr.sh
 ```
 
-Saya installs the Arch-specific terminal, IME, font, wallpaper, shutdown helper,
-and Zellij packages. The script then runs
-[end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)'s own dependency
-installer for the remaining session dependencies. Choose **Hyprland** from the
-display manager afterwards. The session is
-[end-4/dots-hyprland](https://github.com/end-4/dots-hyprland)
-("illogical impulse") vendored as-is under `~/.config/{hypr,quickshell,matugen,fuzzel,...}`,
-pinned at a fixed upstream commit (see `init/hypr.sh`). Quickshell provides
-the bar, notifications, launcher search and settings; `fuzzel` is the app
-launcher fallback. `archlinux-wallpaper` provides the managed
-`archwaveinv.png` wallpaper and the `mono` theme from
-`edb8b5b9c62a617ba8f4cd9a77cf465b27c9107d`. Wallpaper rotation and
-wallpaper-driven app, shell, Qt, and terminal theming are disabled.
-`~/.config/illogical-impulse/config.json`
-is managed by chezmoi, so `chezmoi apply` restores these settings.
+Saya installs Hyprland, native Wayland Noctalia v5, Noctalia Greeter, the
+Wayland portals, Kitty, Fcitx5, the fixed Arch wallpaper, and supporting
+services. Noctalia is the only desktop shell and owns the bar, notifications,
+launcher, settings, wallpaper, clipboard history, lock screen, idle actions,
+screenshots, and session menu. Quickshell and the old standalone shell
+components are not used.
 
-SDDM runs its greeter on KWin Wayland with the JIS keyboard layout. Hyprland
-keeps Xwayland available for applications that still require X11 compatibility.
+`init/hypr.sh` configures Noctalia Greeter under greetd and schedules it to
+replace SDDM on the next reboot. The greeter and Hyprland session use Wayland
+and the JIS layout. Native Wayland backends are selected for Electron, GTK,
+Firefox, Qt, and SDL before their X11 fallbacks. Xwayland remains available
+only for applications without native Wayland support.
 
-Personal deltas (JIS keyboard, Fcitx5 env vars, Kitty as the Hyprland terminal, and
-fixed wallpaper behavior) are managed alongside the vendored configuration.
-Re-vendor the upstream tree when updating it, then reapply these deltas.
+Before removing the old dependency groups, mark the replacement desktop
+packages as explicit:
 
-Key shortcuts (upstream defaults — note `Super+Q` now **closes** the focused
-window, it does not open a terminal):
+```bash
+saya install -y \
+  accountsservice \
+  archlinux-wallpaper \
+  bibata-cursor-theme \
+  bluez \
+  brightnessctl \
+  fcitx5 \
+  fcitx5-gtk \
+  fcitx5-mozc \
+  fcitx5-qt \
+  gnome-keyring \
+  hyprland \
+  kitty \
+  loupe \
+  nautilus \
+  networkmanager \
+  noctalia \
+  noctalia-greeter \
+  pavucontrol \
+  pipewire-pulse \
+  ttf-jetbrains-mono-nerd \
+  upower \
+  wl-clipboard \
+  wireplumber \
+  xdg-desktop-portal-gtk \
+  xdg-desktop-portal-hyprland \
+  -- --asexplicit
+```
+
+After the first successful Noctalia login, remove the old shell and KDE stack
+through Saya:
+
+```bash
+for package in \
+  illogical-impulse-audio \
+  illogical-impulse-backlight \
+  illogical-impulse-basic \
+  illogical-impulse-bibata-modern-classic-bin \
+  illogical-impulse-fonts-themes \
+  illogical-impulse-hyprland \
+  illogical-impulse-kde \
+  illogical-impulse-microtex-git \
+  illogical-impulse-microtex-git-debug \
+  illogical-impulse-portal \
+  illogical-impulse-python \
+  illogical-impulse-quickshell-git \
+  illogical-impulse-screencapture \
+  illogical-impulse-toolkit \
+  illogical-impulse-widgets \
+  gwenview \
+  hyprlauncher \
+  hyprpolkitagent \
+  hyprshutdown \
+  kwallet-pam \
+  kwalletmanager \
+  network-manager-applet \
+  plasma-browser-integration \
+  sddm
+do
+  saya uninstall "$package"
+done
+```
+
+Key shortcuts:
 `Super+Return` (terminal), `Super+Q` (close window), `Super+F` (fullscreen),
 `Super+D` (maximize), `Super+Alt+Space` (float/tile toggle), `Super+L`
 (lock), `Super+Shift+L` (sleep), `Super+Shift+S` (region screenshot),
-`Print`/`Ctrl+Print` (fullscreen screenshot to clipboard/file), `Super+V`
-(clipboard history), `Super+E` (file manager), `Super+W` (browser), and a
-double-tap of `Super` to open search. Run `Ctrl+Super+Alt+/` to edit your own
-keybinds, or see `~/.config/hypr/hyprland/keybinds.lua` for the full list.
+`Print` (fullscreen screenshot), `Super+V` (clipboard history), `Super+N`
+(control center), `Ctrl+Alt+Delete` (session menu), `Ctrl+Super+T`
+(wallpaper), `Super+E` (Nautilus), `Super+W` (browser), `Super+I` (Noctalia
+settings), and a double-tap of `Super` to open the launcher.
 
 Open a new WSL session after setup so the Docker group membership takes effect.
 

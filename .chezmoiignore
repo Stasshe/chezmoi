@@ -25,18 +25,10 @@ memo.md
 {{- $distribution := output "sh" "-c" ". /etc/os-release; printf %s \"$ID\"" | trim }}
 
 {{- if ne $distribution "arch" }}
-.config/Kvantum/
-.config/darklyrc
 .config/fcitx5/
-.config/fuzzel/
 .config/hypr/
-.config/illogical-impulse/
-.config/kde-material-you-colors/
-.config/kdeglobals
 .config/kitty/
-.config/matugen/
-.config/quickshell/
-.config/wlogout/
+.config/noctalia/
 .config/xdg-desktop-portal/hyprland-portals.conf
 {{- end }}
 

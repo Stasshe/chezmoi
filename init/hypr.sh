@@ -12,14 +12,24 @@ if [ "$ID" != "arch" ]; then
 fi
 
 root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-DOTS_HYPRLAND_REF="c04b0bbc8143a2b2166c1f699f7583cb28ff78fe"
-DOTS_HYPRLAND_SRC="$HOME/.cache/dots-hyprland"
 
-if [ ! -d "$DOTS_HYPRLAND_SRC/.git" ]; then
-  git clone https://github.com/end-4/dots-hyprland.git "$DOTS_HYPRLAND_SRC"
+for command in greetd noctalia noctalia-greeter-session; do
+  if ! command -v "$command" >/dev/null 2>&1; then
+    printf '%s\n' "$command is required. Run saya install first." >&2
+    exit 1
+  fi
+done
+
+if ! getent passwd greeter >/dev/null; then
+  printf '%s\n' "The greeter user is missing. Reinstall greetd before continuing." >&2
+  exit 1
 fi
-git -C "$DOTS_HYPRLAND_SRC" fetch --depth 1 origin "$DOTS_HYPRLAND_REF"
-git -C "$DOTS_HYPRLAND_SRC" checkout --detach FETCH_HEAD
 
-(cd "$DOTS_HYPRLAND_SRC" && ./setup install --skip-allfiles --skip-sysupdate -f)
-sudo install -Dm644 "$root/sddm.conf" /etc/sddm.conf.d/10-wayland.conf
+sudo install -Dm644 "$root/greetd.toml" /etc/greetd/config.toml
+sudo install -d -o greeter -g greeter /var/lib/noctalia-greeter
+if systemctl cat sddm.service >/dev/null 2>&1; then
+  sudo systemctl disable sddm.service
+fi
+sudo systemctl enable NetworkManager.service accounts-daemon.service bluetooth.service greetd.service
+
+printf '%s\n' "greetd will replace SDDM after the next reboot."

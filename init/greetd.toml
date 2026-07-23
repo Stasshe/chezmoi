@@ -1,0 +1,6 @@
+[terminal]
+vt = 1
+
+[default_session]
+command = "env XKB_DEFAULT_LAYOUT=jp /usr/bin/noctalia-greeter-session"
+user = "greeter"
