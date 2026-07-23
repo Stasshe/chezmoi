@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [ -r /etc/os-release ]; then
+  . /etc/os-release
+  if [ "$ID" = "arch" ]; then
+    export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin"
+  fi
+fi
 
 if command -v saya >/dev/null 2>&1; then
   saya self-update

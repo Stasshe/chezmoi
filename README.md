@@ -104,6 +104,7 @@ for package in \
   illogical-impulse-screencapture \
   illogical-impulse-toolkit \
   illogical-impulse-widgets \
+  fcitx5-configtool \
   gwenview \
   hyprlauncher \
   hyprpolkitagent \
