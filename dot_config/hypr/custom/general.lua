@@ -16,3 +16,8 @@ hl.config({
         border_part_of_window = false,
     },
 })
+
+hl.device({
+    name = "elan06fa:00-04f3:327e-touchpad",
+    sensitivity = 0.2,
+})
