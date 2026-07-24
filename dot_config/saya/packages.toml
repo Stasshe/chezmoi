@@ -82,4 +82,5 @@ yay = [
     "gum",
     "libinput-tools",
     "hid-tools",
+    "fcitx5-config-qt",
 ]
