@@ -84,4 +84,7 @@ yay = [
     "hid-tools",
     "fcitx5-config-qt",
     "openbsd-netcat",
+    "exiftool",
+    "exif",
+    "gdal",
 ]
