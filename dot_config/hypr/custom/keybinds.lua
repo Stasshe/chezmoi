@@ -8,14 +8,30 @@ hl.bind("SUPER + R", hl.dsp.exec_cmd(launcher), { description = "Shell: Toggle l
 hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd(launcher), { description = "Shell: Toggle launcher" })
 hl.bind("SUPER + SUPER_R", hl.dsp.exec_cmd(launcher))
 
-local focus_keys = {
-    H = "l",
-    J = "d",
-    K = "u",
-    L = "r",
+local navigation_keys = {
+    { key = "H", direction = "l", workspace_offset = -1, move_workspace = "r-1" },
+    { key = "J", direction = "d", workspace_offset = 5 },
+    { key = "K", direction = "u", workspace_offset = -5 },
+    { key = "L", direction = "r", workspace_offset = 1, move_workspace = "r+1" },
 }
 
-for key, direction in pairs(focus_keys) do
-    hl.unbind("SUPER + " .. key)
-    hl.bind("SUPER + " .. key, hl.dsp.focus({ direction = direction }))
+local function focus_workspace_by_offset(offset)
+    local current = hl.get_active_workspace().id
+    local target = (current - 1 + offset) % workspaceGroupSize + 1
+    hl.dispatch(hl.dsp.focus({ workspace = tostring(target) }))
+end
+
+for _, binding in ipairs(navigation_keys) do
+    hl.unbind("SUPER + " .. binding.key)
+    hl.bind("SUPER + " .. binding.key, hl.dsp.focus({ direction = binding.direction }))
+    hl.bind("CTRL + SUPER + " .. binding.key, function()
+        focus_workspace_by_offset(binding.workspace_offset)
+    end)
+
+    if binding.move_workspace then
+        hl.bind(
+            "SUPER + ALT + " .. binding.key,
+            hl.dsp.window.move({ workspace = binding.move_workspace })
+        )
+    end
 end

@@ -128,8 +128,10 @@ done
 
 Key shortcuts:
 `Super+Return` (terminal), `Super+Q` (close window), `Super+F` (fullscreen),
-`Super+D` (maximize), `Super+Alt+Space` (float/tile toggle), `Super+L`
-(lock), `Super+Shift+L` (sleep), `Super+Shift+S` (region screenshot),
+`Super+D` (maximize), `Super+Alt+Space` (float/tile toggle), `Super+H/J/K/L`
+(focus a window), `Ctrl+Super+H/J/K/L` (focus a workspace), `Super+Alt+H/L`
+(send a window to the adjacent workspace), `Super+Shift+L` (sleep),
+`Super+Shift+S` (region screenshot),
 `Print` (fullscreen screenshot), `Super+V` (clipboard history), `Super+N`
 (control center), `Ctrl+Alt+Delete` (session menu), `Ctrl+Super+T`
 (Wallhaven search), `Super+E` (Nautilus), `Super+W` (browser), `Super+I` (Noctalia
