@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-user_home={{ .chezmoi.homeDir | quote }}
+user_home="${HOME:?}"
 
 files=(
   ".claude/hooks/noctalia-pulse"
