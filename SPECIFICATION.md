@@ -12,6 +12,10 @@ chezmoiをbootstrap、管理ファイル適用後にSayaでAPT packages、mise�
 OS package宣言はSayaの`apt`配列だけに置く。GUI shell、IME、Wayland、Arch packageを
 持たぬ。miseはCLI・言語toolchainを管理し、FlutterとJavaを持たぬ。
 
+管理を終了したtargetはcleanup scriptへ個別列挙する。scriptは内容hash単位で一度実行し、
+fileだけを明示削除、directoryは空の場合だけ削除する。sourceに存在しないtargetの一括削除を
+行わず、OS・application・userが作った非管理fileを保つ。
+
 # Windows boundary
 
 Linux側の設定を正本としつつ、clipboardだけWindows executableへ委譲する。

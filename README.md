@@ -13,6 +13,10 @@ cd ~/.local/share/chezmoi
 chezmoi、Saya管理のAPT packages、mise tools、Zellij、zsh環境を順に構成する。
 Docker group反映のため、完了後はWSL sessionを開き直す。
 
+管理をやめたファイルは`run_once_before_cleanup.sh.tmpl`へ明示的に追加する。
+chezmoiはscript内容が変わったときだけcleanupを再実行する。列挙していないファイルと、
+空でないディレクトリは削除しない。
+
 ## Windows integration
 
 Windows側へ`win32yank`を入れる。Neovimの通常yankはこれを通してWindows clipboardへ
