@@ -1,5 +1,7 @@
-schema_version = 4
-apt = [
+schema_version = 5
+
+[apt]
+present = [
     "adb",
     "build-essential",
     "ca-certificates",
@@ -22,3 +24,5 @@ apt = [
     "unzip",
     "zsh",
 ]
+
+[yay]
