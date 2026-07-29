@@ -11,6 +11,10 @@ The setup configures the Docker APT repository on Ubuntu, installs mise and
 chezmoi, applies the managed files, installs the configured Saya packages,
 installs the configured mise tools, and configures the desktop session.
 
+Files retired from chezmoi are listed explicitly in
+`run_once_before_cleanup.sh.tmpl`. Chezmoi reruns the cleanup when its rendered
+content changes; paths absent from the list are never removed.
+
 The repository supports Arch Linux with Hyprland and Ubuntu with GNOME.
 `setups.sh` installs the common managed configuration and tools; it does not
 install Hyprland. Ubuntu remains GNOME-only. Japanese input uses IBus + Mozc on

@@ -18,6 +18,8 @@ OSパッケージの宣言はSayaマニフェストへ集約する。APTとyay�
 
 chezmoiは共通設定と実行環境に対応する設定だけを適用する。UbuntuではArch・Hyprland固有ファイルを、ArchとWSLではUbuntu・GNOME固有ファイルを対象外にする。未対応ディストリビューションには固有設定を適用しない。
 
+管理を終了したtargetはcleanup scriptへ環境別に明示列挙する。scriptはrender後の内容hash単位で一度実行する。sourceに存在しないtargetの一括削除は行わず、列挙していないOS・application・user由来のfileを保つ。
+
 Ubuntu GNOMEの端末はGhosttyとし、Super+Enterで起動する。実行中のセッションを含めて終了確認を表示しない。Arch Hyprlandの端末はKittyとする。各端末の設定は対応するOSだけへ適用する。
 
 ArchはHyprland上でネイティブWayland版Noctalia v5だけをデスクトップシェルとして起動する。バー、通知、ランチャー、設定、壁紙、クリップボード履歴、ロック、アイドル、スクリーンショット、セッション操作はNoctaliaへ集約する。バーは1から10までのワークスペース番号を常時表示し、番号内へ実行中アプリのアイコンをまとめ、非フォーカス状態を低い不透明度で残す。中央には月日、曜日、24時間表記の時刻を固定し、左側へClaude Codeの状態、右側へメディア情報を置く。Quickshell版シェルと個別代替デーモンを併用しない。

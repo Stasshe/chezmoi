@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+{{- $distribution := output "sh" "-c" ". /etc/os-release; printf %s \"$ID\"" | trim }}
+{{- $isWSL := contains "microsoft" (output "uname" "-r" | lower) }}
+user_home={{ .chezmoi.homeDir | quote }}
+
+paths=(
+{{- if eq $distribution "arch" }}
+  ".config/Kvantum"
+  ".config/darklyrc"
+  ".config/fuzzel"
+  ".config/hypr/hypridle.conf"
+  ".config/hypr/hyprlock"
+  ".config/hypr/hyprlock.conf"
+  ".config/illogical-impulse"
+  ".config/kde-material-you-colors"
+  ".config/kdeglobals"
+  ".config/matugen"
+  ".config/quickshell"
+  ".config/wlogout"
+{{- else if and (eq $distribution "ubuntu") $isWSL }}
+  ".config/burn-my-windows"
+  ".config/ghostty"
+  ".config/mozc"
+  ".local/share/backgrounds"
+  ".local/share/gnome-shell"
+{{- end }}
+)
+
+cd -- "$user_home"
+
+for path in "${paths[@]}"; do
+  rm -rf -- "$path"
+done
