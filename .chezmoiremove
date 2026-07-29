@@ -1,4 +1,5 @@
 {{- $distribution := output "sh" "-c" ". /etc/os-release; printf %s \"$ID\"" | trim }}
+{{- $isWSL := contains "microsoft" (output "uname" "-r" | lower) }}
 {{- if eq $distribution "arch" }}
 .config/Kvantum
 .config/darklyrc
@@ -12,4 +13,11 @@
 .config/matugen
 .config/quickshell
 .config/wlogout
+{{- end }}
+{{- if and (eq $distribution "ubuntu") $isWSL }}
+.config/burn-my-windows
+.config/ghostty
+.config/mozc
+.local/share/backgrounds
+.local/share/gnome-shell
 {{- end }}
