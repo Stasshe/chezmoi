@@ -1,5 +1,7 @@
-schema_version = 4
-apt = [
+schema_version = 5
+
+[apt]
+present = [
     "build-essential",
     "ca-certificates",
     "containerd.io",
@@ -35,7 +37,9 @@ apt = [
     "openssh-server",
     "kitty-terminfo",
 ]
-yay = [
+
+[yay]
+present = [
     "accountsservice",
     "archlinux-wallpaper",
     "base-devel",
