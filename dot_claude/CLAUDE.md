@@ -30,6 +30,9 @@ curlを使ってよいのは、明示的なAPI endpointやhealth checkのHTTP契
 release.ymlにはpatch minor majorの選択肢でbump versionするやつを。
 workflowの中のビルドにはキャッシュも使え。
 
+
+plan modeのときは、必ずそのリポジトリにplan.mdもしくはSPECIFICATION.mdを置くように。
+
 設計・仕様変更があった場合は必ずREADME,SPECIFICATION,docs/(specとdocsはない可能性がある。)に該当箇所があるか確認し、それを修正しろ
 
 この環境ではrgが使える
