@@ -1,16 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ ! -r /etc/os-release ]]; then
-  exit 0
-fi
-
-. /etc/os-release
-
-if [[ "$ID" != "ubuntu" ]]; then
-  exit 0
-fi
-
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 

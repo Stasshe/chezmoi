@@ -3,40 +3,10 @@ README.md
 SPECIFICATION.md
 CLAUDE.md
 AGENTS.md
-KNOWLEDGE.md
-
-
-
-
 init/
 setups.sh
-
-
 nvim.log
 .github/
 VERSION
-
-desktop/
 .gle
-
-
 memo.md
-
-{{- $distribution := output "sh" "-c" ". /etc/os-release; printf %s \"$ID\"" | trim }}
-{{- $isWSL := contains "microsoft" (output "uname" "-r" | lower) }}
-
-{{- if ne $distribution "arch" }}
-.config/fcitx5/
-.config/hypr/
-.config/kitty/
-.config/noctalia/
-.config/xdg-desktop-portal/hyprland-portals.conf
-{{- end }}
-
-{{- if or (ne $distribution "ubuntu") $isWSL }}
-.config/burn-my-windows/
-.config/ghostty/
-.config/mozc/
-.local/share/backgrounds/
-.local/share/gnome-shell/
-{{- end }}

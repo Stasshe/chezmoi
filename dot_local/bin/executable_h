@@ -11,12 +11,10 @@ command_line="${(j: :)${(@q)@}}"
 output="$(NO_COLOR=1 script -q -e -c "$command_line" /dev/null | sed $'s/\033\\[[0-9;]*[[:alpha:]]//g; s/\r$//')"
 command_status=$?
 
-if command -v wl-copy >/dev/null 2>&1; then
-  print -rn -- "$output" | wl-copy
-elif command -v clip.exe >/dev/null 2>&1; then
+if command -v clip.exe >/dev/null 2>&1; then
   print -rn -- "$output" | clip.exe
 else
-  print -u2 'h: no supported clipboard command found'
+  print -u2 'h: clip.exe was not found'
   exit 127
 fi
 

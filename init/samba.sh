@@ -16,12 +16,6 @@ fi
 
 saya install
 
-if [[ -e /etc/arch-release ]]; then
-  service=smb.service
-else
-  service=smbd.service
-fi
-
 rendered="$(mktemp "$root/.smb.conf.XXXXXX")"
 trap 'rm -f "$rendered"' EXIT
 sed \
@@ -31,8 +25,8 @@ sed \
 
 testparm -s "$rendered" >/dev/null
 sudo install -m 0644 "$rendered" /etc/samba/smb.conf
-sudo systemctl enable "$service"
-sudo systemctl restart "$service"
+sudo systemctl enable smbd.service
+sudo systemctl restart smbd.service
 
 if command -v ufw >/dev/null 2>&1; then
   ufw_status="$(sudo ufw status)"

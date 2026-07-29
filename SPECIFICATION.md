@@ -1,35 +1,25 @@
-# Desktop
+# Platform
 
-GNOME 50の標準シェルを土台にする。暗色、紫のアクセント、常時表示する左側フローティングDock、2×2ワークスペース、専用壁紙で視覚を統一する。Show AppsはDock上端へ置く。上部パネルにはCPUとメモリの使用率を常時表示する。
+Ubuntu on WSL専用。他OS・desktop sessionへ適応せぬ。入口で環境を検証し、内部に
+distributionやdesktopの分岐を持ち込まぬ。
 
-Workspace Matrixの切替ポップアップを表示する。サムネイルは使わず、IからIVまでの2×2グリッドを使う。アプリウィンドウはぼかさず、切替中の描画を安定させる。
+# Provisioning
 
-ワークスペース移動はSuper+Ctrl+矢印に統一する。
+`setups.sh`を唯一の一括入口とする。Docker公式APT repositoryを登録し、mise経由で
+chezmoiをbootstrap、管理ファイル適用後にSayaでAPT packages、miseでuser toolsを
+導入する。sudoを要するsystem設定とuser設定の責務をinit script単位で分ける。
 
-Super+Shift+SとPrintはGNOME標準のスクリーンショットUIを開く。
+OS package宣言はSayaの`apt`配列だけに置く。GUI shell、IME、Wayland、Arch packageを
+持たぬ。miseはCLI・言語toolchainを管理し、FlutterとJavaを持たぬ。
 
-切替グリッドは半透明の暗いガラスと紫の選択枠で描く。Workspace Matrix本体は変更しない。
+# Windows boundary
 
-外部テーマでShell構造を上書きしない。GNOME更新後も標準UIの可読性と操作を保つ。Shell 50対応版のBlur my ShellとBurn My Windowsだけを使い、通常時の壁紙はぼかさず、Overviewの静的ぼかし、パネルとDockの動的ぼかし、短いGlideで動きを作る。拡張本体はGNOME Extensions Webで管理し、chezmoiは設定だけを持つ。
-
-`setups.sh`はchezmoi適用後にデスクトップ設定を冪等適用する。
-
-OSパッケージの宣言はSayaマニフェストへ集約する。APTとyayのパッケージ名は独立した配列で保持し、OS間の論理名対応は持たない。UbuntuのIME依存、ArchのHyprland・Noctalia依存とZellijも同じマニフェストから導入する。システムサービス設定は各initスクリプトが担う。
-
-chezmoiは共通設定と実行環境に対応する設定だけを適用する。UbuntuではArch・Hyprland固有ファイルを、ArchとWSLではUbuntu・GNOME固有ファイルを対象外にする。未対応ディストリビューションには固有設定を適用しない。
-
-Ubuntu GNOMEの端末はGhosttyとし、Super+Enterで起動する。実行中のセッションを含めて終了確認を表示しない。Arch Hyprlandの端末はKittyとする。各端末の設定は対応するOSだけへ適用する。
-
-ArchはHyprland上でネイティブWayland版Noctalia v5だけをデスクトップシェルとして起動する。バー、通知、ランチャー、設定、壁紙、クリップボード履歴、ロック、アイドル、スクリーンショット、セッション操作はNoctaliaへ集約する。バーは1から10までのワークスペース番号を常時表示し、番号内へ実行中アプリのアイコンをまとめ、非フォーカス状態を低い不透明度で残す。中央には月日、曜日、24時間表記の時刻を固定し、左側へClaude Codeの状態、右側へメディア情報を置く。Quickshell版シェルと個別代替デーモンを併用しない。
-
-壁紙のオンライン検索はNoctalia公式Wallhavenプラグインへ集約する。タグ・カテゴリ・purity・並び順で検索し、選択した画像を`~/Pictures/Wallpapers`へ保存して全モニターへ適用する。APIキーなしではSFWのみを扱う。
-
-Archのログイン画面はgreetd上のNoctalia GreeterをWaylandで起動する。Electron、GTK、Firefox、Qt、SDLはWayland backendを優先する。XwaylandはネイティブWayland非対応アプリの互換用途に限り維持する。KDE Plasma、KWin、SDDM、KDE portal、KDEアプリをセッション要件にしない。
-
-`~/.local/bin/h`はコマンドを疑似端末で実行し、端末向けに整形されたテキスト出力をOSクリップボードへコピーする。Arch HyprlandとUbuntu GNOMEでは`wl-copy`、Ubuntu WSLでは`clip.exe`を使い、`h command`で呼び出す。
+Linux側の設定を正本としつつ、clipboardだけWindows executableへ委譲する。
+`~/.local/bin/h`は疑似端末出力から装飾を除いて`clip.exe`へ渡す。Neovimは
+`win32yank.exe`をproviderとし、UTF-8 textをWindows clipboardへ渡す。
 
 # Local file sharing
 
-SambaはSayaで導入する。ローカルネットワーク上の認証済みLinuxユーザー本人に限り、`~/Documents`をSMB2以上で読み書き共有する。Apple SMB拡張で実効権限とメタデータを伝える。ゲストアクセスとホームディレクトリ全体の公開は行わない。共有設定は`init/samba.sh`で明示的に適用し、SMBパスワードは対話入力で登録する。
-
-Ubuntu GNOMEの日本語入力はIBus + Mozcを使う。GNOME入力ソースは通常のMozcだけに固定し、半角／全角キーはMozc内部の直接入力とひらがなを切り替える。Arch HyprlandはFcitx5 + Mozcを使い、入力基盤の環境変数をセッション間で共有しない。
+Sambaは認証済みLinux user本人へ`~/Documents`だけをSMB2以上で読み書き共有する。
+guest accessとhome全体の公開を許さぬ。Sayaはpackage導入、`init/samba.sh`は設定検証、
+service反映、SMB credential登録を担う。
