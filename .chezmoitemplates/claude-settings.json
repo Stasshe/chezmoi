@@ -24,7 +24,8 @@
       "Bash(git diff *)",
       "Bash(gh issue *)",
       "Bash(cargo clippy *)",
-      "Bash(cargo test *)"
+      "Bash(cargo test *)",
+      "Bash(rm -rf /tmp/*)"
     ],
     "deny": [
       "Bash(rm -rf /)",
