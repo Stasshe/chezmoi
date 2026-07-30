@@ -97,4 +97,5 @@ present = [
     "dnsmasq",
     "edk2-ovmf",
     "wget",
+    "gparted",
 ]
