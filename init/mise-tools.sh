@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-mise install
+printf '[mise-tools] install configured tools\n'
+mise install --verbose
