@@ -9,6 +9,7 @@ export PATH="$HOME/.local/bin:$PATH"
 "$root/init/mise.sh"
 "$root/init/chezmoi.sh" "$root"
 "$root/init/base.sh"
+"$root/init/virtualization.sh"
 "$root/init/zellij.sh"
 
 

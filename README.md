@@ -62,6 +62,9 @@ and the JIS layout. Native Wayland backends are selected for Electron, GTK,
 Firefox, Qt, and SDL before their X11 fallbacks. Xwayland remains available
 only for applications without native Wayland support.
 
+On Arch, `setups.sh` also enables libvirt socket activation and prepares its
+default autostarted NAT network for virt-manager.
+
 Before removing the old dependency groups, mark the replacement desktop
 packages as explicit:
 
