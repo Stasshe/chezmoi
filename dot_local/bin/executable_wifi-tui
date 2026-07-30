@@ -3,16 +3,15 @@
 
 set -euo pipefail
 
-for bin in nmcli fzf gum; do
+for bin in nmcli fzf gum busctl; do
   command -v "$bin" >/dev/null || {
     printf '%s is required.\n' "$bin" >&2
     exit 1
   }
 done
 
-list_networks() {
-  nmcli device wifi rescan >/dev/null 2>&1 || true
-  nmcli -t -f IN-USE,SSID,SECURITY,SIGNAL device wifi list |
+snapshot_networks() {
+  nmcli -t -f IN-USE,SSID,SECURITY,SIGNAL device wifi list --rescan no ifname "$wifi_device" |
     awk -F: 'BEGIN{OFS="\t"} $2!="" {
       key=$2
       sig=$4+0
@@ -24,21 +23,54 @@ list_networks() {
     sort -t: -k4 -rn
 }
 
+last_scan() {
+  busctl get-property org.freedesktop.NetworkManager "$device_path" \
+    org.freedesktop.NetworkManager.Device.Wireless LastScan |
+    awk '{ print $2 }'
+}
+
+list_networks() {
+  while :; do
+    snapshot_networks
+
+    if [[ $(last_scan) != "$scan_started_at" ]]; then
+      break
+    fi
+
+    sleep 0.5
+  done | awk -F: '$2 != "" && !seen[$2]++'
+}
+
 format_row() {
   local in_use=$1 ssid=$2 security=$3 signal=$4
   local mark=' '
   [[ $in_use == '*' ]] && mark='*'
   local lock='open'
   [[ -n $security && $security != '--' ]] && lock=$security
-  printf '%s\t%s\t%s%%\t%s' "$mark" "$ssid" "$signal" "$lock"
+  printf '%s\t%s\t%s%%\t%s\n' "$mark" "$ssid" "$signal" "$lock"
 }
 
+wifi_device=$(
+  nmcli -t -f DEVICE,TYPE device status |
+    awk -F: '$2 == "wifi" { print $1; exit }'
+)
+if [[ -z $wifi_device ]]; then
+  printf 'No Wi-Fi device found.\n' >&2
+  exit 1
+fi
+
+device_path=$(nmcli -g GENERAL.DBUS-PATH device show "$wifi_device")
+scan_started_at=$(last_scan)
+nmcli device wifi rescan ifname "$wifi_device"
+
 selection=$(
-  list_networks | while IFS=: read -r in_use ssid security signal; do
-    format_row "$in_use" "$ssid" "$security" "$signal"
-  done | fzf --with-nth=1,2,3,4 --delimiter='\t' \
+  fzf --with-nth=1,2,3,4 --delimiter='\t' \
     --header='IN-USE  SSID  SIGNAL  SECURITY   (enter: connect, esc: quit)' \
-    --prompt='wifi> '
+    --prompt='wifi> ' < <(
+      list_networks | while IFS=: read -r in_use ssid security signal; do
+        format_row "$in_use" "$ssid" "$security" "$signal"
+      done
+    )
 ) || exit 0
 
 ssid=$(cut -f2 <<<"$selection")
