@@ -4,6 +4,10 @@
 # --- PATH ---
 export PATH="$HOME/.local/bin:$PATH"
 
+if command -v ruby >/dev/null 2>&1; then
+  export PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
+fi
+
 # --- mise ---
 if [ -x "$HOME/.local/bin/mise" ]; then
   eval "$("$HOME/.local/bin/mise" activate zsh)"
