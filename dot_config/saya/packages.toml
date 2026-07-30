@@ -76,6 +76,7 @@ present = [
     "ttf-jetbrains-mono-nerd",
     "unzip",
     "upower",
+    "wget",
     "wl-clipboard",
     "wireplumber",
     "xdg-desktop-portal-gtk",

@@ -16,7 +16,7 @@ Super+Shift+SとPrintはGNOME標準のスクリーンショットUIを開く。
 
 OSパッケージの宣言はSayaマニフェストへ集約する。APTとyayのパッケージ名は独立した配列で保持し、OS間の論理名対応は持たない。UbuntuのIME依存、ArchのHyprland・Noctalia依存とZellijも同じマニフェストから導入する。システムサービス設定は各initスクリプトが担う。
 
-Archの仮想化環境はQEMU/KVM、libvirt、virt-managerを使う。libvirtはsocket activationで起動し、VMの外向き接続には自動起動する標準NATネットワークを使う。
+Archの仮想化環境はQEMU/KVM、libvirt、virt-managerを使う。専用initスクリプトを手動実行し、libvirtのsocket activation、自動起動する標準NATネットワーク、検証済みKali QEMUイメージを準備する。通常の`setups.sh`には含めない。
 
 chezmoiは共通設定と実行環境に対応する設定だけを適用する。UbuntuではArch・Hyprland固有ファイルを、ArchとWSLではUbuntu・GNOME固有ファイルを対象外にする。未対応ディストリビューションには固有設定を適用しない。
 
