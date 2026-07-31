@@ -98,4 +98,5 @@ present = [
     "edk2-ovmf",
     "wget",
     "gparted",
+    "dosfstools",
 ]
