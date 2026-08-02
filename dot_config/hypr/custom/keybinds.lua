@@ -2,6 +2,12 @@ hl.bind("CTRL+SUPER+ALT+Slash", hl.dsp.exec_cmd("xdg-open ~/.config/hypr/custom/
 
 local launcher = "noctalia msg panel-toggle launcher"
 
+hl.bind(
+    "Zenkaku_Hankaku",
+    hl.dsp.exec_cmd("fcitx5-remote -t"),
+    { description = "Input: Toggle Japanese" }
+)
+
 hl.unbind("SUPER + SUPER_L")
 hl.unbind("SUPER + SUPER_R")
 hl.bind("SUPER + R", hl.dsp.exec_cmd(launcher), { description = "Shell: Toggle launcher" })
