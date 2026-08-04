@@ -21,6 +21,8 @@ oxlint = "latest"
 pnpm = "latest"
 python = "3.13"
 ripgrep = "latest"
+# Keep rust-analyzer before rust so it wins over rustup's proxy.
+rust-analyzer = "latest"
 rust = "stable"
 tree-sitter = "latest"
 uv = "latest"
