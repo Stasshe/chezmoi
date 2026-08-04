@@ -28,7 +28,7 @@ ArchはHyprland上でネイティブWayland版Noctalia v5だけをデスクト�
 
 壁紙のオンライン検索はNoctalia公式Wallhavenプラグインへ集約する。タグ・カテゴリ・purity・並び順で検索し、選択した画像を`~/Pictures/Wallpapers`へ保存して全モニターへ適用する。APIキーなしではSFWのみを扱う。
 
-Archのログイン画面はgreetd上のNoctalia GreeterをWaylandで起動する。Electron、GTK、Firefox、Qt、SDLはWayland backendを優先する。XwaylandはネイティブWayland非対応アプリの互換用途に限り維持する。KDE Plasma、KWin、SDDM、KDE portal、KDEアプリをセッション要件にしない。
+Archのログイン画面はgreetd上のNoctalia GreeterをWaylandで起動する。Electron、GTK、Firefox、Qt、SDLはWayland backendを優先する。ChromeはIMEイベント配送の安定性を保つためXWaylandとFcitx GTK input moduleを使う。他のXWayland利用は安定したネイティブWayland経路がないアプリに限る。KDE Plasma、KWin、SDDM、KDE portal、KDEアプリをセッション要件にしない。
 
 `~/.local/bin/h`はコマンドを疑似端末で実行し、端末向けに整形されたテキスト出力をOSクリップボードへコピーする。Arch HyprlandとUbuntu GNOMEでは`wl-copy`、Ubuntu WSLでは`clip.exe`を使い、`h command`で呼び出す。
 
@@ -36,4 +36,4 @@ Archのログイン画面はgreetd上のNoctalia GreeterをWaylandで起動す�
 
 SambaはSayaで導入する。ローカルネットワーク上の認証済みLinuxユーザー本人に限り、`~/Documents`をSMB2以上で読み書き共有する。Apple SMB拡張で実効権限とメタデータを伝える。ゲストアクセスとホームディレクトリ全体の公開は行わない。共有設定は`init/samba.sh`で明示的に適用し、SMBパスワードは対話入力で登録する。
 
-Ubuntu GNOMEの日本語入力はIBus + Mozcを使う。GNOME入力ソースは通常のMozcだけに固定し、半角／全角キーはMozc内部の直接入力とひらがなを切り替える。Arch HyprlandはFcitx5 + Mozcを使い、入力基盤の環境変数をセッション間で共有しない。
+Ubuntu GNOMEの日本語入力はIBus + Mozcを使う。GNOME入力ソースは通常のMozcだけに固定し、半角／全角キーはMozc内部の直接入力とひらがなを切り替える。Arch HyprlandはFcitx5 + Mozcを使う。入力基盤の環境変数をセッション間で共有しない。
