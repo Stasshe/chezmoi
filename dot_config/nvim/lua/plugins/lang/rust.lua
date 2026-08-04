@@ -52,6 +52,11 @@ local function setup_rust_dap_fallback()
   table.insert(dap.configurations.rust, cfg)
 end
 
+local function rust_lsp_capabilities()
+  local capabilities = require("rustaceanvim.config.server").create_client_capabilities()
+  return require("blink.cmp").get_lsp_capabilities(capabilities)
+end
+
 return {
   {
     "AstroNvim/astrocore",
@@ -115,6 +120,7 @@ return {
     opts = function()
       -- DAP: rustaceanvim default adapter — `codelldb` or `lldb-dap` / `lldb-vscode` on PATH (e.g. mise).
       local server = {
+        capabilities = rust_lsp_capabilities(),
         on_attach = function(client, bufnr)
           -- vim.keymap.set("n", "<leader>la", function()
           --   vim.cmd.RustLsp "codeAction"
