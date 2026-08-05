@@ -55,6 +55,9 @@ alias y='yazi'
 alias laz='lazygit'
 alias ch='chezmoi'
 
+alias zap='JAVA_HOME="$(mise where java)" /usr/local/bin/zap.sh'
+
+
 diffnav() {
   if [[ -t 0 && $# -eq 0 ]]; then
     command diffnav --watch --watch-cmd "git diff HEAD"
