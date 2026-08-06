@@ -23,6 +23,8 @@ present = [
     "tar",
     "unzip",
     "zsh",
+    "qemu-system-x86",
+    "qemu-utils",
 ]
 
 [yay]
