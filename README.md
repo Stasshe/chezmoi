@@ -20,7 +20,7 @@ chezmoiはscript内容が変わったときだけcleanupを再実行する。列
 ## Windows integration
 
 Windows側へ`win32yank`を入れる。Neovimの通常yankはこれを通してWindows clipboardへ
-送られる。
+送られる。`dd`はWindows clipboardを更新しない。
 
 ```powershell
 winget install -e --id equalsraf.win32yank

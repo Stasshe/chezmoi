@@ -20,7 +20,8 @@ fileだけを明示削除、directoryは空の場合だけ削除する。source�
 
 Linux側の設定を正本としつつ、clipboardだけWindows executableへ委譲する。
 `~/.local/bin/h`は疑似端末出力から装飾を除いて`clip.exe`へ渡す。Neovimは
-`win32yank.exe`をproviderとし、UTF-8 textをWindows clipboardへ渡す。
+`win32yank.exe`をproviderとし、UTF-8 textをWindows clipboardへ渡す。`dd`は
+clipboardを更新せずlineを削除する。
 
 # Local file sharing
 

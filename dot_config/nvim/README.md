@@ -7,3 +7,6 @@ winget install --id equalsraf.win32yank --exact
 ```
 
 Neovimの通常yankは`win32yank.exe`を通してWindows clipboardへ送られる。
+`dd`はWindows clipboardを更新せず、直前のclipboard内容を保つ。
+
+`<F8>`でカーソル位置のdiagnostic messageをまとめてclipboardへコピーする。
