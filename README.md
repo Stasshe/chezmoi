@@ -27,8 +27,15 @@ matching desktop configuration; it excludes Arch/Hyprland files on Ubuntu and
 Ubuntu/GNOME files on Arch or WSL. Ubuntu GNOME uses Ghostty, opened with
 `Super+Enter`, without a close confirmation; Arch Hyprland uses Kitty.
 
-In zsh, prefix a command with `h` to copy its terminal-formatted output to the
-OS clipboard:
+Windows側へ`win32yank`を入れる。Neovimの通常yankはこれを通してWindows clipboardへ
+送られる。`dd`はWindows clipboardを更新しない。
+
+```powershell
+winget install -e --id equalsraf.win32yank
+wsl --set-default Ubuntu
+```
+
+zshでは`h`を先頭につけると、端末表示用に整形された出力を`clip.exe`へ送れる。
 
 ```bash
 h ls -la

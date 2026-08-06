@@ -12,25 +12,10 @@ Super+Shift+SとPrintはGNOME標準のスクリーンショットUIを開く。
 
 外部テーマでShell構造を上書きしない。GNOME更新後も標準UIの可読性と操作を保つ。Shell 50対応版のBlur my ShellとBurn My Windowsだけを使い、通常時の壁紙はぼかさず、Overviewの静的ぼかし、パネルとDockの動的ぼかし、短いGlideで動きを作る。拡張本体はGNOME Extensions Webで管理し、chezmoiは設定だけを持つ。
 
-`setups.sh`はchezmoi適用後にデスクトップ設定を冪等適用する。
-
-OSパッケージの宣言はSayaマニフェストへ集約する。APTとyayのパッケージ名は独立した配列で保持し、OS間の論理名対応は持たない。UbuntuのIME依存、ArchのHyprland・Noctalia依存とZellijも同じマニフェストから導入する。システムサービス設定は各initスクリプトが担う。
-
-Archの仮想化環境はQEMU/KVM、libvirt、virt-managerを使う。専用initスクリプトを手動実行し、libvirtのsocket activation、自動起動する標準NATネットワーク、検証済みKali QEMUイメージを準備する。通常の`setups.sh`には含めない。
-
-chezmoiは共通設定と実行環境に対応する設定だけを適用する。UbuntuではArch・Hyprland固有ファイルを、ArchとWSLではUbuntu・GNOME固有ファイルを対象外にする。未対応ディストリビューションには固有設定を適用しない。
-
-管理を終了したtargetはcleanup scriptへ環境別に明示列挙する。scriptはrender後の内容hash単位で一度実行する。sourceに存在しないtargetの一括削除は行わず、列挙していないOS・application・user由来のfileを保つ。
-
-Ubuntu GNOMEの端末はGhosttyとし、Super+Enterで起動する。実行中のセッションを含めて終了確認を表示しない。Arch Hyprlandの端末はKittyとする。各端末の設定は対応するOSだけへ適用する。
-
-ArchはHyprland上でネイティブWayland版Noctalia v5だけをデスクトップシェルとして起動する。バー、通知、ランチャー、設定、壁紙、クリップボード履歴、ロック、アイドル、スクリーンショット、セッション操作はNoctaliaへ集約する。バーは1から10までのワークスペース番号を常時表示し、番号内へ実行中アプリのアイコンをまとめ、非フォーカス状態を低い不透明度で残す。中央には月日、曜日、24時間表記の時刻を固定し、左側へClaude Codeの状態、右側へメディア情報を置く。Quickshell版シェルと個別代替デーモンを併用しない。
-
-壁紙のオンライン検索はNoctalia公式Wallhavenプラグインへ集約する。タグ・カテゴリ・purity・並び順で検索し、選択した画像を`~/Pictures/Wallpapers`へ保存して全モニターへ適用する。APIキーなしではSFWのみを扱う。
-
-Archのログイン画面はgreetd上のNoctalia GreeterをWaylandで起動する。Chrome、Electron、GTK、Firefox、Qt、SDLはWayland backendを優先する。Chromeの日本語入力はWayland text-input-v3経由でFcitx5へ接続する。XWayland利用は安定したネイティブWayland経路がないアプリに限る。KDE Plasma、KWin、SDDM、KDE portal、KDEアプリをセッション要件にしない。
-
-`~/.local/bin/h`はコマンドを疑似端末で実行し、端末向けに整形されたテキスト出力をOSクリップボードへコピーする。Arch HyprlandとUbuntu GNOMEでは`wl-copy`、Ubuntu WSLでは`clip.exe`を使い、`h command`で呼び出す。
+Linux側の設定を正本としつつ、clipboardだけWindows executableへ委譲する。
+`~/.local/bin/h`は疑似端末出力から装飾を除いて`clip.exe`へ渡す。Neovimは
+`win32yank.exe`をproviderとし、UTF-8 textをWindows clipboardへ渡す。`dd`は
+clipboardを更新せずlineを削除する。
 
 # Local file sharing
 
