@@ -52,7 +52,6 @@ present = [
     "docker",
     "docker-compose",
     "fcitx5",
-    "fcitx5-gtk",
     "fcitx5-mozc",
     "fcitx5-qt",
     "ffmpeg",
@@ -99,4 +98,9 @@ present = [
     "wget",
     "gparted",
     "dosfstools",
+    "musescore",
+    "pipewire-alsa",
+]
+absent = [
+    "fcitx5-gtk",
 ]

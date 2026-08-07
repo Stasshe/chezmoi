@@ -28,7 +28,7 @@ ArchはHyprland上でネイティブWayland版Noctalia v5だけをデスクト�
 
 壁紙のオンライン検索はNoctalia公式Wallhavenプラグインへ集約する。タグ・カテゴリ・purity・並び順で検索し、選択した画像を`~/Pictures/Wallpapers`へ保存して全モニターへ適用する。APIキーなしではSFWのみを扱う。
 
-Archのログイン画面はgreetd上のNoctalia GreeterをWaylandで起動する。Electron、GTK、Firefox、Qt、SDLはWayland backendを優先する。ChromeはIMEイベント配送の安定性を保つためXWaylandとFcitx GTK input moduleを使う。他のXWayland利用は安定したネイティブWayland経路がないアプリに限る。KDE Plasma、KWin、SDDM、KDE portal、KDEアプリをセッション要件にしない。
+Archのログイン画面はgreetd上のNoctalia GreeterをWaylandで起動する。Chrome、Electron、GTK、Firefox、Qt、SDLはWayland backendを優先する。Chromeの日本語入力はWayland text-input-v3経由でFcitx5へ接続する。XWayland利用は安定したネイティブWayland経路がないアプリに限る。KDE Plasma、KWin、SDDM、KDE portal、KDEアプリをセッション要件にしない。
 
 `~/.local/bin/h`はコマンドを疑似端末で実行し、端末向けに整形されたテキスト出力をOSクリップボードへコピーする。Arch HyprlandとUbuntu GNOMEでは`wl-copy`、Ubuntu WSLでは`clip.exe`を使い、`h command`で呼び出す。
 

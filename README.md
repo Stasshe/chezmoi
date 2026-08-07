@@ -21,12 +21,11 @@ install Hyprland. Ubuntu remains GNOME-only. Japanese input uses IBus + Mozc on
 Ubuntu and Fcitx5 + Mozc on Arch. Both use the JIS (`jp`) keyboard layout. GNOME
 uses the standard Mozc engine; its direct and hiragana modes are switched
 internally with the JIS Hankaku/Zenkaku key. Sign out and back in after setup
-before using the IME. On Hyprland, Chrome runs through XWayland with its Fcitx
-GTK input module because its native Wayland text-input context can stop routing
-IME events after focus and resume transitions. Chezmoi applies common files
-plus the matching desktop configuration; it excludes Arch/Hyprland files on
-Ubuntu and Ubuntu/GNOME files on Arch or WSL. Ubuntu GNOME uses Ghostty, opened
-with `Super+Enter`, without a close confirmation; Arch Hyprland uses Kitty.
+before using the IME. On Hyprland, Chrome uses native Wayland and its
+text-input-v3 integration for Fcitx5. Chezmoi applies common files plus the
+matching desktop configuration; it excludes Arch/Hyprland files on Ubuntu and
+Ubuntu/GNOME files on Arch or WSL. Ubuntu GNOME uses Ghostty, opened with
+`Super+Enter`, without a close confirmation; Arch Hyprland uses Kitty.
 
 In zsh, prefix a command with `h` to copy its terminal-formatted output to the
 OS clipboard:
@@ -60,10 +59,9 @@ and downloads into `~/Pictures/Wallpapers`; the bar wallpaper button and
 
 `init/hypr.sh` configures Noctalia Greeter under greetd and schedules it to
 replace SDDM on the next reboot. The greeter and Hyprland session use Wayland
-and the JIS layout. Native Wayland backends are selected for Electron, GTK,
-Firefox, Qt, and SDL before their X11 fallbacks. Chrome uses XWayland for stable
-IME routing; other XWayland use remains limited to applications without a
-reliable native Wayland path.
+and the JIS layout. Native Wayland backends are selected for Chrome, Electron,
+GTK, Firefox, Qt, and SDL before their X11 fallbacks. XWayland use remains
+limited to applications without a reliable native Wayland path.
 
 On Arch, run `init/virtualization.sh` separately to enable libvirt socket
 activation, prepare its default autostarted NAT network, and download and
@@ -81,7 +79,6 @@ saya install -y \
   bluez \
   brightnessctl \
   fcitx5 \
-  fcitx5-gtk \
   fcitx5-mozc \
   fcitx5-qt \
   gnome-keyring \
