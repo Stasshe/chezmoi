@@ -1,5 +1,11 @@
 local default_tree_width = 40
-local tree_width_path = vim.fn.stdpath "state" .. "/neo-tree/window-width"
+local tree_width_path = vim.fn.stdpath "state" .. "/neo-tree/sidebar-width"
+
+local function is_tree_width(width)
+  if not width then return false end
+
+  return width > 0
+end
 
 local function read_tree_width()
   if vim.fn.filereadable(tree_width_path) == 0 then return default_tree_width end
@@ -7,13 +13,13 @@ local function read_tree_width()
   local lines = vim.fn.readfile(tree_width_path)
   local width = tonumber(lines[1])
 
-  if width and width > 0 then return width end
+  if is_tree_width(width) then return width end
 
   return default_tree_width
 end
 
 local function save_tree_width(width)
-  if not width or width <= 0 then return end
+  if not is_tree_width(width) then return end
 
   vim.fn.mkdir(vim.fn.fnamemodify(tree_width_path, ":h"), "p")
   vim.fn.writefile({ tostring(width) }, tree_width_path)
@@ -27,22 +33,46 @@ local function save_current_tree_widths()
   end
 end
 
-local function save_closed_tree_width(event)
-  local win = tonumber(event.match)
+local function save_resized_tree_widths()
+  vim.defer_fn(save_current_tree_widths, 120)
+end
 
-  if not win or not vim.api.nvim_win_is_valid(win) then return end
+local function save_event_tree_width(args)
+  if args.position ~= "left" then return end
+  if not args.winid or not vim.api.nvim_win_is_valid(args.winid) then return end
 
-  local buf = vim.api.nvim_win_get_buf(win)
+  save_tree_width(vim.api.nvim_win_get_width(args.winid))
+end
 
-  if vim.bo[buf].filetype == "neo-tree" then save_tree_width(vim.api.nvim_win_get_width(win)) end
+local function restore_event_tree_width(args)
+  if args.position ~= "left" then return end
+  if not args.winid or not vim.api.nvim_win_is_valid(args.winid) then return end
+
+  local width = read_tree_width()
+
+  if vim.api.nvim_win_get_width(args.winid) ~= width then vim.api.nvim_win_set_width(args.winid, width) end
+end
+
+local function tree_config()
+  return {
+    window = {
+      width = read_tree_width(),
+    },
+  }
+end
+
+local function execute_tree(args)
+  if args.toggle then save_current_tree_widths() end
+
+  args.position = args.position or "left"
+  require("neo-tree.command").execute(args, tree_config())
 end
 
 local function show_tree(source)
   vim.schedule(function()
-    require("neo-tree.command").execute {
+    execute_tree {
       action = "focus",
       source = source,
-      position = "left",
     }
   end)
 end
@@ -57,7 +87,7 @@ return {
       -- toggling from Git/Bufs resets the source selector to File. `source = "last"` matches
       -- the tab you picked (neo-tree updates `last` on next_source / prev_source).
       maps.n["<Leader>e"] = {
-        function() require("neo-tree.command").execute { toggle = true, source = "last" } end,
+        function() execute_tree { toggle = true, source = "last" } end,
         desc = "Toggle Explorer",
       }
       maps.n["<Leader>o"] = {
@@ -65,7 +95,7 @@ return {
           if vim.bo.filetype == "neo-tree" then
             vim.cmd.wincmd "p"
           else
-            require("neo-tree.command").execute { action = "focus", source = "last" }
+            execute_tree { action = "focus", source = "last" }
           end
         end,
         desc = "Toggle Explorer Focus",
@@ -84,13 +114,8 @@ return {
       autocmds.neo_tree_width = {
         {
           event = "WinResized",
-          callback = save_current_tree_widths,
-          desc = "Save resized Neo-tree width",
-        },
-        {
-          event = "WinClosed",
-          callback = save_closed_tree_width,
-          desc = "Save closed Neo-tree width",
+          callback = save_resized_tree_widths,
+          desc = "Save stable Neo-tree width after resize",
         },
         {
           event = "VimLeavePre",
@@ -103,6 +128,16 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
+      event_handlers = {
+        {
+          event = "neo_tree_window_before_close",
+          handler = save_event_tree_width,
+        },
+        {
+          event = "neo_tree_window_after_open",
+          handler = restore_event_tree_width,
+        },
+      },
       window = {
         width = read_tree_width(),
         mappings = {
