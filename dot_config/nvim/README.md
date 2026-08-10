@@ -44,7 +44,6 @@ winget install --id equalsraf.win32yank --exact
 On WSL, regular Neovim yanks then use `win32yank.exe` and are copied to the
 Windows clipboard without changing UTF-8 text.
 
-## Ubuntu Desktop clipboard
+`<F8>`でカーソル位置のdiagnostic messageをまとめてclipboardへコピーする。
 
-On Ubuntu Desktop, Neovim uses OSC 52 to copy regular yanks through the
-terminal. Ghostty supports OSC 52 without an external clipboard command.
+Neo-treeの横幅はリサイズ後の値をNeovim stateへ保存し、非表示後や次回起動時も同じ幅で開く。
