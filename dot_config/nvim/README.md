@@ -11,4 +11,5 @@ Neovimの通常yankは`win32yank.exe`を通してWindows clipboardへ送られ�
 
 `<F8>`でカーソル位置のdiagnostic messageをまとめてclipboardへコピーする。
 
-Neo-treeの横幅はリサイズ後の値をNeovim stateへ保存し、非表示後や次回起動時も同じ幅で開く。
+Neo-treeの横幅はリサイズ後と閉じる直前にNeovim stateへ保存し、再表示時や次回起動時に同じ幅へ戻す。
+再表示直後に既存windowへ入った場合も保存幅へ戻す。
