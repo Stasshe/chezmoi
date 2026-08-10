@@ -64,6 +64,11 @@ local function copy_cursor_diagnostics()
   vim.notify("Copied diagnostics", vim.log.levels.INFO)
 end
 
+local function count_enter()
+  if vim.v.count > 0 then return "G" end
+  return "<CR>"
+end
+
 ---@type LazySpec
 return {
   "AstroNvim/astrocore",
@@ -98,6 +103,8 @@ return {
         relativenumber = false,
         number = true,
         spell = false,
+        showcmd = true,
+        showcmdloc = "statusline",
         signcolumn = "yes",
         wrap = false,
       },
@@ -108,6 +115,7 @@ return {
         ["q"] = { "<cmd>quit<cr>", desc = "Quit window" },
         ["<F2>"] = { "q", desc = "Record macro" },
         ["<F8>"] = { copy_cursor_diagnostics, desc = "Copy cursor diagnostics" },
+        ["<CR>"] = { count_enter, desc = "Go to counted line", expr = true },
         ["<Tab>"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
         ["<S-Tab>"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
 
