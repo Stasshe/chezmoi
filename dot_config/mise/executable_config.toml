@@ -7,6 +7,9 @@ eza = "latest"
 fd = "latest"
 fzf = "latest"
 go = "latest"
+"go:go.uber.org/mock/mockgen" = { version = "latest", depends = "go" }
+"go:github.com/sqlc-dev/sqlc/cmd/sqlc" = { version = "latest", depends = "go" }
+"go:github.com/mfridman/tparse" = { version = "latest", depends = "go" }
 jq = "latest"
 neovim = "nightly"
 node = "24"
