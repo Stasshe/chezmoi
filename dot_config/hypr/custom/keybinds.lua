@@ -17,7 +17,8 @@ local navigation_keys = {
 
 local function focus_workspace_by_offset(offset)
     local current = hl.get_active_workspace().id
-    local target = (current - 1 + offset) % workspaceGroupSize + 1
+    local group_start = math.floor((current - 1) / workspaceGroupSize) * workspaceGroupSize
+    local target = group_start + (current - 1 + offset) % workspaceGroupSize + 1
     hl.dispatch(hl.dsp.focus({ workspace = tostring(target) }))
 end
 
