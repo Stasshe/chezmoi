@@ -100,7 +100,6 @@ present = [
     "dosfstools",
     "musescore",
     "pipewire-alsa",
+    "bluez-utils",
 ]
-absent = [
-    "fcitx5-gtk",
-]
+absent = ["fcitx5-gtk"]
