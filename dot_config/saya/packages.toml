@@ -101,5 +101,6 @@ present = [
     "musescore",
     "pipewire-alsa",
     "bluez-utils",
+    "vi",
 ]
 absent = ["fcitx5-gtk"]
