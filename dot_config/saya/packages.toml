@@ -102,5 +102,6 @@ present = [
     "pipewire-alsa",
     "bluez-utils",
     "vi",
+    "zerotier-one",
 ]
 absent = ["fcitx5-gtk"]
