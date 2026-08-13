@@ -1,0 +1,14 @@
+id = "local/ai-usage"
+name = "AI Usage"
+version = "1.0.0"
+plugin_api = 3
+author = "local"
+license = "MIT"
+icon = "chart-bar"
+description = "Shows Codex and Claude plan usage in the bar."
+dependencies = ["ai-usage", "codex", "node"]
+tags = ["ai", "productivity", "bar"]
+
+[[widget]]
+id = "bar"
+entry = "bar.luau"

@@ -1,0 +1,178 @@
+#!/usr/bin/env node
+
+const { spawn } = require("node:child_process");
+const fs = require("node:fs/promises");
+const os = require("node:os");
+const path = require("node:path");
+const readline = require("node:readline");
+
+const REQUEST_TIMEOUT_MS = 10_000;
+
+function durationLabel(minutes) {
+  if (minutes % 10_080 === 0) {
+    return `${minutes / 10_080}w`;
+  }
+  if (minutes % 1_440 === 0) {
+    return `${minutes / 1_440}d`;
+  }
+  if (minutes % 60 === 0) {
+    return `${minutes / 60}h`;
+  }
+  return `${minutes}m`;
+}
+
+function codexWindow(window) {
+  if (!window || typeof window.usedPercent !== "number") {
+    return null;
+  }
+
+  const duration = window.windowDurationMins;
+  return {
+    label: typeof duration === "number" ? durationLabel(duration) : "limit",
+    usedPercent: window.usedPercent,
+    resetsAt: typeof window.resetsAt === "number"
+      ? new Date(window.resetsAt * 1000).toISOString()
+      : null,
+  };
+}
+
+function readCodexUsage() {
+  return new Promise((resolve, reject) => {
+    const child = spawn("codex", ["app-server", "--stdio"], {
+      stdio: ["pipe", "pipe", "pipe"],
+    });
+    const lines = readline.createInterface({ input: child.stdout });
+    let settled = false;
+    let stderr = "";
+
+    const finish = (error, value) => {
+      if (settled) {
+        return;
+      }
+      settled = true;
+      clearTimeout(timer);
+      lines.close();
+      child.kill();
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve(value);
+    };
+
+    const timer = setTimeout(() => {
+      finish(new Error("Codex usage request timed out"));
+    }, REQUEST_TIMEOUT_MS);
+
+    child.stderr.on("data", (chunk) => {
+      stderr += chunk.toString();
+    });
+    child.on("error", finish);
+    child.on("exit", (code) => {
+      if (!settled) {
+        const detail = stderr.trim() || `exit code ${code}`;
+        finish(new Error(`Codex app-server failed: ${detail}`));
+      }
+    });
+
+    lines.on("line", (line) => {
+      let message;
+      try {
+        message = JSON.parse(line);
+      } catch {
+        return;
+      }
+
+      if (message.id === 1 && message.result) {
+        child.stdin.write(`${JSON.stringify({ method: "initialized" })}\n`);
+        child.stdin.write(
+          `${JSON.stringify({ id: 2, method: "account/rateLimits/read", params: null })}\n`,
+        );
+        return;
+      }
+
+      if (message.id !== 2) {
+        return;
+      }
+      if (message.error) {
+        finish(new Error(message.error.message || "Codex usage request failed"));
+        return;
+      }
+
+      const result = message.result || {};
+      const limits = result.rateLimitsByLimitId?.codex || result.rateLimits || {};
+      const windows = [codexWindow(limits.primary), codexWindow(limits.secondary)].filter(Boolean);
+      finish(null, { windows });
+    });
+
+    child.stdin.write(
+      `${JSON.stringify({
+        id: 1,
+        method: "initialize",
+        params: {
+          clientInfo: { name: "ai-usage-bar", version: "1" },
+          capabilities: { experimentalApi: true },
+        },
+      })}\n`,
+    );
+  });
+}
+
+function claudeWindow(label, window) {
+  if (!window || typeof window.utilization !== "number") {
+    return null;
+  }
+  return {
+    label,
+    usedPercent: window.utilization,
+    resetsAt: window.resets_at ?? null,
+  };
+}
+
+async function readClaudeUsage() {
+  const configDirectory = process.env.CLAUDE_CONFIG_DIR || path.join(os.homedir(), ".claude");
+  const credentialsPath = path.join(configDirectory, ".credentials.json");
+  const credentials = JSON.parse(await fs.readFile(credentialsPath, "utf8"));
+  const accessToken = credentials.claudeAiOauth?.accessToken;
+  if (!accessToken) {
+    throw new Error("Claude OAuth credentials are unavailable");
+  }
+
+  const response = await fetch("https://api.anthropic.com/api/oauth/usage", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "anthropic-beta": "oauth-2025-04-20",
+    },
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+  });
+  if (!response.ok) {
+    throw new Error(`Claude usage request failed with HTTP ${response.status}`);
+  }
+
+  const usage = await response.json();
+  const windows = [
+    claudeWindow("5h", usage.five_hour),
+    claudeWindow("7d", usage.seven_day),
+  ].filter(Boolean);
+  return { windows };
+}
+
+function providerResult(result) {
+  if (result.status === "fulfilled") {
+    return result.value;
+  }
+  return { error: result.reason?.message || String(result.reason), windows: [] };
+}
+
+async function main() {
+  const [codex, claude] = await Promise.allSettled([readCodexUsage(), readClaudeUsage()]);
+  process.stdout.write(`${JSON.stringify({
+    codex: providerResult(codex),
+    claude: providerResult(claude),
+  })}\n`);
+}
+
+main().catch((error) => {
+  process.stdout.write(`${JSON.stringify({ error: error.message })}\n`);
+  process.exitCode = 1;
+});

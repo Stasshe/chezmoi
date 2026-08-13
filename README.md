@@ -58,8 +58,11 @@ screenshots, and session menu. Quickshell and the old standalone shell
 components are not used. The bar groups running application icons by workspace;
 workspaces 1–10 remain visible, with unfocused windows at reduced opacity.
 The center clock shows `MM/DD (weekday) HH:MM` in 24-hour time. Claude
-Companion sits to its left and reports Claude Code lifecycle state; the media
-player sits to its right with additional separation from the status widgets.
+Companion sits to its left and reports Claude Code lifecycle state. The adjacent
+AI usage widget shows the current Codex and Claude plan-window utilization and
+refreshes every five minutes or when clicked; reset times and provider errors
+remain in its tooltip. The media player sits to the clock's right with additional
+separation from the status widgets.
 The official Wallhaven plugin provides tag search, filters, thumbnail browsing,
 and downloads into `~/Pictures/Wallpapers`; the bar wallpaper button and
 `Ctrl+Super+T` open its browser.
