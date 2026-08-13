@@ -13,6 +13,7 @@ restore, staging, commitなどは禁止する。
 git diffなどの読み取りのみは完全に許可する。
 git restoreは例外として許可する
 git操作があった場合、大方私がやったことだから無視しろ
+例外として、issue,pr作成は許可性とする。私から許可が出ればghコマンドを使ってやれ
 
 親Folder名をFile名で繰り返さない規則
 

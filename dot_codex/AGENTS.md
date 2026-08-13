@@ -13,6 +13,7 @@ restore, staging, commitなどは禁止する。
 git diffなどの読み取りのみは完全に許可する。
 git restoreは例外として許可する
 git操作があった場合、大方私がやったことだから無視しろ
+例外として、issue,pr作成は許可性とする。私から許可が出ればghコマンドを使ってやれ
 
 親Folder名をFile名で繰り返さない規則
 
@@ -30,6 +31,9 @@ curlを使ってよいのは、明示的なAPI endpointやhealth checkのHTTP契
 release.ymlにはpatch minor majorの選択肢でbump versionするやつを。
 workflowの中のビルドにはキャッシュも使え。
 
+
+plan modeのときは、必ずそのリポジトリにplan.mdもしくはSPECIFICATION.mdを置くように。
+
 設計・仕様変更があった場合は必ずREADME,SPECIFICATION,docs/(specとdocsはない可能性がある。)に該当箇所があるか確認し、それを修正しろ
 
 この環境ではrgが使える
@@ -37,6 +41,7 @@ workflowの中のビルドにはキャッシュも使え。
 /home/からではなく~/からor pwdからパスは指定しろ
 
 @~/.claude/ATTENTIONS.md
+@~/.claude/DESIGN.md
 
 # 設計書・仕様書の極意
 
