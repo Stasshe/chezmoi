@@ -51,6 +51,11 @@ local function restore_event_tree_width(args)
   local width = read_tree_width()
 
   if vim.api.nvim_win_get_width(args.winid) ~= width then vim.api.nvim_win_set_width(args.winid, width) end
+
+  -- Without this, vim's `equalalways` resizes neo-tree along with other
+  -- windows whenever splits open/close (e.g. during crash-recovery), and
+  -- neo-tree.nvim itself never sets winfixwidth to guard against it.
+  vim.wo[args.winid].winfixwidth = true
 end
 
 local function tree_config()
