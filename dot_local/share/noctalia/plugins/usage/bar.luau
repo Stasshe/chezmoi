@@ -2,8 +2,8 @@
 
 local REFRESH_INTERVAL_MS = 300000
 local providers = {
-  { key = "codex", label = "Codex" },
-  { key = "claude", label = "Claude" },
+  { key = "codex", label = "Codex", glyph = "brand-openai", color = "primary" },
+  { key = "claude", label = "Claude", glyph = "message-chatbot-filled", color = "tertiary" },
 }
 local refreshing = false
 local snapshot = nil
@@ -31,23 +31,37 @@ local function providerText(provider)
 end
 
 local function render()
-  barWidget.setGlyph("chart-bar")
   if refreshing and snapshot == nil then
-    barWidget.setText("AI …")
+    barWidget.render(ui.row({ align = "center", gap = 5 }, {
+      ui.glyph({ name = "loader-2", size = 13, color = "primary" }),
+      ui.label({ text = "…", fontSize = 11, color = "on_surface" }),
+    }))
     barWidget.setTooltip("Loading Codex and Claude usage")
     return
   end
   if type(snapshot) ~= "table" then
-    barWidget.setText("AI !")
+    barWidget.render(ui.glyph({ name = "alert-circle", size = 13, color = "error" }))
     barWidget.setTooltip("AI usage is unavailable")
     return
   end
 
-  local text = {}
+  local segments = {}
   local tooltip = {}
-  for _, spec in ipairs(providers) do
+  for index, spec in ipairs(providers) do
     local provider = snapshot[spec.key] or {}
-    text[#text + 1] = spec.label .. " " .. providerText(provider)
+    if index > 1 then
+      segments[#segments + 1] = ui.box({ width = 1, height = 15, fill = "outline/0.35" })
+    end
+    segments[#segments + 1] = ui.row({ align = "center", gap = 4 }, {
+      ui.glyph({ name = spec.glyph, size = 13, color = spec.color }),
+      ui.label({
+        text = providerText(provider),
+        fontSize = 11,
+        fontWeight = "semibold",
+        color = "on_surface",
+        maxLines = 1,
+      }),
+    })
     if provider.error then
       tooltip[#tooltip + 1] = spec.label .. ": " .. tostring(provider.error)
     else
@@ -63,17 +77,21 @@ local function render()
       tooltip[#tooltip + 1] = table.concat(lines, "\n")
     end
   end
-  barWidget.setText(table.concat(text, " · "))
+  barWidget.render(ui.row({ align = "center", gap = 7 }, segments))
   barWidget.setTooltip(table.concat(tooltip, "\n\n"))
 end
 
-local function refresh()
+local function refresh(force)
   if refreshing then
     return
   end
   refreshing = true
   render()
-  local started = noctalia.runAsync("ai-usage", function(result)
+  local command = "ai-usage"
+  if force then
+    command = command .. " --refresh"
+  end
+  local started = noctalia.runAsync(command, function(result)
     refreshing = false
     if result == nil or result.exitCode ~= 0 then
       snapshot = nil
@@ -97,12 +115,12 @@ end
 
 function update()
   noctalia.setUpdateInterval(REFRESH_INTERVAL_MS)
-  refresh()
+  refresh(false)
 end
 
 function onClick()
-  refresh()
+  refresh(true)
 end
 
 noctalia.setUpdateInterval(REFRESH_INTERVAL_MS)
-refresh()
+refresh(false)
