@@ -25,11 +25,32 @@ local function save_tree_width(width)
   vim.fn.writefile({ tostring(width) }, tree_width_path)
 end
 
+local function has_normal_companion(win)
+  local tab = vim.api.nvim_win_get_tabpage(win)
+
+  for _, candidate in ipairs(vim.api.nvim_tabpage_list_wins(tab)) do
+    if candidate ~= win and vim.api.nvim_win_get_config(candidate).relative == "" then
+      local buf = vim.api.nvim_win_get_buf(candidate)
+
+      if vim.bo[buf].filetype ~= "neo-tree" then return true end
+    end
+  end
+
+  return false
+end
+
+local function save_tree_window_width(win)
+  if not vim.api.nvim_win_is_valid(win) then return end
+  if not has_normal_companion(win) then return end
+
+  save_tree_width(vim.api.nvim_win_get_width(win))
+end
+
 local function save_current_tree_widths()
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     local buf = vim.api.nvim_win_get_buf(win)
 
-    if vim.bo[buf].filetype == "neo-tree" then save_tree_width(vim.api.nvim_win_get_width(win)) end
+    if vim.bo[buf].filetype == "neo-tree" then save_tree_window_width(win) end
   end
 end
 
@@ -41,7 +62,7 @@ local function save_event_tree_width(args)
   if args.position ~= "left" then return end
   if not args.winid or not vim.api.nvim_win_is_valid(args.winid) then return end
 
-  save_tree_width(vim.api.nvim_win_get_width(args.winid))
+  save_tree_window_width(args.winid)
 end
 
 local function restore_event_tree_width(args)
