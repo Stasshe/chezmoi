@@ -44,3 +44,6 @@ end
 
 -- Shell overrides --
 require("hyprland.shellOverrides.main")
+
+-- For Noctalia Color templates
+require("noctalia").apply_theme()

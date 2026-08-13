@@ -2,8 +2,8 @@
 # vim:fileencoding=utf-8:foldmethod=marker
 
 [flavor]
-dark = ""
-light = ""
+dark = "noctalia"
+light = "noctalia"
 
 [app]
 overall = { bg = "#1f1d1a" }
