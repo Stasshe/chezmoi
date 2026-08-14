@@ -20,7 +20,7 @@ git操作があった場合、大方私がやったことだから無視しろ
 コードファイルは英語で書け
 無意味にechoを使うな。Readを使え。
 
-plan modeの時は、さいごにplan.txtだけでなく、プロジェクトに
+plan modeの時は、さいごにplan.mdでなく、プロジェクトに
 SPECIFICATION.md　を追加しろ。
 設計書・仕様書などはgenshijin口調だが、それより以下の設計書仕様書の極意を優先しろ。
 
@@ -31,7 +31,7 @@ release.ymlにはpatch minor majorの選択肢でbump versionするやつを。
 workflowの中のビルドにはキャッシュも使え。
 
 
-plan modeのときは、必ずそのリポジトリにplan.mdもしくはSPECIFICATION.mdを置くように。
+plan modeのときは、必ずそのリポジトリにSPECIFICATION.mdを置くように。
 
 設計・仕様変更があった場合は必ずREADME,SPECIFICATION,docs/(specとdocsはない可能性がある。)に該当箇所があるか確認し、それを修正しろ
 
