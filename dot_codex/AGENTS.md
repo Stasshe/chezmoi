@@ -25,8 +25,7 @@ SPECIFICATION.md　を追加しろ。
 設計書・仕様書などはgenshijin口調だが、それより以下の設計書仕様書の極意を優先しろ。
 
 ブラウザを介する確認は最初からagent-browserを使え。
-画面表示・画面遷移・認証・フォーム・Server Action・Cookie/Session・Client-side JavaScriptの確認をcurlやwgetで代用するな。Next.jsでは正しく検証できない。
-curlを使ってよいのは、明示的なAPI endpointやhealth checkのHTTP契約だけを確認するときに限る。
+画面表示・画面遷移・認証・フォーム・Server Action・Cookie/Session・Client-side JavaScriptの確認をcurlやwgetで代用するな。Next.jsでは正しく検証できない。 curlを使ってよいのは、明示的なAPI endpointやhealth checkのHTTP契約だけを確認するときに限る。
 
 release.ymlにはpatch minor majorの選択肢でbump versionするやつを。
 workflowの中のビルドにはキャッシュも使え。
@@ -39,6 +38,12 @@ plan modeのときは、必ずそのリポジトリにplan.mdもしくはSPECIFI
 この環境ではrgが使える
 
 /home/からではなく~/からor pwdからパスは指定しろ
+
+
+work/では、決してdev,develop,mainブランチで直接pushしないように。
+pr作るときは、ghつかった.shファイルを出力しろ。実行は私がやるからお前はやるな。
+あなたが直接やっていいのはissueの作成のみ。ただしこれも許可性。
+
 
 @~/.claude/ATTENTIONS.md
 @~/.claude/DESIGN.md
