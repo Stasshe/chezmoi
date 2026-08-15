@@ -1,24 +1,31 @@
-# Desktop
+# vm branch
 
-GNOME 50の標準シェルを土台にする。暗色、紫のアクセント、常時表示する左側フローティングDock、2×2ワークスペース、専用壁紙で視覚を統一する。Show AppsはDock上端へ置く。上部パネルにはCPUとメモリの使用率を常時表示する。
+CLI専用ホスト向け分岐。main(GNOME/Hyprlandデスクトップ)からGUI一式を落とし、
+最小のCLI開発環境だけ残す。対象はUbuntu/Arch両方、どちらもheadless前提。
 
-Workspace Matrixの切替ポップアップを表示する。サムネイルは使わず、IからIVまでの2×2グリッドを使う。アプリウィンドウはぼかさず、切替中の描画を安定させる。
+## パッケージ方針
 
-ワークスペース移動はSuper+Ctrl+矢印に統一する。
+`dot_config/saya/packages.toml`は開発必須のみ: ビルドツールチェーン、
+git/gh、docker、ffmpeg/imagemagick、openssh。
 
-Super+Shift+SとPrintはGNOME標準のスクリーンショットUIを開く。
+除外(mainにあったが落とした):
+- GUI/デスクトップシェル一式(GNOME拡張、Hyprland、Noctalia、Kitty/Ghostty、IME、オーディオ、入力デバイス調整)
+- samba: ファイル共有はvmの用途外
+- 仮想化(libvirt/qemu/virt-manager/Kaliイメージ): vm内で入れ子仮想化は想定しない
+- adb/fastboot: Android実機デバッグ、vmでは繋がらない
 
-切替グリッドは半透明の暗いガラスと紫の選択枠で描く。Workspace Matrix本体は変更しない。
+## dotfile除外
 
-外部テーマでShell構造を上書きしない。GNOME更新後も標準UIの可読性と操作を保つ。Shell 50対応版のBlur my ShellとBurn My Windowsだけを使い、通常時の壁紙はぼかさず、Overviewの静的ぼかし、パネルとDockの動的ぼかし、短いGlideで動きを作る。拡張本体はGNOME Extensions Webで管理し、chezmoiは設定だけを持つ。
+GUI関連dotfile本体(hypr/noctalia/kitty/ghostty/fcitx5/mozc等)は消さずmain資産として
+リポジトリに残す。`.chezmoiignore`で常時除外することでvmホストへは一切適用しない。
+mainの`.chezmoiignore`はdistribution判定(arch/ubuntu/WSL)で出し分けていたが、
+vmは判定不要で最初から全部除外に倒す。
 
-Linux側の設定を正本としつつ、clipboardだけWindows executableへ委譲する。
-`~/.local/bin/h`は疑似端末出力から装飾を除いて`clip.exe`へ渡す。Neovimは
-`win32yank.exe`をproviderとし、UTF-8 textをWindows clipboardへ渡す。`dd`は
-clipboardを更新せずlineを削除する。
+## init/スクリプト
 
-# Local file sharing
+setups.shはdocker.sh → mise.sh → chezmoi apply → base.sh(saya+claude CLI) →
+zellij.sh → mise-tools.sh → term.sh(zsh設定)の順で呼ぶ。desktop.sh(GNOME gsettings)は
+呼ばない。
 
-SambaはSayaで導入する。ローカルネットワーク上の認証済みLinuxユーザー本人に限り、`~/Documents`をSMB2以上で読み書き共有する。Apple SMB拡張で実効権限とメタデータを伝える。ゲストアクセスとホームディレクトリ全体の公開は行わない。共有設定は`init/samba.sh`で明示的に適用し、SMBパスワードは対話入力で登録する。
-
-Ubuntu GNOMEの日本語入力はIBus + Mozcを使う。GNOME入力ソースは通常のMozcだけに固定し、半角／全角キーはMozc内部の直接入力とひらがなを切り替える。Arch HyprlandはFcitx5 + Mozcを使う。入力基盤の環境変数をセッション間で共有しない。
+hypr.sh/greetd.toml/samba.sh/smb.conf/virtualization.shはCLI vmで使う経路が
+そもそも無いため削除した(setups.shから呼ばれず、死んだコードとして残す理由がない)。

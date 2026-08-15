@@ -14,13 +14,11 @@ export PATH="$HOME/.local/bin:$PATH"
 
 if getent group docker >/dev/null; then
   sudo usermod -aG docker "$USER"
-  sudo usermod -aG input "$USER"
 fi
 
 eval "$(mise activate bash)"
 
 "$root/init/mise-tools.sh"
-"$root/init/desktop.sh"
 "$root/init/term.sh"
 
-printf 'Setup completed. Start a new desktop session to use the keyboard and IME settings.\n'
+printf 'Setup completed. Start a new shell session to apply group membership.\n'

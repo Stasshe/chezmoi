@@ -1,9 +1,0 @@
-#!/bin/sh
-
-pulse_script="${XDG_STATE_HOME:-$HOME/.local/state}/noctalia/plugins/materialized/community/claude-companion/hooks/pulse.py"
-
-if [ ! -f "$pulse_script" ]; then
-  exit 0
-fi
-
-exec python3 "$pulse_script" "$@"
