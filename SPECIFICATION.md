@@ -14,12 +14,13 @@ git/gh、docker、ffmpeg/imagemagick、openssh。
 - 仮想化(libvirt/qemu/virt-manager/Kaliイメージ): vm内で入れ子仮想化は想定しない
 - adb/fastboot: Android実機デバッグ、vmでは繋がらない
 
-## dotfile除外
+## dotfile削除
 
-GUI関連dotfile本体(hypr/noctalia/kitty/ghostty/fcitx5/mozc等)は消さずmain資産として
-リポジトリに残す。`.chezmoiignore`で常時除外することでvmホストへは一切適用しない。
+GUI関連dotfile本体(hypr/noctalia/kitty/ghostty/fcitx5/mozc/xdg-desktop-portal/
+burn-my-windows/mimeapps.list/wallpaper/gnome-shell拡張等)はignoreでなくリポジトリから
+削除した。mainに戻せば復元できるが、vm branchでは存在自体させない。
 mainの`.chezmoiignore`はdistribution判定(arch/ubuntu/WSL)で出し分けていたが、
-vmは判定不要で最初から全部除外に倒す。
+vmはその判定自体不要になった。
 
 ## init/スクリプト
 

@@ -21,23 +21,3 @@ desktop/
 
 
 memo.md
-
-.config/autostart/
-.config/burn-my-windows/
-.config/chrome-flags.conf
-.config/environment.d/
-.config/fcitx5/
-.config/ghostty/
-.config/hypr/
-.config/kitty/
-.config/mimeapps.list
-.config/mozc/
-.config/noctalia/
-.config/xdg-desktop-portal/
-.local/bin/screen-capture
-.local/bin/wifi-tui
-.local/share/applications/
-.local/share/backgrounds/
-.local/share/gnome-shell/
-.local/share/noctalia/
-.local/share/remoteview/

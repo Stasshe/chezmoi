@@ -17,7 +17,7 @@ imagemagick, openssh), installs mise-managed tools, and configures zsh
 (Oh My Zsh + plugins, oh-my-posh theme).
 
 GUI-only dotfiles (Hyprland, GNOME, Noctalia, Ghostty, Kitty, IME, wallpapers)
-stay in the repo but are excluded via `.chezmoiignore` on this branch.
+are removed on this branch, not just ignored.
 
 ## Release
 
