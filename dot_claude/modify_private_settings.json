@@ -5,7 +5,7 @@
 {{- $managed := include ".chezmoitemplates/claude-settings.json" | fromJson -}}
 {{- $current := dict -}}
 {{- with .chezmoi.stdin -}}{{- $current = fromJson . -}}{{- end -}}
-{{- range $k := list "model" -}}
+{{- range $k := list "model" "autoMode" -}}
 {{- if hasKey $current $k -}}{{- $_ := set $managed $k (get $current $k) -}}{{- end -}}
 {{- end -}}
 {{ toPrettyJson $managed -}}
