@@ -51,7 +51,7 @@ On Arch, install the complete Hyprland session explicitly when needed:
 ```
 
 Saya installs Hyprland, native Wayland Noctalia v5, Noctalia Greeter, the
-Wayland portals, Kitty, Fcitx5, the fixed Arch wallpaper, and supporting
+Wayland portals, Kitty, Fcitx5, and supporting
 services. Noctalia is the only desktop shell and owns the bar, notifications,
 launcher, settings, wallpaper, clipboard history, lock screen, idle actions,
 screenshots, and session menu. Quickshell and the old standalone shell
@@ -84,7 +84,6 @@ packages as explicit:
 ```bash
 saya install -y \
   accountsservice \
-  archlinux-wallpaper \
   bibata-cursor-theme \
   bluez \
   brightnessctl \

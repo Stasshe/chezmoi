@@ -56,7 +56,7 @@ enabled = true
 directory = "~/Pictures/Wallpapers"
 
 [wallpaper.default]
-path = "/usr/share/backgrounds/archlinux/archwaveinv.png"
+path = "~/Pictures/Wallpapers/wallhaven-y8622k.jpg"
 
 [wallpaper.automation]
 enabled = false
