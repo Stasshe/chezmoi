@@ -103,5 +103,6 @@ present = [
     "bluez-utils",
     "vi",
     "zerotier-one",
+    "tmux",
 ]
 absent = ["fcitx5-gtk"]
