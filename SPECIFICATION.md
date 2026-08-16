@@ -1,6 +1,6 @@
 # Desktop
 
-Arch HyprlandではNoctaliaがchezmoi管理の壁紙を全画面へ表示する。壁紙の自動切替は行わない。
+Arch HyprlandではNoctaliaがchezmoi管理の壁紙を全画面へ表示する。壁紙の自動切替は行わない。AI usageのreset時刻はTokyo時間で表示する。
 
 GNOME 50の標準シェルを土台にする。暗色、紫のアクセント、常時表示する左側フローティングDock、2×2ワークスペース、専用壁紙で視覚を統一する。Show AppsはDock上端へ置く。上部パネルにはCPUとメモリの使用率を常時表示する。
 
