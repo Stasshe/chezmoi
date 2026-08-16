@@ -23,6 +23,13 @@ if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
     "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 fi
 
+echo "[init02] install oh-my-posh"
+
+if ! command -v oh-my-posh >/dev/null 2>&1; then
+  mkdir -p "$HOME/.local/bin"
+  curl -fsSL https://ohmyposh.dev/install.sh | bash -s -- -d "$HOME/.local/bin"
+fi
+
 echo "[init02] install oh-my-posh theme"
 
 mkdir -p "$HOME/.poshthemes"
