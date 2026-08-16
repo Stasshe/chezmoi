@@ -23,4 +23,6 @@ eval "$(mise activate bash)"
 "$root/init/desktop.sh"
 "$root/init/term.sh"
 
+chsh -s "$(command -v zsh)"
+
 printf 'Setup completed. Start a new desktop session to use the keyboard and IME settings.\n'
