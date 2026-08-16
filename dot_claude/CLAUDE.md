@@ -44,6 +44,8 @@ work/では、決してdev,develop,mainブランチで直接pushしないよう�
 pr作るときは、ghつかった.shファイルを出力しろ。実行は私がやるからお前はやるな。
 あなたが直接やっていいのはissueの作成のみ。ただしこれも許可性。
 
+eslintではなくbiomejsを使え
+
 
 @~/.claude/ATTENTIONS.md
 @~/.claude/DESIGN.md
