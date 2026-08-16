@@ -47,6 +47,9 @@ pr作るときは、ghつかった.shファイルを出力しろ。実行は私�
 eslintではなくbiomejsを使え
 
 
+CLIがうまくいかないときはtmuxを使え
+
+
 @~/.claude/ATTENTIONS.md
 @~/.claude/DESIGN.md
 
