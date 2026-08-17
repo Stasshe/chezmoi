@@ -104,5 +104,6 @@ present = [
     "vi",
     "zerotier-one",
     "tmux",
+    "nwg-displays",
 ]
 absent = ["fcitx5-gtk"]
