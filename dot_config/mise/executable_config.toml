@@ -1,39 +1,24 @@
 [tools]
 bat = "latest"
-bun = "latest"
 chezmoi = "latest"
 delta = "latest"
 eza = "latest"
 fd = "latest"
 fzf = "latest"
-go = "latest"
-"go:go.uber.org/mock/mockgen" = { version = "latest", depends = "go" }
-"go:github.com/sqlc-dev/sqlc/cmd/sqlc" = { version = "latest", depends = "go" }
-"go:github.com/mfridman/tparse" = { version = "latest", depends = "go" }
 jq = "latest"
 neovim = "nightly"
 node = "24"
 "npm:@openai/codex" = { version = "latest", depends = "node" }
 "npm:agent-browser" = { version = "latest", depends = "node" }
-"npm:ctx-gleaner" = { version = "latest", depends = "node" }
-"npm:hunkdiff" = { version = "latest", depends = "node" }
-"npm:uipro-cli" = { version = "latest", depends = "node" }
 "npm:vscode-langservers-extracted" = { version = "latest", depends = "node" }
 oxfmt = "latest"
 oxlint = "latest"
-pnpm = "latest"
-python = "3.13"
 ripgrep = "latest"
 # Keep rust-analyzer before rust so it wins over rustup's proxy.
-rust-analyzer = "latest"
-rust = "stable"
 tree-sitter = "latest"
-uv = "latest"
 zoxide = "latest"
 lazygit = "latest"
 yazi = "latest"
 tombi = "latest"
-"aqua:dlvhdr/diffnav" = "latest"
 "aqua:dlvhdr/gh-dash" = "latest"
 oh-my-posh = "latest"
-java = "temurin-21"
