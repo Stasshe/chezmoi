@@ -9,25 +9,20 @@ hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd(launcher), { description = "Shell: To
 hl.bind("SUPER + SUPER_R", hl.dsp.exec_cmd(launcher))
 
 local navigation_keys = {
-    { key = "H", direction = "l", workspace_offset = -1, move_workspace = "r-1" },
-    { key = "J", direction = "d", workspace_offset = 5 },
-    { key = "K", direction = "u", workspace_offset = -5 },
-    { key = "L", direction = "r", workspace_offset = 1, move_workspace = "r+1" },
+    { key = "H", arrow = "Left", direction = "l", workspace = "-1", move_workspace = "r-1" },
+    { key = "J", arrow = "Down", direction = "d", workspace = "+5" },
+    { key = "K", arrow = "Up", direction = "u", workspace = "-5" },
+    { key = "L", arrow = "Right", direction = "r", workspace = "+1", move_workspace = "r+1" },
 }
-
-local function focus_workspace_by_offset(offset)
-    local current = hl.get_active_workspace().id
-    local group_start = math.floor((current - 1) / workspaceGroupSize) * workspaceGroupSize
-    local target = group_start + (current - 1 + offset) % workspaceGroupSize + 1
-    hl.dispatch(hl.dsp.focus({ workspace = tostring(target) }))
-end
 
 for _, binding in ipairs(navigation_keys) do
     hl.unbind("SUPER + " .. binding.key)
     hl.bind("SUPER + " .. binding.key, hl.dsp.focus({ direction = binding.direction }))
-    hl.bind("CTRL + SUPER + " .. binding.key, function()
-        focus_workspace_by_offset(binding.workspace_offset)
-    end)
+
+    for _, key in ipairs({ binding.key, binding.arrow }) do
+        hl.unbind("CTRL + SUPER + " .. key)
+        hl.bind("CTRL + SUPER + " .. key, hl.dsp.focus({ workspace = binding.workspace }))
+    end
 
     if binding.move_workspace then
         hl.bind(

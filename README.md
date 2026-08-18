@@ -148,7 +148,8 @@ done
 Key shortcuts:
 `Super+Return` (terminal), `Super+Q` (close window), `Super+F` (fullscreen),
 `Super+D` (maximize), `Super+Alt+Space` (float/tile toggle), `Super+H/J/K/L`
-(focus a window), `Ctrl+Super+H/J/K/L` (focus a workspace on the focused monitor), `Super+Alt+H/L`
+(focus a window), `Ctrl+Super+H/J/K/L` or `Ctrl+Super+Arrow` (focus a workspace by
+relative position without wrapping at 1–10), `Super+Alt+H/L`
 (send a window to the adjacent workspace), `Super+Shift+L` (sleep),
 `Super+Shift+S` (region screenshot),
 `Print` (fullscreen screenshot), `Super+V` (clipboard history), `Super+N`
