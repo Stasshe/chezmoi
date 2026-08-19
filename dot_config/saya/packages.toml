@@ -62,6 +62,7 @@ present = [
     "hyprland",
     "imagemagick",
     "kitty",
+    "lazydocker",
     "lsb-release",
     "loupe",
     "nautilus",
