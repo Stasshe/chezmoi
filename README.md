@@ -10,6 +10,8 @@ cd ~/.local/share/chezmoi
 The setup configures the Docker APT repository on Ubuntu, installs mise and
 chezmoi, applies the managed files, installs the configured Saya packages,
 installs the configured mise tools, and configures the desktop session.
+Docker bridge networks use dedicated `192.168.223.0/24`–`192.168.255.0/24`
+address space to avoid taking routes for LAN and overlay-network services.
 
 Files retired from chezmoi are listed explicitly in
 `run_once_before_cleanup.sh.tmpl`. Chezmoi reruns the cleanup when its rendered

@@ -19,6 +19,12 @@ Linux側の設定を正本としつつ、clipboardだけWindows executableへ委
 `win32yank.exe`をproviderとし、UTF-8 textをWindows clipboardへ渡す。`dd`は
 clipboardを更新せずlineを削除する。
 
+# Container networking
+
+Dockerのdefault bridgeは`192.168.223.0/24`を使う。自動生成bridgeは
+`192.168.224.0/20`と`192.168.240.0/20`から`/24`単位で割り当てる。
+`init/docker.sh`がdaemon設定を`/etc/docker/daemon.json`へ配置する。
+
 # Local file sharing
 
 SambaはSayaで導入する。ローカルネットワーク上の認証済みLinuxユーザー本人に限り、`~/Documents`をSMB2以上で読み書き共有する。Apple SMB拡張で実効権限とメタデータを伝える。ゲストアクセスとホームディレクトリ全体の公開は行わない。共有設定は`init/samba.sh`で明示的に適用し、SMBパスワードは対話入力で登録する。
