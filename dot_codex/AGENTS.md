@@ -47,6 +47,8 @@ CLIがうまくいかないときはtmuxを使え
 
 shellでは、環境変数・複雑な batch を重ねるな。シンプルに使え
 
+無駄に実データを避けようとするな。開発DBなら書き換え削除可能
+
 
 @~/.claude/ATTENTIONS.md
 @~/.claude/DESIGN.md
