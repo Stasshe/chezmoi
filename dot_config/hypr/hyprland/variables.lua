@@ -14,4 +14,3 @@ settingsApp = "noctalia msg settings-toggle"
 taskManager = "kitty -1 btop"
 
 workspaceGroupSize = 10
-workspaceMonitor = ""
