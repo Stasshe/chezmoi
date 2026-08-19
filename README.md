@@ -102,7 +102,7 @@ saya install -y \
   loupe \
   nautilus \
   networkmanager \
-  noctalia \
+  noctalia-git \
   noctalia-greeter \
   pavucontrol \
   pipewire-pulse \
