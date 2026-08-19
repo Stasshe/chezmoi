@@ -75,27 +75,68 @@ hl.window_rule({match = {class = "^(steam_app).*" }, immediate = true})
 hl.window_rule({match = {float = 0 }, no_shadow = true})
 
 -- ######## Workspace rules ########
-local monitors = hl.get_monitors()
-table.sort(monitors, function(left, right)
-    if left.x == right.x then
-        return left.y < right.y
+local workspaceRules = {}
+
+local function updateWorkspaceRules()
+    for _, rule in ipairs(workspaceRules) do
+        rule:set_enabled(false)
     end
 
-    return left.x < right.x
-end)
+    workspaceRules = {}
+    local monitors = hl.get_monitors()
+    table.sort(monitors, function(left, right)
+        if left.x == right.x then
+            return left.y < right.y
+        end
 
-for monitorIndex, monitor in ipairs(monitors) do
-    local firstWorkspace = (monitorIndex - 1) * workspaceGroupSize + 1
-    local lastWorkspace = monitorIndex * workspaceGroupSize
+        return left.x < right.x
+    end)
 
-    for workspace = firstWorkspace, lastWorkspace do
-        hl.workspace_rule({
-            workspace = tostring(workspace),
-            monitor = monitor.name,
-            persistent = true,
-        })
+    for monitorIndex, monitor in ipairs(monitors) do
+        local firstWorkspace = (monitorIndex - 1) * workspaceGroupSize + 1
+        local lastWorkspace = monitorIndex * workspaceGroupSize
+
+        for workspace = firstWorkspace, lastWorkspace do
+            workspaceRules[#workspaceRules + 1] = hl.workspace_rule({
+                workspace = tostring(workspace),
+                monitor = monitor.name,
+                persistent = true,
+            })
+        end
     end
 end
+
+local function removeExcessWorkspaces()
+    local lastWorkspace = #hl.get_monitors() * workspaceGroupSize
+    local activeWorkspace = hl.get_active_workspace()
+
+    if lastWorkspace == 0 then
+        return
+    end
+
+    for _, window in ipairs(hl.get_windows()) do
+        if window.workspace and window.workspace.id > lastWorkspace then
+            local targetWorkspace = (window.workspace.id - 1) % workspaceGroupSize + 1
+            hl.dispatch(hl.dsp.window.move({
+                workspace = tostring(targetWorkspace),
+                window = window,
+                follow = false,
+            }))
+        end
+    end
+
+    if activeWorkspace and activeWorkspace.id > lastWorkspace then
+        local targetWorkspace = (activeWorkspace.id - 1) % workspaceGroupSize + 1
+        hl.dispatch(hl.dsp.focus({ workspace = tostring(targetWorkspace) }))
+    end
+end
+
+updateWorkspaceRules()
+hl.on("monitor.added", updateWorkspaceRules)
+hl.on("monitor.removed", function()
+    removeExcessWorkspaces()
+    updateWorkspaceRules()
+end)
 
 hl.workspace_rule({ workspace = "special:special", gaps_out = 30 })
 
