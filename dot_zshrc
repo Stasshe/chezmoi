@@ -53,6 +53,7 @@ alias qd4='ollama run qwen3.5:4b'
 alias qc='ollama run qwen2.5:7b'
 alias y='yazi'
 alias laz='lazygit'
+alias lad='lazydocker'
 alias ch='chezmoi'
 
 alias zap='JAVA_HOME="$(mise where java)" /usr/local/bin/zap.sh'
