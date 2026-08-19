@@ -30,9 +30,6 @@ SPECIFICATION.md　を追加しろ。
 release.ymlにはpatch minor majorの選択肢でbump versionするやつを。
 workflowの中のビルドにはキャッシュも使え。
 
-
-plan modeのときは、必ずそのリポジトリにSPECIFICATION.mdを置くように。
-
 設計・仕様変更があった場合は必ずREADME,SPECIFICATION,docs/(specとdocsはない可能性がある。)に該当箇所があるか確認し、それを修正しろ
 
 この環境ではrgが使える
