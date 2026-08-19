@@ -24,6 +24,9 @@ clipboardを更新せずlineを削除する。
 Dockerのdefault bridgeは`192.168.223.0/24`を使う。自動生成bridgeは
 `192.168.224.0/20`と`192.168.240.0/20`から`/24`単位で割り当てる。
 `init/docker.sh`がdaemon設定を`/etc/docker/daemon.json`へ配置する。
+lazydockerのcontainer custom commandは選択containerのCompose project labelを基準に、
+同project所有のcontainer、image、volume、networkを確認後に一括削除する。
+他containerが共有・使用中のresourceとprojectへ帰属できないBuildKit cacheは削除しない。
 
 # Local file sharing
 

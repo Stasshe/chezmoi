@@ -1,0 +1,8 @@
+# yaml-language-server: $schema=https://json.schemastore.org/lazydocker.json
+
+customCommands:
+  containers:
+    - name: Delete Compose project resources
+      attach: true
+      command: 'docker-project-delete {{ .Container.ID }}'
+      serviceNames: []
