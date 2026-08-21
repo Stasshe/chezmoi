@@ -55,6 +55,7 @@ alias y='yazi'
 alias laz='lazygit'
 alias lad='lazydocker'
 alias ch='chezmoi'
+alias fetch='git fetch -p'
 
 alias zap='JAVA_HOME="$(mise where java)" /usr/local/bin/zap.sh'
 
