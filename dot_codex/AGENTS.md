@@ -54,6 +54,9 @@ shellでは、環境変数・複雑な batch を重ねるな。シンプルに�
 無駄に実データを避けようとするな。開発DBなら書き換え削除可能
 
 
+AIのお前はshell scriptの完了などがうまく検知できないことが多い
+
+
 @~/.claude/ATTENTIONS.md
 @~/.claude/DESIGN.md
 
