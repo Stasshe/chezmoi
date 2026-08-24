@@ -23,7 +23,8 @@ content changes; paths absent from the list are never removed.
 The repository supports Arch Linux with Hyprland and Ubuntu with GNOME.
 `setups.sh` installs the common managed configuration and tools; it does not
 install Hyprland. Ubuntu remains GNOME-only. Japanese input uses IBus + Mozc on
-Ubuntu and Fcitx5 + Mozc on Arch. Both use the JIS (`jp`) keyboard layout. GNOME
+Ubuntu and Fcitx5 + Mozc on Arch. Both use the JIS (`jp`) keyboard layout. Fcitx5
+does not bind input switching to a Shift-only key press. GNOME
 uses the standard Mozc engine; its direct and hiragana modes are switched
 internally with the JIS Hankaku/Zenkaku key. Sign out and back in after setup
 before using the IME. On Hyprland, Chrome uses native Wayland and its
