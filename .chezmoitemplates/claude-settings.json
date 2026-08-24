@@ -25,7 +25,8 @@
       "Bash(gh issue *)",
       "Bash(cargo clippy *)",
       "Bash(cargo test *)",
-      "Bash(rm -rf /tmp/*)"
+      "Bash(rm -rf /tmp/*)",
+      "Bash(docker exec *)"
     ],
     "deny": [
       "Bash(rm -rf /)",
