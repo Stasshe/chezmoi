@@ -21,6 +21,10 @@ Linux側の設定を正本としつつ、clipboardだけWindows executableへ委
 `win32yank.exe`をproviderとし、UTF-8 textをWindows clipboardへ渡す。`dd`は
 clipboardを更新せずlineを削除する。
 
+# Codex
+
+Codexは確認なしでhostへアクセスできる。`git push`だけはcommand ruleで拒否し、実行をユーザーへ委ねる。
+
 # Container networking
 
 Dockerのdefault bridgeは`192.168.223.0/24`を使う。自動生成bridgeは

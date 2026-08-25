@@ -1,0 +1,16 @@
+prefix_rule(
+    pattern = [["git", "/usr/bin/git", "/bin/git"], "push"],
+    decision = "forbidden",
+    justification = "Do not push from Codex. Ask the user to run git push.",
+    match = [
+        "git push",
+        "git push origin feature",
+        "/usr/bin/git push origin main",
+        "/bin/git push --force-with-lease",
+    ],
+    not_match = [
+        "git status",
+        "git diff",
+        "git fetch origin",
+    ],
+)

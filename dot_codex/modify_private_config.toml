@@ -1,0 +1,14 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* Keep Codex-owned project trust and UI state local. */ -}}
+{{- $config := .chezmoi.stdin -}}
+{{- if regexMatch `(?m)^approval_policy\s*=` $config -}}
+{{- $config = regexReplaceAll `(?m)^approval_policy\s*=.*$` $config `approval_policy = "never"` -}}
+{{- else -}}
+{{- $config = printf "approval_policy = \"never\"\n%s" $config -}}
+{{- end -}}
+{{- if regexMatch `(?m)^sandbox_mode\s*=` $config -}}
+{{- $config = regexReplaceAll `(?m)^sandbox_mode\s*=.*$` $config `sandbox_mode = "danger-full-access"` -}}
+{{- else -}}
+{{- $config = printf "sandbox_mode = \"danger-full-access\"\n%s" $config -}}
+{{- end -}}
+{{ $config -}}

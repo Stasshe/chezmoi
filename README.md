@@ -47,6 +47,9 @@ zshでは`h`を先頭につけると、端末表示用に整形された出力�
 h ls -la
 ```
 
+Codex runs without approval prompts. Its command policy blocks `git push`; run
+pushes yourself when needed.
+
 ## Hyprland
 
 On Arch, install the complete Hyprland session explicitly when needed:
