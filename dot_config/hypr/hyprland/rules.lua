@@ -76,6 +76,87 @@ hl.window_rule({match = {float = 0 }, no_shadow = true})
 
 -- ######## Workspace rules ########
 local workspaceRules = {}
+local configHome = os.getenv("XDG_CONFIG_HOME") or HOME .. "/.config"
+
+local function readWorkspaceMonitorOrder()
+    local path = configHome .. "/hypr/custom/workspace-order.conf"
+    local file = assert(io.open(path, "r"))
+    local order = {}
+
+    for line in file:lines() do
+        if line ~= "" then
+            local identityType, identity = line:match("^([^\t]+)\t([^\t]+)")
+            if (identityType ~= "serial" and identityType ~= "name") or not identity then
+                file:close()
+                error("Invalid workspace monitor order: " .. line)
+            end
+            order[#order + 1] = {
+                identityType = identityType,
+                identity = identity,
+            }
+        end
+    end
+
+    file:close()
+    return order
+end
+
+local function getOrderedMonitors()
+    local orderByName = {}
+    local monitors = hl.get_monitors()
+
+    for index, identity in ipairs(readWorkspaceMonitorOrder()) do
+        for _, monitor in ipairs(monitors) do
+            local matchesSerial = identity.identityType == "serial" and monitor.serial == identity.identity
+            local matchesName = identity.identityType == "name" and monitor.name == identity.identity
+            if matchesSerial or matchesName then
+                orderByName[monitor.name] = index
+                break
+            end
+        end
+    end
+
+    table.sort(monitors, function(left, right)
+        local leftOrder = orderByName[left.name]
+        local rightOrder = orderByName[right.name]
+
+        if leftOrder and rightOrder then
+            return leftOrder < rightOrder
+        end
+        if leftOrder then
+            return true
+        end
+        if rightOrder then
+            return false
+        end
+        if left.x ~= right.x then
+            return left.x < right.x
+        end
+        if left.y ~= right.y then
+            return left.y < right.y
+        end
+
+        return left.name < right.name
+    end)
+
+    return monitors
+end
+
+local function moveExistingWorkspaces(monitors)
+    for _, workspace in ipairs(hl.get_workspaces()) do
+        if not workspace.special and workspace.id > 0 then
+            local monitorIndex = math.floor((workspace.id - 1) / workspaceGroupSize) + 1
+            local monitor = monitors[monitorIndex]
+
+            if monitor and (not workspace.monitor or workspace.monitor.name ~= monitor.name) then
+                hl.dispatch(hl.dsp.workspace.move({
+                    workspace = workspace,
+                    monitor = monitor,
+                }))
+            end
+        end
+    end
+end
 
 local function updateWorkspaceRules()
     for _, rule in ipairs(workspaceRules) do
@@ -83,14 +164,7 @@ local function updateWorkspaceRules()
     end
 
     workspaceRules = {}
-    local monitors = hl.get_monitors()
-    table.sort(monitors, function(left, right)
-        if left.x == right.x then
-            return left.y < right.y
-        end
-
-        return left.x < right.x
-    end)
+    local monitors = getOrderedMonitors()
 
     for monitorIndex, monitor in ipairs(monitors) do
         local firstWorkspace = (monitorIndex - 1) * workspaceGroupSize + 1
@@ -104,6 +178,8 @@ local function updateWorkspaceRules()
             })
         end
     end
+
+    moveExistingWorkspaces(monitors)
 end
 
 local function removeExcessWorkspaces()

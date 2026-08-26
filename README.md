@@ -68,6 +68,10 @@ components are not used. The bar groups running application icons by workspace;
 each connected monitor contributes ten persistent workspaces. When a monitor is
 disconnected, windows in its removed range return to the matching workspace in
 1–10, such as 13 to 3 and 20 to 10. Unfocused windows use reduced opacity.
+The monitor order is independent of the layout saved by Display Settings. Run
+`workspace-order`, move rows with `J`/`K`, then press `s`; the first row receives
+1–10, the second 11–20, and the third 21–30. The TUI identifies external
+monitors by serial number and retains disconnected monitors in the saved order.
 The center clock shows `MM/DD (weekday) HH:MM` in 24-hour time. Claude
 Companion sits to its left and reports Claude Code lifecycle state. The adjacent
 AI usage widget shows the current Codex and Claude plan-window utilization and

@@ -1,0 +1,228 @@
+#!/usr/bin/env -S uv run --script
+
+import curses
+import json
+import os
+import subprocess
+import tempfile
+from dataclasses import dataclass
+from pathlib import Path
+
+CONFIG_HOME = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config"))
+TARGET = CONFIG_HOME / "hypr" / "custom" / "workspace-order.conf"
+GROUP_SIZE = 10
+
+
+@dataclass
+class Monitor:
+    identity_type: str
+    identity: str
+    output: str
+    description: str
+    connected: bool
+    x: int = 0
+    y: int = 0
+
+    @property
+    def key(self) -> tuple[str, str]:
+        return self.identity_type, self.identity
+
+
+def run(command: list[str]) -> str:
+    result = subprocess.run(command, check=True, capture_output=True, text=True)
+    return result.stdout
+
+
+def connected_monitors() -> list[Monitor]:
+    raw_monitors = json.loads(run(["hyprctl", "monitors", "-j"]))
+    serial_counts: dict[str, int] = {}
+    for raw in raw_monitors:
+        serial = raw.get("serial", "")
+        if serial:
+            serial_counts[serial] = serial_counts.get(serial, 0) + 1
+
+    monitors = []
+    for raw in raw_monitors:
+        serial = raw.get("serial", "")
+        if serial and serial_counts[serial] == 1:
+            identity_type = "serial"
+            identity = serial
+        else:
+            identity_type = "name"
+            identity = raw["name"]
+
+        monitors.append(
+            Monitor(
+                identity_type=identity_type,
+                identity=identity,
+                output=raw["name"],
+                description=raw["description"],
+                connected=True,
+                x=raw["x"],
+                y=raw["y"],
+            )
+        )
+
+    return sorted(monitors, key=lambda monitor: (monitor.x, monitor.y, monitor.output))
+
+
+def source_path() -> Path:
+    return Path(run(["chezmoi", "source-path", str(TARGET)]).strip())
+
+
+def read_saved(path: Path) -> list[Monitor]:
+    if not path.exists():
+        return []
+
+    monitors = []
+    for line_number, line in enumerate(path.read_text().splitlines(), start=1):
+        if not line:
+            continue
+        fields = line.split("\t")
+        if len(fields) != 4 or fields[0] not in {"serial", "name"}:
+            raise ValueError(f"Invalid monitor entry on line {line_number}")
+        monitors.append(
+            Monitor(
+                identity_type=fields[0],
+                identity=fields[1],
+                output=fields[2],
+                description=fields[3],
+                connected=False,
+            )
+        )
+    return monitors
+
+
+def merge_monitors(saved: list[Monitor], connected: list[Monitor]) -> list[Monitor]:
+    connected_by_key = {monitor.key: monitor for monitor in connected}
+    merged = []
+    saved_keys = set()
+
+    for monitor in saved:
+        saved_keys.add(monitor.key)
+        merged.append(connected_by_key.get(monitor.key, monitor))
+
+    for monitor in connected:
+        if monitor.key not in saved_keys:
+            merged.append(monitor)
+
+    return merged
+
+
+def clean_field(value: str) -> str:
+    return value.replace("\t", " ").replace("\n", " ")
+
+
+def save(monitors: list[Monitor], path: Path) -> None:
+    content = "".join(
+        "\t".join(
+            clean_field(value)
+            for value in (
+                monitor.identity_type,
+                monitor.identity,
+                monitor.output,
+                monitor.description,
+            )
+        )
+        + "\n"
+        for monitor in monitors
+    )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile("w", dir=path.parent, delete=False) as temporary:
+        temporary.write(content)
+        temporary_path = Path(temporary.name)
+    os.replace(temporary_path, path)
+    run(["chezmoi", "apply", str(TARGET)])
+    run(["hyprctl", "reload"])
+
+
+def draw(
+    screen: curses.window, monitors: list[Monitor], selected: int, status: str
+) -> None:
+    screen.erase()
+    height, width = screen.getmaxyx()
+    title = " Workspace order "
+    screen.addnstr(0, 0, title, width - 1, curses.A_BOLD | curses.color_pair(1))
+    screen.addnstr(
+        1,
+        0,
+        "Each connected row owns ten workspaces. J/K changes the order.",
+        width - 1,
+    )
+
+    available_rows = max(1, height - 5)
+    offset = min(
+        max(0, selected - available_rows + 1), max(0, len(monitors) - available_rows)
+    )
+    for row, monitor in enumerate(monitors[offset : offset + available_rows], start=3):
+        index = offset + row - 3
+        state = "connected" if monitor.connected else "disconnected"
+        workspace_index = sum(item.connected for item in monitors[:index])
+        workspace_range = "   --   "
+        if monitor.connected:
+            first_workspace = workspace_index * GROUP_SIZE + 1
+            last_workspace = (workspace_index + 1) * GROUP_SIZE
+            workspace_range = f"{first_workspace:>2}-{last_workspace:<2}"
+        label = (
+            f" {workspace_range}  "
+            f"{monitor.output:<12}  {state:<12}  {monitor.description}"
+        )
+        style = curses.A_REVERSE if index == selected else curses.A_NORMAL
+        if not monitor.connected and index != selected:
+            style |= curses.A_DIM
+        screen.addnstr(row, 0, label, width - 1, style)
+
+    footer = status or "j/k select   J/K move   s save & apply   q quit"
+    screen.addnstr(height - 1, 0, footer, width - 1, curses.color_pair(2))
+    screen.refresh()
+
+
+def tui(screen: curses.window, monitors: list[Monitor], path: Path) -> None:
+    curses.curs_set(0)
+    curses.use_default_colors()
+    curses.init_pair(1, curses.COLOR_MAGENTA, -1)
+    curses.init_pair(2, curses.COLOR_CYAN, -1)
+    selected = 0
+    status = ""
+
+    while True:
+        draw(screen, monitors, selected, status)
+        key = screen.getch()
+        status = ""
+
+        if key in (ord("q"), 27):
+            return
+        if key in (ord("j"), curses.KEY_DOWN) and selected < len(monitors) - 1:
+            selected += 1
+        elif key in (ord("k"), curses.KEY_UP) and selected > 0:
+            selected -= 1
+        elif key == ord("J") and selected < len(monitors) - 1:
+            monitors[selected], monitors[selected + 1] = (
+                monitors[selected + 1],
+                monitors[selected],
+            )
+            selected += 1
+        elif key == ord("K") and selected > 0:
+            monitors[selected], monitors[selected - 1] = (
+                monitors[selected - 1],
+                monitors[selected],
+            )
+            selected -= 1
+        elif key == ord("s"):
+            try:
+                save(monitors, path)
+                status = "Saved, applied, and reloaded Hyprland."
+            except (OSError, subprocess.CalledProcessError) as error:
+                status = f"Save failed: {error}"
+
+
+def main() -> None:
+    path = source_path()
+    monitors = merge_monitors(read_saved(path), connected_monitors())
+    if not monitors:
+        raise SystemExit("No saved or connected monitors found.")
+    curses.wrapper(tui, monitors, path)
+
+
+if __name__ == "__main__":
+    main()
