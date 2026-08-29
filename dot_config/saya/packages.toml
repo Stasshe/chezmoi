@@ -106,5 +106,6 @@ present = [
     "zerotier-one",
     "tmux",
     "nwg-displays",
+    "drawio-desktop",
 ]
 absent = ["fcitx5-gtk"]
