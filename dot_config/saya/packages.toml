@@ -107,5 +107,6 @@ present = [
     "tmux",
     "nwg-displays",
     "drawio-desktop",
+    "docker-buildx",
 ]
 absent = ["fcitx5-gtk"]
