@@ -15,6 +15,20 @@ local navigation_keys = {
     { key = "L", arrow = "Right", direction = "r", workspace = "+1", workspace_offset = 1 },
 }
 
+local window_move_keys = {
+    { key = "U", direction = "l" },
+    { key = "I", direction = "d" },
+    { key = "O", direction = "u" },
+    { key = "P", direction = "r" },
+}
+
+local arrow_keys = {
+    { key = "H", arrow = "Left" },
+    { key = "J", arrow = "Down" },
+    { key = "K", arrow = "Up" },
+    { key = "L", arrow = "Right" },
+}
+
 local function move_window_to_workspace(offset)
     local currentWorkspace = hl.get_active_workspace().id
     local targetWorkspace = currentWorkspace + offset
@@ -41,5 +55,22 @@ for _, binding in ipairs(navigation_keys) do
         function()
             move_window_to_workspace(binding.workspace_offset)
         end
+    )
+end
+
+for _, binding in ipairs(window_move_keys) do
+    hl.unbind("SUPER + SHIFT + " .. binding.key)
+    hl.bind(
+        "SUPER + SHIFT + " .. binding.key,
+        hl.dsp.window.move({ direction = binding.direction }),
+        { description = "Window: Move " .. binding.direction }
+    )
+end
+
+for _, binding in ipairs(arrow_keys) do
+    hl.bind(
+        "ALT + " .. binding.key,
+        hl.dsp.send_shortcut({ mods = "", key = binding.arrow }),
+        { repeating = true, description = "Input: " .. binding.arrow }
     )
 end

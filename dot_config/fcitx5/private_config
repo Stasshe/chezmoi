@@ -6,8 +6,8 @@ EnumerateSkipFirst=False
 ModifierOnlyKeyTimeout=250
 
 [Hotkey/TriggerKeys]
-0=Control+space
-1=Zenkaku_Hankaku
+0=Menu
+1=Control+space
 
 [Hotkey/ActivateKeys]
 

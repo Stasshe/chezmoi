@@ -1,6 +1,7 @@
 hl.config({
     input = {
-        kb_layout = "jp",
+        kb_layout = "us",
+        kb_options = "caps:menu",
     },
     general = {
         border_size = 3,

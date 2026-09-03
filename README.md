@@ -23,8 +23,9 @@ content changes; paths absent from the list are never removed.
 The repository supports Arch Linux with Hyprland and Ubuntu with GNOME.
 `setups.sh` installs the common managed configuration and tools; it does not
 install Hyprland. Ubuntu remains GNOME-only. Japanese input uses IBus + Mozc on
-Ubuntu and Fcitx5 + Mozc on Arch. Both use the JIS (`jp`) keyboard layout. Fcitx5
-does not bind input switching to a Shift-only key press. GNOME
+Ubuntu and Fcitx5 + Mozc on Arch. Arch uses the US (`us`) keyboard layout;
+Caps Lock or `Ctrl+Space` toggles Japanese input without enabling caps. Ubuntu
+uses the JIS (`jp`) layout. GNOME
 uses the standard Mozc engine; its direct and hiragana modes are switched
 internally with the JIS Hankaku/Zenkaku key. Sign out and back in after setup
 before using the IME. On Hyprland, Chrome uses native Wayland and its
@@ -85,7 +86,7 @@ and downloads into `~/Pictures/Wallpapers`; the bar wallpaper button and
 
 `init/hypr.sh` configures Noctalia Greeter under greetd and schedules it to
 replace SDDM on the next reboot. The greeter and Hyprland session use Wayland
-and the JIS layout. Native Wayland backends are selected for Chrome, Electron,
+and the US layout. Native Wayland backends are selected for Chrome, Electron,
 GTK, Firefox, Qt, and SDL before their X11 fallbacks. XWayland use remains
 limited to applications without a reliable native Wayland path.
 
@@ -165,7 +166,10 @@ Key shortcuts:
 `Super+D` (maximize), `Super+Alt+Space` (float/tile toggle), `Super+H/J/K/L`
 (focus a window), `Ctrl+Super+H/J/K/L` or `Ctrl+Super+Arrow` (focus a workspace by
 relative position without wrapping at 1–10), `Super+Alt+H/L`
-(send a window to the adjacent workspace), `Super+Shift+L` (sleep),
+(send a window to the adjacent workspace), `Super+Shift+U/I/O/P` (move a window
+left/down/up/right), `Alt+H/J/K/L` (send Left/Down/Up/Right to the focused
+application), `Caps Lock` or `Ctrl+Space` (toggle Japanese input),
+`Super+Shift+L` (sleep),
 `Super+Shift+S` (region screenshot),
 `Print` (fullscreen screenshot), `Super+V` (clipboard history), `Super+N`
 (control center), `Ctrl+Alt+Delete` (session menu), `Ctrl+Super+T`
