@@ -157,8 +157,7 @@
       "Read(~/.config/gh/**)",
       "Read(~/.npmrc)",
       "Read(~/.pypirc)",
-      "Read(**/.env)",
-      "Read(**/.env.local)"
+      "Read(**/.env)"
     ]
   },
   "hooks": {
