@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if (( $# != 1 )); then
+  printf '%s\n' 'Usage: keyboard-layout us|jis' >&2
+  exit 2
+fi
+
+case "$1" in
+  us)
+    layout=us
+    group=US
+    other_layout=jp
+    other_group=JIS
+    ;;
+  jis)
+    layout=jp
+    group=JIS
+    other_layout=us
+    other_group=US
+    ;;
+  *)
+    printf '%s\n' 'Usage: keyboard-layout us|jis' >&2
+    exit 2
+    ;;
+esac
+
+config_home=${XDG_CONFIG_HOME:-$HOME/.config}
+state_home=${XDG_STATE_HOME:-$HOME/.local/state}
+profile="$config_home/fcitx5/profile"
+state="$state_home/keyboard-layout"
+
+mkdir -p "$(dirname "$profile")" "$(dirname "$state")"
+
+write_group() {
+  local index=$1
+  local name=$2
+  local group_layout=$3
+
+  printf '%s\n' \
+    "[Groups/$index]" \
+    '# Group Name' \
+    "Name=$name" \
+    '# Layout' \
+    "Default Layout=$group_layout" \
+    '# Default Input Method' \
+    'DefaultIM=mozc' \
+    '' \
+    "[Groups/$index/Items/0]" \
+    '# Name' \
+    "Name=keyboard-$group_layout" \
+    '# Layout' \
+    'Layout=' \
+    '' \
+    "[Groups/$index/Items/1]" \
+    '# Name' \
+    'Name=mozc' \
+    '# Layout' \
+    'Layout=' \
+    ''
+}
+
+if fcitx5-remote --check >/dev/null 2>&1; then
+  fcitx5-remote -g "$group" >/dev/null 2>&1 || true
+fi
+if [[ $(fcitx5-remote -q 2>/dev/null) != "$group" ]]; then
+  fcitx5-remote -e >/dev/null 2>&1 || true
+  for _ in {1..30}; do
+    if ! fcitx5-remote --check >/dev/null 2>&1; then
+      break
+    fi
+    sleep 0.1
+  done
+  if fcitx5-remote --check >/dev/null 2>&1; then
+    printf '%s\n' 'Failed to stop Fcitx5 before updating its profile.' >&2
+    exit 1
+  fi
+
+  {
+    write_group 0 "$group" "$layout"
+    write_group 1 "$other_group" "$other_layout"
+    printf '[GroupOrder]\n0=%s\n1=%s\n' "$group" "$other_group"
+  } >"$profile"
+
+  fcitx5 -d >/dev/null 2>&1
+  for _ in {1..30}; do
+    if fcitx5-remote --check >/dev/null 2>&1; then
+      fcitx5-remote -g "$group" >/dev/null 2>&1 || true
+      if [[ $(fcitx5-remote -q 2>/dev/null) == "$group" ]]; then
+        break
+      fi
+    fi
+    sleep 0.1
+  done
+fi
+
+if [[ $(fcitx5-remote -q 2>/dev/null) != "$group" ]]; then
+  printf '%s\n' "Failed to switch Fcitx5 to the $group layout." >&2
+  exit 1
+fi
+
+printf '%s\n' "$1" >"$state"
+hyprctl eval "hl.config({ input = { kb_layout = \"$layout\" } })" >/dev/null

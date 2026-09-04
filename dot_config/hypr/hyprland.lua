@@ -20,6 +20,17 @@ require("hyprland.rules")
 require("hyprland.colors")
 require("hyprland.keybinds")
 
+local state_home = os.getenv("XDG_STATE_HOME") or HOME .. "/.local/state"
+local keyboard_layout_file = io.open(state_home .. "/keyboard-layout", "r")
+if keyboard_layout_file then
+    local layouts = { us = "us", jis = "jp" }
+    local keyboard_layout = layouts[keyboard_layout_file:read("*l")]
+    keyboard_layout_file:close()
+    if keyboard_layout then
+        hl.config({ input = { kb_layout = keyboard_layout } })
+    end
+end
+
 -- Custom configurations --
 if is_file_exists(config_home .. "/hypr/custom/execs.lua") then
     require("custom.execs")

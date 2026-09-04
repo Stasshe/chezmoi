@@ -38,4 +38,4 @@ lazydockerのcontainer custom commandは選択containerのCompose project label�
 
 SambaはSayaで導入する。ローカルネットワーク上の認証済みLinuxユーザー本人に限り、`~/Documents`をSMB2以上で読み書き共有する。Apple SMB拡張で実効権限とメタデータを伝える。ゲストアクセスとホームディレクトリ全体の公開は行わない。共有設定は`init/samba.sh`で明示的に適用し、SMBパスワードは対話入力で登録する。
 
-Ubuntu GNOMEの日本語入力はIBus + MozcとJIS配列を使う。GNOME入力ソースは通常のMozcだけに固定し、半角／全角キーはMozc内部の直接入力とひらがなを切り替える。Arch HyprlandはUS配列とFcitx5 + Mozcを使う。Caps LockまたはCtrl+Spaceで日本語入力を切り替え、Caps Lock機能は有効にしない。入力基盤の環境変数をセッション間で共有しない。
+Ubuntu GNOMEの日本語入力はIBus + MozcとJIS配列を使う。GNOME入力ソースは通常のMozcだけに固定し、半角／全角キーはMozc内部の直接入力とひらがなを切り替える。Arch HyprlandはFcitx5 + Mozcを使い、US/JIS配列は専用コマンドでHyprlandとFcitx5を同期して切り替える。選択した配列とFcitx5 profileはマシンローカルとし、chezmoiで管理しない。Caps LockまたはCtrl+Spaceで日本語入力を切り替え、Caps Lock機能は有効にしない。入力基盤の環境変数をセッション間で共有しない。

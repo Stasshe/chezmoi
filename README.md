@@ -23,9 +23,11 @@ content changes; paths absent from the list are never removed.
 The repository supports Arch Linux with Hyprland and Ubuntu with GNOME.
 `setups.sh` installs the common managed configuration and tools; it does not
 install Hyprland. Ubuntu remains GNOME-only. Japanese input uses IBus + Mozc on
-Ubuntu and Fcitx5 + Mozc on Arch. Arch uses the US (`us`) keyboard layout;
-Caps Lock or `Ctrl+Space` toggles Japanese input without enabling caps. Ubuntu
-uses the JIS (`jp`) layout. GNOME
+Ubuntu and Fcitx5 + Mozc on Arch. On Arch, run `keyboard-layout us` or
+`keyboard-layout jis` to switch the keyboard layout. The selection and Fcitx5
+profile are machine-local and are not managed by chezmoi. Caps Lock or
+`Ctrl+Space` toggles Japanese input without enabling caps. Ubuntu uses the JIS
+(`jp`) layout. GNOME
 uses the standard Mozc engine; its direct and hiragana modes are switched
 internally with the JIS Hankaku/Zenkaku key. Sign out and back in after setup
 before using the IME. On Hyprland, Chrome uses native Wayland and its
@@ -86,9 +88,10 @@ and downloads into `~/Pictures/Wallpapers`; the bar wallpaper button and
 
 `init/hypr.sh` configures Noctalia Greeter under greetd and schedules it to
 replace SDDM on the next reboot. The greeter and Hyprland session use Wayland
-and the US layout. Native Wayland backends are selected for Chrome, Electron,
-GTK, Firefox, Qt, and SDL before their X11 fallbacks. XWayland use remains
-limited to applications without a reliable native Wayland path.
+with a US-layout greeter and a machine-local US/JIS session layout. Native
+Wayland backends are selected for Chrome, Electron, GTK, Firefox, Qt, and SDL
+before their X11 fallbacks. XWayland use remains limited to applications
+without a reliable native Wayland path.
 
 On Arch, run `init/virtualization.sh` separately to enable libvirt socket
 activation, prepare its default autostarted NAT network, and download and

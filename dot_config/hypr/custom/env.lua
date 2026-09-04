@@ -1,4 +1,4 @@
--- Japanese input: Fcitx5 + Mozc on a US keyboard layout
+-- Japanese input: Fcitx5 + Mozc
 for name, value in pairs({
     XCURSOR_SIZE = "24",
     HYPRCURSOR_SIZE = "24",
