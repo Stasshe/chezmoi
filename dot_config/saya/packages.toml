@@ -109,5 +109,11 @@ present = [
     "drawio-desktop",
     "docker-buildx",
     "pwndbg",
+    "atac",
+    "ghidra",
+    "checksec",
+    "ropper",
+    "one_gadget",
+    "radare2",
 ]
 absent = ["fcitx5-gtk"]

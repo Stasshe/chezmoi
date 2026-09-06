@@ -1,0 +1,11 @@
+python
+import glob
+import os
+import sys
+
+# decomp2dbg lives in a dedicated uv venv so that Arch's system python stays clean.
+# gdb embeds the system interpreter, so the venv site-packages is added to sys.path.
+for path in glob.glob(os.path.expanduser("~/.local/share/pwndbg-d2d/lib/python*/site-packages")):
+    if path not in sys.path:
+        sys.path.insert(0, path)
+end

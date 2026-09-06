@@ -22,6 +22,7 @@ eval "$(mise activate bash)"
 "$root/init/mise-tools.sh"
 "$root/init/desktop.sh"
 "$root/init/term.sh"
+"$root/init/pwndbg.sh"
 
 chsh -s "$(command -v zsh)"
 
