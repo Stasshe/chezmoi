@@ -108,5 +108,6 @@ present = [
     "nwg-displays",
     "drawio-desktop",
     "docker-buildx",
+    "pwndbg",
 ]
 absent = ["fcitx5-gtk"]
