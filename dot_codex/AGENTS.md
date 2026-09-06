@@ -59,7 +59,6 @@ shellでは、環境変数・複雑な batch を重ねるな。シンプルに�
 
 AIのお前はshell scriptの完了などがうまく検知できないことが多い
 
-サブエージェントをガンガン使え
 
 
 @~/.claude/ATTENTIONS.md
