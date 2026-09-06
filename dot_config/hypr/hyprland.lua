@@ -1,7 +1,7 @@
 -- This file sources other files in `hyprland` and `custom` folders
 -- You wanna add your stuff in files in `custom`
 
-local config_home = os.getenv("XDG_CONFIG_HOME") or HOME .. "/.config"
+local config_home = os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME") .. "/.config"
 
 -- Internal stuff --
 require("hyprland.lib")
@@ -20,7 +20,7 @@ require("hyprland.rules")
 require("hyprland.colors")
 require("hyprland.keybinds")
 
-local state_home = os.getenv("XDG_STATE_HOME") or HOME .. "/.local/state"
+local state_home = os.getenv("XDG_STATE_HOME") or os.getenv("HOME") .. "/.local/state"
 local keyboard_layout_file = io.open(state_home .. "/keyboard-layout", "r")
 if keyboard_layout_file then
     local layouts = { us = "us", jis = "jp" }

@@ -1,6 +1,6 @@
 require("hyprland.lib")
 require("hyprland.variables")
-local config_home = os.getenv("XDG_CONFIG_HOME") or HOME .. "/.config"
+local config_home = os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME") .. "/.config"
 if is_file_exists(config_home .. "/hypr/custom/variables.lua") then
     require("custom.variables")
 end

@@ -76,7 +76,7 @@ hl.window_rule({match = {float = 0 }, no_shadow = true})
 
 -- ######## Workspace rules ########
 local workspaceRules = {}
-local configHome = os.getenv("XDG_CONFIG_HOME") or HOME .. "/.config"
+local configHome = os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME") .. "/.config"
 
 local function readWorkspaceMonitorOrder()
     local path = configHome .. "/hypr/custom/workspace-order.conf"
