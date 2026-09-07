@@ -115,5 +115,7 @@ present = [
     "ropper",
     "one_gadget",
     "radare2",
+    "qbittorrent",
+    "aria2",
 ]
 absent = ["fcitx5-gtk"]
