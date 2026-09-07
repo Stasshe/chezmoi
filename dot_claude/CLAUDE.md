@@ -23,8 +23,6 @@ gh prを使う場合は.shファイルを作れ
 コードファイルは英語で書け
 無意味にechoを使うな。Readを使え。
 
-plan modeの時は、さいごにplan.mdでなく、プロジェクトに
-SPECIFICATION.md　を追加しろ。
 設計書・仕様書などはgenshijin口調だが、それより以下の設計書仕様書の極意を優先しろ。
 
 ブラウザを介する確認は最初からagent-browserを使え。
@@ -33,7 +31,7 @@ SPECIFICATION.md　を追加しろ。
 release.ymlにはpatch minor majorの選択肢でbump versionするやつを。
 workflowの中のビルドにはキャッシュも使え。
 
-設計・仕様変更があった場合は必ずREADME,SPECIFICATION,docs/(specとdocsはない可能性がある。)に該当箇所があるか確認し、それを修正しろ
+設計・仕様変更があった場合は必ずREADME,docs/(specとdocsはない可能性がある。)に該当箇所があるか確認し、それを修正しろ
 
 この環境ではrgが使える
 
