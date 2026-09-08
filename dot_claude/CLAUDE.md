@@ -49,6 +49,11 @@ prは日本語で、そしてbodyは長めで詳細に体系的な。
 biomejsを使え
 
 CLIがうまくいかないときはtmuxを使え
+tmuxは落ちない。`tmux new-session -d 'cmd'`はcmd終了でwindow閉じ→session消滅→最後のsessionならserver終了。socketだけ残り"no server running"表示。
+だから直接cmdを渡すな。`tmux new-session -d -s NAME`でshellだけ起こし、`tmux send-keys -t NAME 'cmd' Enter`で流せ。cmdが死んでもsession生存、`tmux capture-pane -p -t NAME`で出力読める。
+serverは最初のclientのenvを全sessionに配る。mise配下のbinはPATH不備で即死しうる。
+new-sessionは同期。exit 0で戻れば session存在確定→待機ループ不要。生存判定は`tmux ls`のパースでなく`tmux has-session -t NAME`のexit code。session不在は「開始前」でなく「終了済みor起動失敗」。
+デバッグ時は`tmux set-option -g remain-on-exit on`で死体を残せ。
 
 shellでは、環境変数・複雑な batch を重ねるな。シンプルに使え
 
