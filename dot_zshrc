@@ -4,26 +4,57 @@
 # --- PATH ---
 export PATH="$HOME/.local/bin:$PATH"
 
-if command -v ruby >/dev/null 2>&1; then
-  export PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
+# Ruby user gems. Globbed rather than asked of `ruby -e "print Gem.user_dir"`,
+# which costs 255ms per shell start for a path that only moves on a ruby upgrade.
+_gem_bin=("$HOME"/.local/share/gem/ruby/*/bin(N/))
+if (( $#_gem_bin )); then
+  export PATH="${_gem_bin[-1]}:$PATH"
 fi
+unset _gem_bin
 
 # --- mise ---
 if [ -x "$HOME/.local/bin/mise" ]; then
   eval "$("$HOME/.local/bin/mise" activate zsh)"
+  # activate hooks both precmd and chpwd; precmd re-runs `mise hook-env`
+  # (~176ms) before every prompt. The env only changes on cd, so drop precmd.
+  add-zsh-hook -d precmd _mise_hook_precmd
 fi
 
-# --- Oh My Zsh ---
+# --- Oh My Zsh (selective) ---
+# oh-my-zsh.sh sources every lib/*.zsh plus an update check, and a third of
+# those libs only feed omz's own prompt themes, which oh-my-posh replaces here.
+# Source the live ones directly. Order matters: functions.zsh defines helpers
+# the later libs call, and syntax-highlighting must come after every widget.
 export ZSH="$HOME/.oh-my-zsh"
 
-if [ -f "$ZSH/oh-my-zsh.sh" ]; then
-  plugins=(
-    git
-    zsh-syntax-highlighting
-    zsh-autosuggestions
-  )
+if [ -d "$ZSH" ]; then
+  ZSH_CACHE_DIR="$ZSH/cache"
+  fpath=("$ZSH/plugins/git" "$ZSH/functions" "$ZSH/completions"
+         "$ZSH_CACHE_DIR/completions" $fpath)
 
-  source "$ZSH/oh-my-zsh.sh"
+  ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
+  [[ -d "${ZSH_COMPDUMP:h}" ]] || mkdir -p "${ZSH_COMPDUMP:h}"
+  autoload -Uz compinit
+  # Rescan fpath for new completions once a day; trust the dump in between.
+  if [[ -n ${ZSH_COMPDUMP}(#qN.mh-24) ]]; then
+    compinit -C -d "$ZSH_COMPDUMP"
+  else
+    compinit -d "$ZSH_COMPDUMP"
+  fi
+
+  # git_current_branch and friends live in lib/git.zsh, so the git plugin needs
+  # it. async-prompt off stops it registering a precmd hook nothing consumes.
+  zstyle ':omz:alpha:lib:git' async-prompt no
+
+  for _omz_lib in functions history directories grep clipboard termsupport \
+                  theme-and-appearance key-bindings completion misc git; do
+    source "$ZSH/lib/$_omz_lib.zsh"
+  done
+  unset _omz_lib
+
+  source "$ZSH/plugins/git/git.plugin.zsh"
+  source "$ZSH/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  source "$ZSH/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
 
 # --- Prompt ---
