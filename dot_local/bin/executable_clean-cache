@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "=== before ==="
+df -h / | tail -1
+
+echo "=== docker build cache + unused images ==="
+docker builder prune -af
+docker image prune -af
+
+echo "=== go build cache ==="
+go clean -cache
+
+echo "=== uv cache ==="
+uv cache clean
+
+echo "=== npm cache ==="
+npm cache clean --force
+
+echo "=== pnpm store ==="
+pnpm store prune
+
+echo "=== chrome cache ==="
+rm -rf ~/.cache/google-chrome/*
+
+echo "=== yay AUR build cache ==="
+yay -Sc --noconfirm
+
+echo "=== pacman package cache (keep latest 1 version, needs sudo) ==="
+sudo paccache -rk1
+
+echo "=== after ==="
+df -h / | tail -1
