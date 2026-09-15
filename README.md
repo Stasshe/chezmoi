@@ -172,7 +172,8 @@ Key shortcuts:
 relative position without wrapping at 1–10), `Super+Alt+H/L`
 (send a window to the adjacent workspace), `Super+Shift+U/I/O/P` (move a window
 left/down/up/right), `Alt+H/J/K/L` (send Left/Down/Up/Right to the focused
-application), `Caps Lock` or `Ctrl+Space` (toggle Japanese input),
+application), `Alt+G`/`Alt+;` (send Home/End to the focused application),
+`Caps Lock` or `Ctrl+Space` (toggle Japanese input),
 `Super+Shift+L` (sleep),
 `Super+Shift+S` (region screenshot),
 `Print` (fullscreen screenshot), `Super+V` (clipboard history), `Super+N`

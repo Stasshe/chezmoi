@@ -74,3 +74,8 @@ for _, binding in ipairs(arrow_keys) do
         { repeating = true, description = "Input: " .. binding.arrow }
     )
 end
+
+hl.bind("ALT + G", hl.dsp.send_shortcut({ mods = "", key = "Home" }),
+    { repeating = true, description = "Input: Home" })
+hl.bind("ALT + Semicolon", hl.dsp.send_shortcut({ mods = "", key = "End" }),
+    { repeating = true, description = "Input: End" })
