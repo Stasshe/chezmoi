@@ -1,5 +1,7 @@
 hl.config({
     input = {
+        kb_layout = "personal",
+        kb_variant = "us",
         kb_options = "caps:menu",
     },
     general = {

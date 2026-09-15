@@ -101,4 +101,4 @@ if [[ $(fcitx5-remote -q 2>/dev/null) != "$group" ]]; then
 fi
 
 printf '%s\n' "$1" >"$state"
-hyprctl eval "hl.config({ input = { kb_layout = \"$layout\" } })" >/dev/null
+hyprctl eval "hl.config({ input = { kb_layout = \"personal\", kb_variant = \"$1\" } })" >/dev/null

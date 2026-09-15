@@ -27,7 +27,8 @@ Ubuntu and Fcitx5 + Mozc on Arch. On Arch, run `keyboard-layout us` or
 `keyboard-layout jis` to switch the keyboard layout. The selection and Fcitx5
 profile are machine-local and are not managed by chezmoi. Caps Lock or
 `Ctrl+Space` toggles Japanese input without enabling caps. Ubuntu uses the JIS
-(`jp`) layout. GNOME
+(`jp`) layout. On Arch, the physical Menu key between right `Alt` and `Ctrl`
+types `` ` `` or `~`; Caps Lock remains the Menu-key input toggle. GNOME
 uses the standard Mozc engine; its direct and hiragana modes are switched
 internally with the JIS Hankaku/Zenkaku key. Sign out and back in after setup
 before using the IME. On Hyprland, Chrome uses native Wayland and its

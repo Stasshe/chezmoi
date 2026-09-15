@@ -1,0 +1,13 @@
+partial alphanumeric_keys
+xkb_symbols "us" {
+    include "us(basic)"
+
+    key <MENU> { [ grave, asciitilde ] };
+};
+
+partial alphanumeric_keys
+xkb_symbols "jis" {
+    include "jp(106)"
+
+    key <MENU> { [ grave, asciitilde ] };
+};
