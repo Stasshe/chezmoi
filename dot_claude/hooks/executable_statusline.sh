@@ -1,5 +1,5 @@
 #!/bin/bash
-# Claude Code statusline: model name + pwd + genshijin badge.
+# Claude Code statusline: model name + pwd.
 #
 # settings.json:
 #   "statusLine": { "type": "command", "command": "bash ~/.claude/hooks/statusline.sh" }
@@ -18,11 +18,5 @@ BRANCH=$(git -C "$RAW_DIR" branch --show-current 2>/dev/null)
 printf '\033[38;5;39m%s\033[0m \033[38;5;244m%s\033[0m' "$MODEL" "$DIR"
 [ -n "$BRANCH" ] && printf ' \033[38;5;214m(%s)\033[0m' "$BRANCH"
 [ -n "$EFFORT" ] && printf ' \033[38;5;178m[%s]\033[0m' "$EFFORT"
-
-GENSHIJIN_SCRIPT="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/plugins/marketplaces/genshijin/hooks/genshijin-statusline.sh"
-if [ -f "$GENSHIJIN_SCRIPT" ]; then
-  GENSHIJIN=$(bash "$GENSHIJIN_SCRIPT")
-  [ -n "$GENSHIJIN" ] && printf ' %s' "$GENSHIJIN"
-fi
 
 printf '\n'

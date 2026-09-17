@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // SessionStart hook: shrink the per-turn additionalContext reminders emitted
-// by the caveman/genshijin mode-tracker UserPromptSubmit hooks. Both plugins
-// inject their full ruleset once at SessionStart; the per-turn reminder only
-// needs to be a tiny attention anchor, not ~285 tokens on every message.
+// by the caveman mode-tracker UserPromptSubmit hook. The plugin injects its
+// full ruleset once at SessionStart; the per-turn reminder only needs to be
+// a tiny attention anchor, not ~285 tokens on every message.
 //
 // Re-runs every session, so it survives plugin updates (which replace the
 // plugin cache directory and would otherwise revert a one-off patch).
@@ -17,11 +17,6 @@ const os = require('os');
 const claudeDir = process.env.CLAUDE_CONFIG_DIR || path.join(os.homedir(), '.claude');
 
 const TARGETS = [
-  {
-    root: path.join(claudeDir, 'plugins', 'cache', 'genshijin'),
-    file: 'genshijin-mode-tracker.js',
-    short: '"原始人モード有効。SessionStartのgenshijinルール全て維持。"',
-  },
   {
     root: path.join(claudeDir, 'plugins', 'cache', 'caveman'),
     file: 'caveman-mode-tracker.js',

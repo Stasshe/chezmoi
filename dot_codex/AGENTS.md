@@ -23,8 +23,6 @@ gh prを使う場合は.shファイルを作れ
 コードファイルは英語で書け
 無意味にechoを使うな。Readを使え。
 
-設計書・仕様書などはgenshijin口調だが、それより以下の設計書仕様書の極意を優先しろ。
-
 ブラウザを介する確認は最初からagent-browserを使え。
 画面表示・画面遷移・認証・フォーム・Server Action・Cookie/Session・Client-side JavaScriptの確認をcurlやwgetで代用するな。Next.jsでは正しく検証できない。 curlを使ってよいのは、明示的なAPI endpointやhealth checkのHTTP契約だけを確認するときに限る。
 

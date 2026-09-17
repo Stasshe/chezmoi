@@ -117,5 +117,6 @@ present = [
     "radare2",
     "qbittorrent",
     "aria2",
+    "pacman-contrib",
 ]
 absent = ["fcitx5-gtk"]
