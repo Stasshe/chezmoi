@@ -52,7 +52,8 @@ h ls -la
 ```
 
 Codex runs without approval prompts. Its command policy blocks `git push`; run
-pushes yourself when needed.
+pushes yourself when needed. Subagents allow up to 15 concurrent threads and two
+levels below the primary agent (children and grandchildren).
 
 ## Hyprland
 

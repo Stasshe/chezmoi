@@ -11,4 +11,13 @@
 {{- else -}}
 {{- $config = printf "sandbox_mode = \"danger-full-access\"\n%s" $config -}}
 {{- end -}}
+{{- $agentsPattern := `(?m)^\[agents\][^\n]*(?:\n|$)(?:[^\[\n][^\n]*(?:\n|$)|\n)*` -}}
+{{- $agents := regexFind $agentsPattern $config -}}
+{{- if not $agents -}}
+{{- $config = printf "%s\n\n[agents]\n" (trimSuffix "\n" $config) -}}
+{{- $agents = "[agents]\n" -}}
+{{- end -}}
+{{- $updatedAgents := regexReplaceAll `(?m)^(max_threads|max_concurrent_threads_per_session|max_depth)\s*=[^\n]*\n?` $agents "" -}}
+{{- $updatedAgents = printf "%s\nmax_concurrent_threads_per_session = 15\nmax_depth = 2\n" (trimSuffix "\n" $updatedAgents) -}}
+{{- $config = replace $agents $updatedAgents $config -}}
 {{ $config -}}
