@@ -12,7 +12,7 @@ go = "latest"
 "go:github.com/sqlc-dev/sqlc/cmd/sqlc" = { version = "latest", depends = "go" }
 "go:github.com/mfridman/tparse" = { version = "latest", depends = "go" }
 jq = "latest"
-neovim = "nightly"
+neovim = "0.12.5"
 node = "24"
 "npm:@openai/codex" = { version = "latest", depends = "node" }
 "npm:agent-browser" = { version = "latest", depends = "node" }
