@@ -120,6 +120,8 @@ saya install -y \
   networkmanager \
   noctalia-git \
   noctalia-greeter \
+  noto-fonts \
+  noto-fonts-cjk \
   pavucontrol \
   pipewire-pulse \
   ttf-jetbrains-mono-nerd \
