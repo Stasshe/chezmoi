@@ -62,7 +62,6 @@ present = [
     "hyprland",
     "imagemagick",
     "kitty",
-    "lazydocker",
     "lsb-release",
     "loupe",
     "nautilus",
@@ -120,5 +119,10 @@ present = [
     "qbittorrent",
     "aria2",
     "pacman-contrib",
+    "re2c",
+    "coreutils",
 ]
-absent = ["fcitx5-gtk"]
+absent = [
+    "fcitx5-gtk",
+    "lazydocker",
+]
