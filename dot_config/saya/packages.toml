@@ -121,6 +121,7 @@ present = [
     "pacman-contrib",
     "re2c",
     "coreutils",
+    "less",
 ]
 absent = [
     "fcitx5-gtk",
