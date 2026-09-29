@@ -60,6 +60,8 @@ shellでは、環境変数・複雑な batch を重ねるな。シンプルに�
 
 AIのお前はshell scriptの完了などがうまく検知できないことが多い
 
+codex execは絶対に使うな。禁止。tmux使え tmuxの使い方は正しく。
+
 
 
 @~/.claude/ATTENTIONS.md
