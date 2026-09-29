@@ -156,8 +156,7 @@
       "Read(~/.aws/**)",
       "Read(~/.config/gh/**)",
       "Read(~/.npmrc)",
-      "Read(~/.pypirc)",
-      "Read(**/.env)"
+      "Read(~/.pypirc)"
     ]
   },
   "hooks": {
