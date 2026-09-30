@@ -28,22 +28,22 @@ tmux上でcodex TUI(`codex exec`ではない)を操作し実装させる。Claud
    codexはnotify引数の末尾にイベントJSONを付けて呼ぶので、それが `$1` に入る。<log>は絶対パス。
 4. `tmux capture-pane -p -t <name>` でTUI入力待ちを確認。起動時に更新ダイアログ(Update now / Skip)や信頼確認が出ることがある。更新は `2`(Skip)+Enter、その他はユーザーに確認して応答。
 5. 依頼文をscratchpadに `codex-task.md` として書く(下記テンプレ)。TUIへ長文を直接打たず、`tmux send-keys -t <name> -l 'Read <path> and follow it.'` → 別呼び出しで `tmux send-keys -t <name> Enter`。送信後にpaneを見て、入力欄に文が残っていたらEnterを再送する(1回目のEnterが送信にならないことがあった)。
-6. 監視: codexのnotify hook(手順3)がターン完了ごとにJSONを `<log>` へ1行追記する。Monitor(`timeout_ms` 1800000)で待つ。
+6. 監視: codexのnotify hook(手順3)がターン完了ごとにJSONを `<log>` へ1行追記する。Monitorは1本だけ(`timeout_ms` 1800000)で、ログ追記・pane停止(ハング)・session消失をまとめて通知する。
    ```
-   tail -n0 -F <log> | jq --unbuffered -r '.type'
+   prev=""; n=0; last=0
+   while tmux has-session -t <name> 2>/dev/null; do
+     c=$(wc -l < <log>)
+     if [ "$c" -gt "$last" ]; then tail -n +$((last+1)) <log> | jq -r .type; last=$c; fi
+     cur=$(tmux capture-pane -p -t <name> | md5sum)
+     if [ "$cur" = "$prev" ]; then n=$((n+1)); else n=0; fi
+     if [ $n -eq 36 ]; then echo "codex stalled 3min"; fi
+     prev=$cur; sleep 5
+   done
+   echo "codex session ended"
    ```
-   - `agent-turn-complete` 通知 = 完了 or 質問(codexの質問はターン終了として届く)。初回にcodex内部のタイトル生成ターンも同イベントで届くので、依頼直後の通知は作業完了と限らない。`capture-pane -p -S -200 -t <name>` を読み、どちらか必ずpane内容で判断する(推測しない)。
-   - 承認待ちはnotifyに載らない。安全網として別Monitorで、paneが3分変化しない・sessionが消えた場合だけ通知する。
-     ```
-     prev=""; n=0
-     while tmux has-session -t <name> 2>/dev/null; do
-       cur=$(tmux capture-pane -p -t <name> | md5sum)
-       if [ "$cur" = "$prev" ]; then n=$((n+1)); else n=0; fi
-       if [ $n -eq 36 ]; then echo "codex stalled 3min"; fi
-       prev=$cur; sleep 5
-     done
-     echo "codex session ended"
-     ```
+   - `agent-turn-complete` = 完了 or 質問(codexの質問はターン終了として届く)。初回にcodex内部のタイトル生成ターンも同イベントで届くので、依頼直後の通知は作業完了と限らない。
+   - `stalled` = ハングか、完了後の待機。`session ended` = クラッシュ等。
+   - いずれも `capture-pane -p -S -200 -t <name>` を読み、何が起きたか必ずpane内容で判断する(推測しない)。
    - timeoutで切れたら張り直す。
 7. codexが質問したら、基本はClaudeが答える(DX・実装方針・命名・構成・軽微な仕様など、妥当な既定で進めてよいもの)。ユーザーへ中継するのは、業務ロジックなどClaudeに判断材料がないもの、または後戻りが重い重要判断だけ(AskUserQuestion)。回答は `send-keys -l` + `Enter` で返す。
    - Claudeが答えた分も含め、何を聞かれ何と答えたかを記録し、完了報告に載せる。
