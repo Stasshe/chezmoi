@@ -89,6 +89,7 @@ alias ch='chezmoi'
 alias fetch='git fetch -p'
 
 alias zap='JAVA_HOME="$(mise where java)" /usr/local/bin/zap.sh'
+alias nvi='nvim'
 
 
 diffnav() {
