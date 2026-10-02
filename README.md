@@ -16,6 +16,11 @@ In lazydocker, select a Compose-managed container and run
 `c` > `Delete Compose project resources` to remove that project's containers,
 images, volumes, and networks together.
 
+Lazygit's `4 Commits` panel follows the checked-out branch. To inspect remote-only
+and local-only commits, select the branch in `3 Local branches`, press `u`, and
+choose `View divergence from upstream`. The commit panel shows `Remote` and
+`Local` sections for that branch and its upstream; press `Esc` to return.
+
 Files retired from chezmoi are listed explicitly in
 `run_once_before_cleanup.sh.tmpl`. Chezmoi reruns the cleanup when its rendered
 content changes; paths absent from the list are never removed.
