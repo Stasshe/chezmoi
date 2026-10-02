@@ -24,6 +24,7 @@ gh prを使う場合は.shファイルを作れ
 無意味にechoを使うな。Readを使え。
 
 ブラウザを介する確認は最初からagent-browserを使え。
+agent-browserはこまめにプロセス終了しろ
 画面表示・画面遷移・認証・フォーム・Server Action・Cookie/Session・Client-side JavaScriptの確認をcurlやwgetで代用するな。Next.jsでは正しく検証できない。 curlを使ってよいのは、明示的なAPI endpointやhealth checkのHTTP契約だけを確認するときに限る。
 
 release.ymlにはpatch minor majorの選択肢でbump versionするやつを。
