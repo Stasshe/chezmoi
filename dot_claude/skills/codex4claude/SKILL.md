@@ -2,29 +2,31 @@
 name: codex4claude
 description: Claudeがtmux経由でcodex TUIを起動し、実装を委譲する手順。ユーザーが /codex4claude と明示したときのみ使う。
 disable-model-invocation: true
-argument-hint: "[model=sol|luna] <task> (model省略でClaudeが判断)"
+argument-hint: "<task>"
 ---
 
 # codex4claude
 
-tmux上でcodex TUI(`codex exec`ではない)を操作し実装させる。Claudeは依頼・監視・質問中継、実装はcodex。
+tmux上でcodex TUI(`codex exec`ではない)を操作し実装させる。
+
+## 役割
+
+- Claude: オーケストレータのオーケストレータ。依頼・監視・codexの質問への回答・成果確認。コードは書かない。
+- codex `gpt-6.1-sol`(固定): オーケストレータ。タスク分解・subagentへの割当・統合・検証。自分ではコードを書かない。
+- subagent `gpt-6-luna`: コードを書く実装担当。数・並列度の制限なし、ガンガン使わせる。
 
 ## 引数
 
-- model: ユーザー指定がなければClaudeがタスクから選ぶ。
-  - `gpt-6-sol`: 複数ファイル、設計判断、曖昧さ・難所を含む実装。迷ったらこちら。
-  - `gpt-6-luna`: 範囲が明確で小さい、機械的な変更。
-  - 指定があればそのまま `-m` へ(`sol`/`luna` は上記IDに展開)。選んだmodelと理由を一行でユーザーへ伝える。
-- effort: `high` 固定。
-- 残りがタスク。曖昧ならcodexへ投げる前にユーザーへ確認。
+- 全体がタスク。曖昧ならcodexへ投げる前にユーザーへ確認。
+- model `gpt-6.1-sol`、effort `high` 固定。
 
 ## 手順
 
 1. `codex --version` と `tmux -V` 確認。`tmux ls` で既存の `codex4claude-*` sessionを確認、再利用可なら流用。
 2. session作成: `tmux new-session -d -s codex4claude-<slug> -c <pwd>`。cmdは直接渡さない(shellだけ起動)。
 3. 起動: scratchpadに `<log>`(例 `codex-events.log`)を空で作り、
-   `tmux send-keys -t <name> "codex -m <model> -c model_reasoning_effort=\"high\" -c 'notify=[\"sh\",\"-c\",\"printf %s\\\\n \\\"\$1\\\" >> <log>\",\"sh\"]'" Enter`
-   (ペインに入力される実体: `codex -m <model> -c model_reasoning_effort="high" -c 'notify=["sh","-c","printf %s\\n \"$1\" >> <log>","sh"]'`。動作確認済み)
+   `tmux send-keys -t <name> "codex -m gpt-6.1-sol -c model_reasoning_effort=\"high\" -c 'notify=[\"sh\",\"-c\",\"printf %s\\\\n \\\"\$1\\\" >> <log>\",\"sh\"]'" Enter`
+   (ペインに入力される実体: `codex -m gpt-6.1-sol -c model_reasoning_effort="high" -c 'notify=["sh","-c","printf %s\\n \"$1\" >> <log>","sh"]'`。動作確認済み)
    codexはnotify引数の末尾にイベントJSONを付けて呼ぶので、それが `$1` に入る。<log>は絶対パス。
 4. `tmux capture-pane -p -t <name>` でTUI入力待ちを確認。起動時に更新ダイアログ(Update now / Skip)や信頼確認が出ることがある。更新は `2`(Skip)+Enter、その他はユーザーに確認して応答。
 5. 依頼文をscratchpadに `codex-task.md` として書く(下記テンプレ)。TUIへ長文を直接打たず、`tmux send-keys -t <name> -l 'Read <path> and follow it.'` → 別呼び出しで `tmux send-keys -t <name> Enter`。送信後にpaneを見て、入力欄に文が残っていたらEnterを再送する(1回目のEnterが送信にならないことがあった)。
@@ -52,7 +54,8 @@ tmux上でcodex TUI(`codex exec`ではない)を操作し実装させる。Claud
 ## 依頼文テンプレ
 
 ```
-あなたはオーケストレータ。実装はsubagentを積極的に使って分担・並列化せよ(subagent利用は許可済み)。
+あなたはオーケストレータ。自分ではコードを書くな。タスクを分解し、コードは全てmodel `gpt-6-luna` のsubagentに書かせよ。
+subagentは数・並列度を気にせず積極的に使え(利用は許可済み)。あなたは割当・統合・検証に専念せよ。
 少しでも不明点・曖昧点があれば、実装前に必ず私へ質問せよ。推測で進めるな。
 
 # タスク
