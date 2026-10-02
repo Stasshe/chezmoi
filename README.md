@@ -60,6 +60,14 @@ Codex runs without approval prompts. Its command policy blocks `git push`; run
 pushes yourself when needed. Subagents allow up to 15 concurrent threads and two
 levels below the primary agent (children and grandchildren).
 
+## C development
+
+For C development, Neovim uses the C Tree-sitter parser. GCC compiles programs,
+and GDB runs in Neovim's terminal for interactive debugging. Saya manages GDB
+and C library manuals. See the
+[Neovim C workflow](dot_config/nvim/README.md#c-development)
+for installation, build commands, and key bindings.
+
 ## Hyprland
 
 On Arch, install the complete Hyprland session explicitly when needed:
