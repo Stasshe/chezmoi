@@ -29,7 +29,7 @@ tmux上でcodex TUI(`codex exec`ではない)を操作し実装させる。
 2. session作成: `tmux new-session -d -s codex4claude-<slug> -c <pwd>`。cmdは直接渡さない(shellだけ起動)。
 3. 起動: `tmux send-keys -t <name> "codex -m gpt-6.1-sol -c model_reasoning_effort=\"high\" -c agents.max_concurrent_threads_per_session=30" Enter`
    - 並列数自体は問題にならない。OOMの原因はClaudeが過剰な検証を課し、多数のsubagentが各自Chrome(agent-browser)・build・全体テストを立ち上げたこと。
-   - 検証はユーザーが求めた範囲だけ。依頼文で「agent-browserでの確認」「全体lint/型/テスト/build」「スクショ比較」を勝手に課さない。実装を先に終わらせる。
+   - 重い検証（agent-browserの画面確認、スクショ比較）は求められた時だけ。format・lint・typecheck・build・単体テストは常に必須で、専用subagentに並列でやらせ実装を止めない。最後は全部グリーンで報告させる。
 4. `capture-pane` が `Ask Codex` を含むまで待つ(`until ...; do sleep 2; done`)。更新ダイアログは `2`(Skip)+Enter、その他はユーザーに確認。
 5. 依頼文をscratchpadに書く(下記テンプレ)。`send-keys -l 'Read <path> and follow it.'` → 別呼び出しで `send-keys Enter`。送信後paneで確認し、入力欄に残っていればEnter再送。
    - 作業中に送った追加指示は「Messages to be submitted after next tool call」にキューされ、次のtool呼出し後に届く。急ぐ時だけEscで即時送信(Esc2回目は中断)。
@@ -62,6 +62,8 @@ tmux上でcodex TUI(`codex exec`ではない)を操作し実装させる。
 - 手順: 区切りでEsc中断 → 「subagent全停止・コード変更禁止・`handoff.md` に段階ごとの完了/未完了・検証結果・既知の問題・起動物を書き、起動物を片付けよ」と指示 → `kill-session` → 元タスク＋決定事項＋handoff＋追加指示を渡して新session。
 
 ## レビュー
+
+- codexが完了しても報告して止まらない。完了→即レビュー→指摘を担当codexへ→修正のループを、ユーザーが止めるまで自走で回す。待機中のcodexを放置しない。
 
 - ある程度実装が進んだら、Claudeのsubagentで読取専用レビュー。1体あたり数千行、領域ごとに数体を並列。普通はSonnet、難所(中核ロジック・並行性・RLS)はOpus。
 - 共通のレビュー観点はscratchpadのmdにまとめ、各subagentには範囲だけ渡す。出力は `path:line — severity — 問題 — 失敗シナリオ — 修正`。
