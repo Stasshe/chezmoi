@@ -29,7 +29,7 @@ tmux上でcodex TUI(`codex exec`ではない)を操作し実装させる。
 2. session作成: `tmux new-session -d -s codex4claude-<slug> -c <pwd>`。cmdは直接渡さない(shellだけ起動)。
 3. 起動: `tmux send-keys -t <name> "codex -m gpt-6.1-sol -c model_reasoning_effort=\"high\" -c agents.max_concurrent_threads_per_session=30" Enter`
    - 並列数自体は問題にならない。OOMの原因はClaudeが過剰な検証を課し、多数のsubagentが各自Chrome(agent-browser)・build・全体テストを立ち上げたこと。
-   - 重い検証（agent-browserの画面確認、スクショ比較）は求められた時だけ。format・lint・typecheck・build・単体テストは常に必須で、専用subagentに並列でやらせ実装を止めない。最後は全部グリーンで報告させる。
+   - agent-browserの要否はClaudeが判断する。全画面確認やスクショ比較はしないが、その回の修正の要所（認証、主要操作、利用者が報告した不具合）は最後に1subagent・同時1〜2セッションで確認させる。format・lint・typecheck・build・単体テストは常に必須で、専用subagentに並列でやらせ実装を止めない。最後は全部グリーンで報告させる。
 4. `capture-pane` が `Ask Codex` を含むまで待つ(`until ...; do sleep 2; done`)。更新ダイアログは `2`(Skip)+Enter、その他はユーザーに確認。
 5. 依頼文をscratchpadに書く(下記テンプレ)。`send-keys -l 'Read <path> and follow it.'` → 別呼び出しで `send-keys Enter`。送信後paneで確認し、入力欄に残っていればEnter再送。
    - 作業中に送った追加指示は「Messages to be submitted after next tool call」にキューされ、次のtool呼出し後に届く。急ぐ時だけEscで即時送信(Esc2回目は中断)。
