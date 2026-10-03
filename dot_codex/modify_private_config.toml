@@ -18,6 +18,6 @@
 {{- $agents = "[agents]\n" -}}
 {{- end -}}
 {{- $updatedAgents := regexReplaceAll `(?m)^(max_threads|max_concurrent_threads_per_session|max_depth)\s*=[^\n]*\n?` $agents "" -}}
-{{- $updatedAgents = printf "%s\nmax_concurrent_threads_per_session = 15\nmax_depth = 2\n" (trimSuffix "\n" $updatedAgents) -}}
+{{- $updatedAgents = printf "%s\nmax_concurrent_threads_per_session = 40\nmax_depth = 2\n" (trimSuffix "\n" $updatedAgents) -}}
 {{- $config = replace $agents $updatedAgents $config -}}
 {{ $config -}}
