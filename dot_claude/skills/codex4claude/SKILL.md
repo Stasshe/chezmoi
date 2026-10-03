@@ -13,86 +13,86 @@ tmux上でcodex TUI(`codex exec`ではない)を操作し実装させる。
 
 ## 役割
 
-- Claude: オーケストレータのオーケストレータ。依頼・監視・codexの質問への回答・レビュー手配・成果確認。**コードは書かない。** 触ってよいのはユーザー決定事項のdocs記録と、scratchpadの依頼文・指摘md・監視スクリプトだけ。
-- codex `gpt-6.1-sol`(固定): オーケストレータ。タスク分解・subagentへの割当・統合・検証。自分ではコードを書かない。
-- subagent `gpt-6-luna`: コードを書く実装担当。数・並列度の制限なし、最大限並列でガンガン使わせる。難所(状態機械設計・RLS/並行性・認証など)は `gpt-6.1-sol` subagentでもよい。
-- レビュー: Claudeのsubagent(Sonnet、難所はOpus)。下記「レビュー」。
+- Claude: オーケストレータのオーケストレータ。依頼・監視・質問への回答・セッション間の中継・レビュー手配。**コードは書かない。** 触ってよいのはユーザー決定事項のdocs記録と、scratchpadの依頼文・指摘md・監視スクリプトだけ。
+- codex `gpt-6.1-sol`(固定、effort high): 領域の責任者オーケストレータ。洗い出し・分解・subagent割当・統合・検証。自分ではコードを書かない。
+- subagent `gpt-6-luna`: 実装担当。最大限並列。難所(状態機械・RLS/並行性・認証・占有計算)は `gpt-6.1-sol` subagent可。
+- レビュー: Claudeのsubagent(Sonnet、難所はOpus)。
+- 進め方は rapid-prototype の精神: 全体を先に動かす。細部の完璧主義で止めない。型安全・800行上限・デッドコードなしは守る。
 
-## 引数
+## 体制
 
-- 全体がタスク。曖昧ならcodexへ投げる前にユーザーへ確認。
-- model `gpt-6.1-sol`、effort `high` 固定。
+- 粒度は粗く: 「サーバー側全部」「画面側全部」＋必要なら専門(例: a11y改善)の2〜3本を並列。細かいタスクを逐次投げない。
+- 各セッションは領域の責任者。正本を示し、残作業の洗い出しから完了まで任せる。正本の例: 業務=docs/domain、設計=docs/design・plan、外観=旧実装。
+- 依頼文に**担当範囲**と**触るな範囲**、docker project名・ポートの分離を明記。同じアプリを2本で触る時は「編集前に読み直し、最小差分、相手を上書きしない」を両方へ伝える。
+- セッション間の依存はClaudeが中継する。例: 画面側が「API契約の追加」を求めたら、Claudeがサーバー側の一括タスクへ追記し、完了したら画面側へ合図する(接続先・再seed・再ビルド要否も)。
+- ユーザーが見る共有環境(dev server・API・DB)はClaudeかサーバー側が維持し、他は止めない・作り直さない。
 
-## 手順
+## 起動
 
-1. `codex --version` と `tmux -V` 確認。`tmux ls` で既存sessionを確認(既存は触らない)。
-2. session作成: `tmux new-session -d -s codex4claude-<slug> -c <pwd>`。cmdは直接渡さない(shellだけ起動)。
-3. 起動: `tmux send-keys -t <name> "codex -m gpt-6.1-sol -c model_reasoning_effort=\"high\" -c agents.max_concurrent_threads_per_session=30" Enter`
-   - 並列数自体は問題にならない。OOMの原因はClaudeが過剰な検証を課し、多数のsubagentが各自Chrome(agent-browser)・build・全体テストを立ち上げたこと。
-   - agent-browserの要否はClaudeが判断する。全画面確認やスクショ比較はしないが、その回の修正の要所（認証、主要操作、利用者が報告した不具合）は最後に1subagent・同時1〜2セッションで確認させる。format・lint・typecheck・build・単体テストは常に必須で、専用subagentに並列でやらせ実装を止めない。最後は全部グリーンで報告させる。
-4. `capture-pane` が `Ask Codex` を含むまで待つ(`until ...; do sleep 2; done`)。更新ダイアログは `2`(Skip)+Enter、その他はユーザーに確認。
-5. 依頼文をscratchpadに書く(下記テンプレ)。`send-keys -l 'Read <path> and follow it.'` → 別呼び出しで `send-keys Enter`。送信後paneで確認し、入力欄に残っていればEnter再送。
-   - 作業中に送った追加指示は「Messages to be submitted after next tool call」にキューされ、次のtool呼出し後に届く。急ぐ時だけEscで即時送信(Esc2回目は中断)。
-6. 監視: Monitor 1本(`timeout_ms` 1800000)で全sessionを見る。`bash ~/.claude/skills/codex4claude/watch.sh <session> [<session>...]`
-   - 出力: `turn finished`(working表示が30秒消えた)、`pending questions`、`compacting (#n)`、`stalled 3min`、`session ended`。
-   - いずれも `capture-pane -p -S -80 -t <name>` を読みpane内容で判断(推測しない)。working表示は再描画でちらつくので誤検知はあり得る。
-   - notify hookはJSONに改行が入らず、ターン完了の判定に使えないので使わない。
-   - timeoutで切れたら張り直す。session構成が変わったら旧Monitorを TaskStop して張り直す。
-7. codexの質問:
-   - 「Queued follow-up inputs / ? N questions」は `send-keys S-Left` で開く。選択肢は数字キーで即送信。Otherは数字で選んでから `send-keys -l '<文>'` → Enter。`S-Left`/`S-Right` で問の移動。
-   - 基本はClaudeが答える(DX・実装方針・命名・構成・軽微な仕様、ユーザー決定からの論理的帰結)。業務ロジック・後戻りが重い判断・権限や外部設定が要るものはユーザーへ(AskUserQuestion、まとめて最大4問)。
-   - ユーザーの業務決定は**即**docs(domain等)へ反映し、codexにも伝える。
-   - 何を聞かれ誰が何と答えたかを記録し、報告に載せる。
-8. 完了後、`git diff` 等の読み取りで成果を確認しユーザーへ報告。不要sessionは `tmux kill-session`。codexが起動したプロセス・dockerが残っていないか確認し、今回作られたものだけ消す。
+1. `tmux ls` で既存確認(既存は触らない)。`tmux new-session -d -s codex4claude-<slug> -c <pwd>`(cmdは渡さない)。
+2. `tmux send-keys -t <name> "codex -m gpt-6.1-sol -c model_reasoning_effort=\"high\" -c agents.max_concurrent_threads_per_session=30" Enter`
+3. `until tmux capture-pane -p -t <name> | grep -q "Ask Codex"; do sleep 2; done`。更新ダイアログは `2`+Enter。
+4. 依頼文をscratchpadに書き、`send-keys -l 'Read <path> and follow it.'` → 別呼び出しで `Enter`。paneで送信を確認(残っていればEnter再送)。
+   - 作業中の追加指示は次のtool呼出し後に届く(キュー)。急ぐ時だけEsc(2回目は中断)。
+- codexにインストール済みのスキル(例: ui-ux-pro-max)は、Claude側に無くても使える。「無い」と判断しない。
 
-## 並列オーケストレータ
+## 監視
 
-- 依頼の粒度は「サーバー側全部」「画面側全部」「その他」程度に大きく。各オーケストレータを領域の責任者にし、正本(plan/docs/旧実装)を示して残作業の洗い出しから完了まで任せる。Claudeが細かい指示を逐次投げない。
+Monitor 1本(`timeout_ms` 1800000、切れたら即張り直し)で全sessionを見る:
+```
+( while :; do a=$(awk '/MemAvailable/{print int($2/1048576)}' /proc/meminfo); if [ "$a" -lt 5 ]; then echo "LOW MEMORY: ${a}GiB available"; sleep 60; fi; for s in <sessions>; do if tmux capture-pane -p -t $s 2>/dev/null | tail -6 | grep -q "at capacity"; then echo "$s: model at capacity"; sleep 50; fi; done; sleep 10; done ) & bash ~/.claude/skills/codex4claude/watch.sh <sessions> 2>&1; kill %1
+```
+- `turn finished` / `pending questions` / `compacting (#n)` / `stalled 3min` / `session ended` / `model at capacity` / `LOW MEMORY`。必ず `capture-pane -p -S -60` で中身を見て判断。
+- `model at capacity`: 「続きを再開せよ」と送るだけで復帰する。
+- `LOW MEMORY`: 原因(`ps` で MainThread=Nodeワーカー、chrome)を見て、vitest `--maxWorkers=4`、build/tsc同時1、agent-browser即closeを全セッションへ。
+- `stalled` は完了後の待機であることが多い。
 
-- `gpt-6.1-sol` オーケストレータは2〜3本並列してよい(例: API担当 / 画面群A / 画面群B)。
-- 各依頼文に**担当範囲**と**触るな範囲**を明記し、ファイル衝突を防ぐ。共通部品を作る側を1本に決め、完成したら途中報告させて他へ中継する。
-- docker compose project名・ホストポートをsessionごとに分ける。他sessionの環境は停止・作り直し禁止。
-- API側の修正完了などsession間の依存は、Claudeが合図(接続先・再seed・再ビルドの要否)を中継する。
+## 質問への回答
+
+- `? N questions` は `send-keys S-Left` で開く。選択肢は数字キー、Otherは数字→`send-keys -l '<文>'`→Enter。
+- Claudeが答える前に、該当する docs/domain・design・plan を必ず引いて矛盾しないか確認する(記憶で答えない)。廃止済み概念や用語の誤りはその場で訂正する。
+- Claudeが答えてよい: 実装方針・命名・構成・docsからの論理的帰結・他セッションへの中継。ユーザーへ聞く: 業務ルール・仕様変更・外部設定や権限が要るもの(AskUserQuestion、まとめて)。
+- 業務決定は即docsへ反映し、関係セッションへ伝える。
+
+## 検証
+
+- 常に必須: format・lint・typecheck・build・単体テスト。専用subagentに並列でやらせ、実装を止めない。最後は全部グリーンで報告。
+- agent-browserの要否はClaudeが判断。全画面確認・スクショ比較はしない。その回の要所(認証・主要操作・ユーザーが報告した不具合)だけ最後に1subagent・同時1〜2セッションで確認。
+- 過剰な検証(多数のChrome・並行build)はOOMでPCを固まらせる。並列数自体は問題ではない。
+
+## 自走ループ(止まるな)
+
+- codexが完了しても報告して待機しない。完了 → 即Sonnetレビュー(数千行×数体並列) → 指摘を精査し領域ごとの一括md(batch-*.md)へ → 担当セッションへ → 修正、をユーザーが止めるまで回す。待機中のcodexを放置しない。
+- レビュー観点はscratchpadの共通mdにまとめ範囲だけ渡す: 実バグ、docs/domain・plan とのずれ(廃止概念・用語)、旧実装からの明らかな逸脱、重複・不自然な実装。出力 `path:line — severity — 問題 — 修正`。
+- 精査: ユーザー方針に反する指摘・要件追加・業務判断が要るものは除外かユーザーへ確認。ユーザーが「不要」と言った観点は以後外す。
 
 ## セッションの切替
 
-- codexが異常終了・PC再起動で落ちたら、新規ではなく `codex resume`（直近は `codex resume --last`、または一覧から選択）で文脈ごと再開する。
-
-- 文脈圧縮が3回程度、または性能劣化(同じ質問の繰返し、指示の取りこぼし)が見えたらClaude判断で新規sessionへ。
-- 手順: 区切りでEsc中断 → 「subagent全停止・コード変更禁止・`handoff.md` に段階ごとの完了/未完了・検証結果・既知の問題・起動物を書き、起動物を片付けよ」と指示 → `kill-session` → 元タスク＋決定事項＋handoff＋追加指示を渡して新session。
-
-## レビュー
-
-- codexが完了しても報告して止まらない。完了→即レビュー→指摘を担当codexへ→修正のループを、ユーザーが止めるまで自走で回す。待機中のcodexを放置しない。
-
-- ある程度実装が進んだら、Claudeのsubagentで読取専用レビュー。1体あたり数千行、領域ごとに数体を並列。普通はSonnet、難所(中核ロジック・並行性・RLS)はOpus。
-- 共通のレビュー観点はscratchpadのmdにまとめ、各subagentには範囲だけ渡す。出力は `path:line — severity — 問題 — 失敗シナリオ — 修正`。
-- 戻った指摘をClaudeが精査(ユーザー方針に反する指摘・要件追加・業務判断が要るものを除外/ユーザーへ確認)し、scratchpadに領域別md＋横断方針mdとして保存。担当codex sessionへ渡す。
-- ユーザーが「不要」と言った観点(例: 手動workflowの安全策、E2E強化)は以後の指摘から外す。
+- 異常終了・PC再起動で落ちたら新規ではなく `codex resume <id>` で文脈ごと再開(IDは `~/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl`、初回プロンプトで特定)。並列上限変更も `/quit` → `codex resume <id> -c agents.max_concurrent_threads_per_session=N`。
+- 落ちたセッションの未反映の知見は、resumeして「コード変更禁止、作業ツリーから読めない計画・発見を recovered-*.md に書け」と回収し、後継へ渡す。
+- 文脈圧縮3回程度か性能劣化で、区切りに引継ぎ(handoff.md)を書かせて新sessionへ。
 
 ## ユーザー閲覧
 
-- ユーザーは `tmux attach -t <name>`(`-r` なし)で直接見る。`-r` の読み取り専用クライアントが付くとClaudeの `send-keys` が `client is read-only` で失敗するため、`-r` は案内しない。閲覧用の別sessionも作らない。
+- ユーザーは `tmux attach -t <name>`(`-r` なし)で見る。`-r` が付くと send-keys が `client is read-only` で失敗する。
 
 ## 依頼文テンプレ
 
 ```
-あなたはオーケストレータ。自分ではコードを書くな。タスクを分解し、コードは全てmodel `gpt-6-luna` のsubagentに書かせよ。
-subagentは並列度最大で使え。独立したファイル群は全て同時に投げろ(利用は許可済み)。難所は model `gpt-6.1-sol` のsubagentでよい。あなたは割当・統合・検証に専念せよ。
-業務判断が必要な不明点は実装前に必ず私へ質問せよ。推測で進めるな。それ以外は止まらず最後まで進めよ。
+あなたはオーケストレータ。自分ではコードを書くな。コードは全てmodel `gpt-6-luna` のsubagentに書かせよ(並列で大量に)。難所は `gpt-6.1-sol` subagent可。あなたは割当・統合・検証に専念。
+あなたは「<領域>全部」の責任者。私の個別指示を待たず、正本(<docs/plan/旧実装>)に照らして残作業・不具合・重複を自分で洗い出し、最後まで片付けよ。業務判断が必要な時だけ私へ質問せよ。
 
 # タスク
 <task>
 
-# 担当範囲(並列時)
-あなた: <paths>。触るな: <paths>(別sessionが担当)。
+# 担当範囲
+あなた: <paths>。触るな: <paths>(別sessionが担当)。共有環境 <URL/ports> は止めるな。
 
 # 制約
-- 余計な機能を足さない。シンプルに。
-- gitの書き込み操作(commit/stage/push等)はするな。gitの状態変化は利用者の操作なので気にするな。
-- 設計・仕様変更があればREADME/docsの該当箇所も更新。
-- 起動したプロセス(dev server、tmux session等)とdockerコンテナ・イメージ・volumeは、使い終わったら必ず停止・削除せよ。既存・他sessionのものは触るな。docker project名・ポートは <指定>。
-- 完了時、変更内容・検証結果・未完了を細かく報告せよ。
+- 余計な機能を足さない。シンプルに。型安全、1ファイル800行以下、デッドコードなし。
+- gitの書き込み操作はするな。gitの状態変化は利用者の操作なので気にするな。
+- 設計・仕様変更があればdocsの該当箇所も更新。
+- format・lint・typecheck・build・単体テストは検証用subagentに並列でやらせ、全部グリーンにする。agent-browserは<要所>だけ、終了後close。
+- 起動したプロセス・dockerは使い終わったら停止・削除。既存・他sessionのものは触るな。docker project名・ポートは <指定>。
+- 完了時、変更内容・検証結果・未完了を一度だけまとめて報告せよ。
 ```
-
-必要なら repo固有の追加文脈(参照ファイル、規約)を `# 制約` に足す。
