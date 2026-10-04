@@ -24,9 +24,9 @@ tmux上でcodex TUI(`codex exec`ではない)を操作し実装させる。
 - 粒度は粗く: 「サーバー側全部」「画面側全部」＋必要なら専門(例: a11y改善)の2〜3本を並列。細かいタスクを逐次投げない。
 - 各セッションは領域の責任者。正本を示し、残作業の洗い出しから完了まで任せる。正本はプロジェクトの業務仕様・設計文書・移植元の旧実装など(例: htj-platformでは 業務=docs/domain、設計=docs/design・docs/plan、外観=旧アプリ)。
 - 依頼文に**担当範囲**と**触るな範囲**、docker project名・ポートの分離を明記。同じアプリを2本で触る時は「編集前に読み直し、最小差分、相手を上書きしない」を両方へ伝える。
-- セッション間の依存はClaudeが中継する。例: 画面側が「API契約の追加」を求めたら、Claudeがサーバー側の一括タスクへ追記し、完了したら画面側へ合図する(接続先・再seed・再ビルド要否も)。
+- セッション同士を依存させない。各セッションはタスクを縦に完結させ、必要ならproto・API・生成コード・seed・画面のどの層も自分で直す(編集前に読み直し・最小差分)。Claudeは個別の不具合や契約追加を中継しない。オーケストレータはcodex。Claudeが1件ずつ振り分けると粒度が細かくなりすぎ、待ちと文脈消費が増える(Stasshe指摘)。
 - ユーザーが見る共有環境(dev server・API・DB)はClaudeかサーバー側が維持し、他は止めない・作り直さない。開発データやログイン情報が変わったら、接続先とログイン情報をユーザーに伝える(プロジェクトにアカウント一覧の文書があれば、それも更新させる)。
-- あるセッションが担当外の不具合を見つけたら、自分で直させず内容を報告させ、Claudeが担当セッションへ回す(並行編集の衝突を防ぐ)。
+- 担当外の不具合も、気づいたセッションが読み直して最小差分で直す。自分で片付けない残作業はプロジェクトのTODO文書(例: docs/TODO.md)へ追記させる。Claudeを経由させない。中継ファイルや画面文字の検知は作らない(Stasshe指摘)。
 
 ## 起動
 
@@ -41,7 +41,6 @@ tmux上でcodex TUI(`codex exec`ではない)を操作し実装させる。
 
 Monitor 1本(`timeout_ms` 1800000、切れたら即張り直し)で全sessionを見る:
 ```
-( while :; do a=$(awk '/MemAvailable/{print int($2/1048576)}' /proc/meminfo); if [ "$a" -lt 5 ]; then echo "LOW MEMORY: ${a}GiB available"; sleep 60; fi; for s in <sessions>; do if tmux capture-pane -p -t $s 2>/dev/null | tail -6 | grep -q "at capacity"; then echo "$s: model at capacity"; sleep 50; fi; done; sleep 10; done ) & bash ~/.claude/skills/codex4claude/watch.sh <sessions> 2>&1; kill %1
 ```
 - `turn finished` / `pending questions` / `compacting (#n)` / `stalled 3min` / `session ended` / `model at capacity` / `LOW MEMORY`。必ず `capture-pane -p -S -60` で中身を見て判断。
 - `model at capacity`: 「続きを再開せよ」と送るだけで復帰する。
@@ -56,7 +55,7 @@ Monitor 1本(`timeout_ms` 1800000、切れたら即張り直し)で全sessionを
 - Claudeが答える前に、該当する業務仕様・設計文書を必ず引いて矛盾しないか確認する(記憶で答えない)。廃止済み概念や用語の誤りはその場で訂正する。
 - Claudeが答えてよい: 実装方針・命名・構成・docsからの論理的帰結・他セッションへの中継。ユーザーへ聞く: 業務ルール・仕様変更・外部設定や権限が要るもの(AskUserQuestion、まとめて)。
 - 業務決定は即docsへ反映し、関係セッションへ伝える。
-- codexに、Claudeの回答を「利用者確認済み」「利用者が承認」としてdocs・記録に書かせない(実際にあった)。Claudeの判断はClaudeの判断として扱わせる。
+- docs・記録ではユーザーの決定とClaude/codexの判断を区別させる。Claudeが答えた事項をユーザー名義（「〜が確定」「確認済み」）で書かせない。Claudeの判断は「Claudeの判断（ユーザー確認待ち）」と明記させる（実際に混同があった）。
 - Claudeが自分で答えた質問も、答えた直後にユーザーへ必ず報告する: 「何を聞かれたか（要約）／Claudeの回答／根拠（参照docsや判断理由）」を数行で。ユーザーが違うと言えば即訂正してcodexへ送り直す。黙って答えて流さない（ユーザーが判断を追えなくなる）。
 
 ## 検証
@@ -137,5 +136,6 @@ Monitor 1本(`timeout_ms` 1800000、切れたら即張り直し)で全sessionを
 - 設計・仕様変更があればdocsの該当箇所も更新。
 - format・lint・typecheck・build・単体テストは検証用subagentに並列でやらせ、全部グリーンにする。agent-browserは<要所>だけ、終了後close。
 - 起動したプロセス・dockerは使い終わったら停止・削除。既存・他sessionのものは触るな。docker project名・ポートは <指定>。
+- タスクは縦に完結させよ。必要ならproto・API・生成コード・seed・画面のどの層も自分で直してよい（編集前に読み直し、最小差分、他の変更を上書きしない）。他セッションの完了を待つな。
 - 完了時、変更内容・検証結果・未完了を一度だけまとめて報告せよ。
 ```
