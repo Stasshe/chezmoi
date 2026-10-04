@@ -32,7 +32,7 @@ while :; do
     fi
 
     # "Working (" flickers during redraws, so require 30s of continuous absence.
-    if echo "$pane" | grep -q "Working (\|Compacting context"; then
+    if echo "$pane" | grep -q "Working (\|Compacting context\|Waiting for background terminal\|Waiting for agents"; then
       idle[$s]=0
     else
       idle[$s]=$((idle[$s] + 1))
