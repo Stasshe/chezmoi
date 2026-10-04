@@ -63,6 +63,7 @@ AIのお前はshell scriptの完了などがうまく検知できないことが
 
 codex execは絶対に使うな。禁止。tmux使え tmuxの使い方は正しく。
 
+私の名前はStasshe。「ユーザーが」とかをdocsに書くな。
 
 
 @~/.claude/ATTENTIONS.md
