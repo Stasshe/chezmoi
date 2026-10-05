@@ -14,7 +14,6 @@ go = "latest"
 jq = "latest"
 neovim = "0.12.5"
 node = "24"
-"npm:@openai/codex" = { version = "latest", depends = "node" }
 "npm:agent-browser" = { version = "latest", depends = "node" }
 "npm:ctx-gleaner" = { version = "latest", depends = "node" }
 "npm:hunkdiff" = { version = "latest", depends = "node" }

@@ -10,6 +10,8 @@ cd ~/.local/share/chezmoi
 The setup configures the Docker APT repository on Ubuntu, installs mise and
 chezmoi, applies the managed files, installs the configured Saya packages,
 installs the configured mise tools, and configures the desktop session.
+Codex CLI is installed separately with the official standalone installer; it is
+not managed by mise.
 Docker bridge networks use dedicated `192.168.223.0/24`–`192.168.255.0/24`
 address space to avoid taking routes for LAN and overlay-network services.
 In lazydocker, select a Compose-managed container and run
