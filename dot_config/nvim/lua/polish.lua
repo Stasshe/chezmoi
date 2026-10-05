@@ -5,4 +5,4 @@ else
 end
 
 vim.opt.clipboard:append "unnamedplus"
-vim.keymap.set("n", "dd", '"_dd', { desc = "Delete line without yanking" })
+vim.keymap.set({ "n", "x" }, "d", '"_d', { desc = "Delete without yanking" })
