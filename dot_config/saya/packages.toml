@@ -129,6 +129,7 @@ present = [
     "coreutils",
     "less",
     "rsync",
+    "lsof",
 ]
 absent = [
     "fcitx5-gtk",
