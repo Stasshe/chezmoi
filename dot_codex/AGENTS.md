@@ -9,14 +9,11 @@ Don't use pip directory. use uv.
 コードファイルは英語で書け
 
 git操作はするな。こちらでやる。git操作はreadonly。
-restore, staging, commitなどは禁止する。
-git diffなどの読み取りのみは完全に許可する。
 git restoreは例外として許可する
 git操作があった場合、大方私がやったことだから無視しろ
 例外として、issue,pr作成は許可性とする。私から許可が出ればghコマンドを使え。
 sandbox制限でghがログインしてないように表示されることがあるが、気にするな。
 gh prを使う場合は.shファイルを作れ
-
 
 親Folder名をFile名で繰り返すな。ただし、理解しやすさなどの十分な意図があるならok
 
@@ -28,15 +25,11 @@ agent-browserはこまめにプロセス終了しろ
 画面表示・画面遷移・認証・フォーム・Server Action・Cookie/Session・Client-side JavaScriptの確認をcurlやwgetで代用するな。Next.jsでは正しく検証できない。 curlを使ってよいのは、明示的なAPI endpointやhealth checkのHTTP契約だけを確認するときに限る。
 
 release.ymlにはpatch minor majorの選択肢でbump versionするやつを。
-workflowの中のビルドにはキャッシュも使え。
 
-設計・仕様変更があった場合は必ずREADME,docs/(specとdocsはない可能性がある。)に該当箇所があるか確認し、それを修正しろ
+設計・仕様変更があった場合は必ずREADME,docsに該当箇所があるか確認し、それを修正しろ
 
 この環境ではrgが使える
 
-/home/からではなく~/からor pwdからパスは指定しろ
-
-work/では、決してdev,develop,mainブランチで直接pushしないように。
 pr作るときは、ghつかった.shファイルを出力しろ。実行は私がやるからお前はやるな。
 prは日本語で、そしてbodyは長めで詳細に体系的な。
   printf 'Working tree is not clean. Commit the reviewed changes before creating the PR.\n' >&2
@@ -69,6 +62,7 @@ codex execは絶対に使うな。禁止。tmux使え tmuxの使い方は正し�
 @~/.claude/ATTENTIONS.md
 @~/.claude/DESIGN.md
 
+重要!!↓
 # 設計書・仕様書の極意
 
 設計書は抽象度を分離した文書構成であれ
