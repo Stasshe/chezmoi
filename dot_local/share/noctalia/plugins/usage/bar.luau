@@ -87,7 +87,7 @@ local function refresh(force)
   end
   refreshing = true
   render()
-  local command = '"$HOME/.local/bin/mise" exec -- "$HOME/.local/bin/ai-usage"'
+  local command = 'PATH="$HOME/.local/bin:$PATH" mise exec -- ai-usage'
   if force then
     command = command .. " --refresh"
   end
