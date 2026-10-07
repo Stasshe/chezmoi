@@ -130,6 +130,7 @@ present = [
     "less",
     "rsync",
     "lsof",
+    "wireshark-qt",
 ]
 absent = [
     "fcitx5-gtk",
