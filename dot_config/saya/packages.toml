@@ -131,6 +131,7 @@ present = [
     "rsync",
     "lsof",
     "wireshark-qt",
+    "traceroute",
 ]
 absent = [
     "fcitx5-gtk",
