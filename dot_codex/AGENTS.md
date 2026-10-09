@@ -39,6 +39,7 @@ prは日本語で、そしてbodyは長めで詳細に体系的な。
 セッションの最後には、数行で今回何をやったかをまとめろ
 
 biomejsを使え
+tree.txtは触るな
 
 CLIがうまくいかないときはtmuxを使え
 tmuxは落ちない。`tmux new-session -d 'cmd'`はcmd終了でwindow閉じ→session消滅→最後のsessionならserver終了。socketだけ残り"no server running"表示。
