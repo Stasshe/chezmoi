@@ -132,6 +132,7 @@ present = [
     "lsof",
     "wireshark-qt",
     "traceroute",
+    "grim",
 ]
 absent = [
     "fcitx5-gtk",
