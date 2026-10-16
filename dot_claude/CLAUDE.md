@@ -47,6 +47,7 @@ tmuxは落ちない。`tmux new-session -d 'cmd'`はcmd終了でwindow閉じ→s
 serverは最初のclientのenvを全sessionに配る。mise配下のbinはPATH不備で即死しうる。
 new-sessionは同期。exit 0で戻れば session存在確定→待機ループ不要。生存判定は`tmux ls`のパースでなく`tmux has-session -t NAME`のexit code。session不在は「開始前」でなく「終了済みor起動失敗」。
 デバッグ時は`tmux set-option -g remain-on-exit on`で死体を残せ。
+codex等のTUIへの入力は、本文と同時に送ったEnterがpaste扱いで改行になり未送信になる。本文を送る→間を置く→`Enter`を別送。送信後は`capture-pane`で「Working」等の実行開始を確認するまで送信済みと扱うな。
 
 shellでは、環境変数・複雑な batch を重ねるな。シンプルに使え
 
