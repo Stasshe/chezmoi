@@ -13,11 +13,9 @@ git restoreは例外として許可する
 git操作があった場合、大方私がやったことだから無視しろ
 例外として、issue,pr作成は許可性とする。私から許可が出ればghコマンドを使え。
 sandbox制限でghがログインしてないように表示されることがあるが、気にするな。
-gh prを使う場合は.shファイルを作れ
 
 親Folder名をFile名で繰り返すな。ただし、理解しやすさなどの十分な意図があるならok
 
-コードファイルは英語で書け
 無意味にechoを使うな。Readを使え。
 
 ブラウザを介する確認は最初からagent-browserを使え。
@@ -30,11 +28,8 @@ release.ymlにはpatch minor majorの選択肢でbump versionするやつを。
 
 この環境ではrgが使える
 
-pr作るときは、ghつかった.shファイルを出力しろ。実行は私がやるからお前はやるな。
 prは日本語で、そしてbodyは長めで詳細に体系的な。
-  printf 'Working tree is not clean. Commit the reviewed changes before creating the PR.\n' >&2
-こういうのはいらない。純粋なgh pr create --bodyだけを使え。
-あなたが直接やっていいのはissueの作成のみ。ただしこれも許可性。
+純粋なgh pr create --bodyだけ。
 
 セッションの最後には、数行で今回何をやったかをまとめろ
 

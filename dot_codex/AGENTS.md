@@ -13,11 +13,9 @@ git restoreは例外として許可する
 git操作があった場合、大方私がやったことだから無視しろ
 例外として、issue,pr作成は許可性とする。私から許可が出ればghコマンドを使え。
 sandbox制限でghがログインしてないように表示されることがあるが、気にするな。
-gh prを使う場合は.shファイルを作れ
 
 親Folder名をFile名で繰り返すな。ただし、理解しやすさなどの十分な意図があるならok
 
-コードファイルは英語で書け
 無意味にechoを使うな。Readを使え。
 
 ブラウザを介する確認は最初からagent-browserを使え。
@@ -30,11 +28,8 @@ release.ymlにはpatch minor majorの選択肢でbump versionするやつを。
 
 この環境ではrgが使える
 
-pr作るときは、ghつかった.shファイルを出力しろ。実行は私がやるからお前はやるな。
 prは日本語で、そしてbodyは長めで詳細に体系的な。
-  printf 'Working tree is not clean. Commit the reviewed changes before creating the PR.\n' >&2
-こういうのはいらない。純粋なgh pr create --bodyだけを使え。
-あなたが直接やっていいのはissueの作成のみ。ただしこれも許可性。
+純粋なgh pr create --bodyだけ。
 
 セッションの最後には、数行で今回何をやったかをまとめろ
 
@@ -47,6 +42,7 @@ tmuxは落ちない。`tmux new-session -d 'cmd'`はcmd終了でwindow閉じ→s
 serverは最初のclientのenvを全sessionに配る。mise配下のbinはPATH不備で即死しうる。
 new-sessionは同期。exit 0で戻れば session存在確定→待機ループ不要。生存判定は`tmux ls`のパースでなく`tmux has-session -t NAME`のexit code。session不在は「開始前」でなく「終了済みor起動失敗」。
 デバッグ時は`tmux set-option -g remain-on-exit on`で死体を残せ。
+codex等のTUIへの入力は、本文と同時に送ったEnterがpaste扱いで改行になり未送信になる。本文を送る→間を置く→`Enter`を別送。送信後は`capture-pane`で「Working」等の実行開始を確認するまで送信済みと扱うな。
 
 shellでは、環境変数・複雑な batch を重ねるな。シンプルに使え
 
