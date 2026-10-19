@@ -133,6 +133,7 @@ present = [
     "wireshark-qt",
     "traceroute",
     "grim",
+    "blender",
 ]
 absent = [
     "fcitx5-gtk",
