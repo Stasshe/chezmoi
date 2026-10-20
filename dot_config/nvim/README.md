@@ -52,6 +52,9 @@ normal modeで入力中の数字countはstatusline右側に表示する。行指
 Neo-treeの横幅はリサイズ後と閉じる直前にNeovim stateへ保存し、再表示時や次回起動時に同じ幅へ戻す。
 再表示直後に既存windowへ入った場合も保存幅へ戻す。Neo-treeだけが残って全画面幅になった状態は保存しない。
 
+HTMLファイルではnormal modeの`<Space>fB`（大文字の`B`）で現在のファイルを既定のブラウザで開く。
+先に`:w`で保存する。ブラウザにはディスク上の内容が表示される。
+
 ## C development
 
 C uses the C Tree-sitter parser for syntax highlighting. GCC compiles programs,
