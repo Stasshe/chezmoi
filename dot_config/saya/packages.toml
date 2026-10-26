@@ -134,8 +134,10 @@ present = [
     "traceroute",
     "grim",
     "blender",
+    "zip",
 ]
 absent = [
     "fcitx5-gtk",
     "lazydocker",
+    "tailscale",
 ]
