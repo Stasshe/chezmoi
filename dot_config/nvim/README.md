@@ -55,6 +55,12 @@ Neo-treeの横幅はリサイズ後と閉じる直前にNeovim stateへ保存し
 HTMLファイルではnormal modeの`<Space>fB`（大文字の`B`）で現在のファイルを既定のブラウザで開く。
 先に`:w`で保存する。ブラウザにはディスク上の内容が表示される。
 
+## Linting and formatting
+
+JavaScript and TypeScript linting and formatting run through each project's CLI
+commands. Neovim uses `tsgo` for JavaScript and TypeScript language features and
+`jsonls` for JSON language features.
+
 ## C development
 
 C uses the C Tree-sitter parser for syntax highlighting. GCC compiles programs,

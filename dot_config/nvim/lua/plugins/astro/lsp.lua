@@ -19,7 +19,7 @@ return {
         },
       },
       enabled = {},
-      disabled = { -- LSP names from `client.name`; jsonls must be here so JSON uses oxfmt only
+      disabled = { -- LSP names from `client.name`.
         "svelte",
         "lua_ls",
         "tsgo",

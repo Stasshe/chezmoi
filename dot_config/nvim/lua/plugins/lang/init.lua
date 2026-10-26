@@ -12,5 +12,4 @@ return {
   { import = "plugins.lang.svelte" },
   { import = "plugins.lang.toml" },
   { import = "plugins.lang.typescript" },
-  { import = "plugins.lang.oxc" },
 }

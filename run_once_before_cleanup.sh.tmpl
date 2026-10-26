@@ -6,6 +6,7 @@ set -euo pipefail
 user_home={{ .chezmoi.homeDir | quote }}
 
 paths=(
+  ".config/nvim/lua/plugins/lang/oxc.lua"
 {{- if eq $distribution "arch" }}
   ".config/Kvantum"
   ".config/darklyrc"
