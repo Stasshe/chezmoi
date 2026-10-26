@@ -6,6 +6,9 @@ set -euo pipefail
 user_home={{ .chezmoi.homeDir | quote }}
 
 paths=(
+  ".gle"
+  ".cache/mise/npm-ctx-gleaner"
+  ".local/share/mise/downloads/npm-ctx-gleaner"
   ".config/nvim/lua/plugins/lang/oxc.lua"
 {{- if eq $distribution "arch" }}
   ".config/Kvantum"
@@ -34,3 +37,7 @@ cd -- "$user_home"
 for path in "${paths[@]}"; do
   rm -rf -- "$path"
 done
+
+if [ -f "$user_home/.gitconfig" ]; then
+  sed -i '\|^[[:space:]]*hooksPath[[:space:]]*=[[:space:]]*.*/\.gle/hooks[[:space:]]*$|d' "$user_home/.gitconfig"
+fi

@@ -162,14 +162,6 @@
   "hooks": {
     "UserPromptSubmit": [
       {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "gle _user-prompt-submit"
-          }
-        ]
-      },
-      {
         "matcher": "*",
         "hooks": [
           {
@@ -180,15 +172,6 @@
       }
     ],
     "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "gle _stop",
-            "async": true
-          }
-        ]
-      },
       {
         "matcher": "*",
         "hooks": [

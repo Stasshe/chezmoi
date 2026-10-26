@@ -15,7 +15,6 @@ jq = "latest"
 neovim = "0.12.5"
 node = "24"
 "npm:agent-browser" = { version = "latest", depends = "node" }
-"npm:ctx-gleaner" = { version = "latest", depends = "node" }
 "npm:hunkdiff" = { version = "latest", depends = "node" }
 "npm:uipro-cli" = { version = "latest", depends = "node" }
 "npm:vscode-langservers-extracted" = { version = "latest", depends = "node" }
