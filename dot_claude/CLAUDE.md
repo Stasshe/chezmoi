@@ -8,8 +8,7 @@ Don't use pip directory. use uv.
 
 コードファイルは英語で書け
 
-git操作はするな。こちらでやる。git操作はreadonly。
-git restoreは例外として許可する
+git add, commit, pushを禁止する
 git操作があった場合、大方私がやったことだから無視しろ
 例外として、issue,pr作成は許可性とする。私から許可が出ればghコマンドを使え。
 sandbox制限でghがログインしてないように表示されることがあるが、気にするな。
