@@ -191,7 +191,7 @@ Key shortcuts:
 `Super+D` (maximize), `Super+Alt+Space` (float/tile toggle), `Super+H/J/K/L`
 (focus a window), `Ctrl+Super+H/J/K/L` or `Ctrl+Super+Arrow` (focus a workspace by
 relative position without wrapping at 1–10), `Super+Alt+H/L`
-(send a window to the adjacent workspace), `Super+Shift+U/I/O/P` (move a window
+(send a window to the adjacent workspace), `Super+Shift+Y/U/I/O` (move a window
 left/down/up/right), `Alt+H/J/K/L` (send Left/Down/Up/Right to the focused
 application), `Alt+G`/`Alt+;` (send Home/End to the focused application),
 `Caps Lock` or `Ctrl+Space` (toggle Japanese input),

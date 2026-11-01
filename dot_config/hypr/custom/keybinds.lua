@@ -16,10 +16,10 @@ local navigation_keys = {
 }
 
 local window_move_keys = {
-    { key = "U", direction = "l" },
-    { key = "I", direction = "d" },
-    { key = "O", direction = "u" },
-    { key = "P", direction = "r" },
+    { key = "Y", direction = "l" },
+    { key = "U", direction = "d" },
+    { key = "I", direction = "u" },
+    { key = "O", direction = "r" },
 }
 
 local arrow_keys = {
