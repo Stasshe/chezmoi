@@ -85,6 +85,7 @@ alias qc='ollama run qwen2.5:7b'
 alias y='yazi'
 alias laz='lazygit'
 alias lad='lazydocker'
+alias lat='lazytmux'
 alias ch='chezmoi'
 alias fetch='git fetch -p'
 
