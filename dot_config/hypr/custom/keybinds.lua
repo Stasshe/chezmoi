@@ -5,8 +5,8 @@ local launcher = "noctalia msg panel-toggle launcher"
 hl.unbind("SUPER + SUPER_L")
 hl.unbind("SUPER + SUPER_R")
 hl.bind("SUPER + R", hl.dsp.exec_cmd(launcher), { description = "Shell: Toggle launcher" })
-hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd(launcher), { description = "Shell: Toggle launcher" })
-hl.bind("SUPER + SUPER_R", hl.dsp.exec_cmd(launcher))
+hl.bind("SUPER_L", hl.dsp.exec_cmd(launcher), { release = true, description = "Shell: Toggle launcher" })
+hl.bind("SUPER_R", hl.dsp.exec_cmd(launcher), { release = true })
 
 local navigation_keys = {
     { key = "H", arrow = "Left", direction = "l", workspace = "-1", workspace_offset = -1 },

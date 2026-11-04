@@ -200,7 +200,8 @@ application), `Alt+G`/`Alt+;` (send Home/End to the focused application),
 `Print` (fullscreen screenshot), `Super+V` (clipboard history), `Super+N`
 (control center), `Ctrl+Alt+Delete` (session menu), `Ctrl+Super+T`
 (Wallhaven search), `Super+E` (Nautilus), `Super+W` (browser), `Super+I` (Noctalia
-settings), and a double-tap of `Super` to open the launcher.
+settings), and releasing either `Super` key on its own to open the launcher.
+Using `Super` in a shortcut such as `Super+Return` leaves the launcher closed.
 
 Open a new WSL session after setup so the Docker group membership takes effect.
 
