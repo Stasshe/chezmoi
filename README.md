@@ -93,6 +93,9 @@ The monitor order is independent of the layout saved by Display Settings. Run
 `workspace-order`, move rows with `J`/`K`, then press `s`; the first row receives
 1–10, the second 11–20, and the third 21–30. The TUI identifies external
 monitors by serial number and retains disconnected monitors in the saved order.
+The order is stored locally in `~/.config/hypr/custom/workspace-order.conf`,
+outside chezmoi and Git. Until an order is saved, connected monitors are ordered
+by their display positions.
 The center clock shows `MM/DD (weekday) HH:MM` in 24-hour time. Claude
 Companion sits to its left and reports Claude Code lifecycle state. The adjacent
 AI usage widget shows the current Codex and Claude plan-window utilization and

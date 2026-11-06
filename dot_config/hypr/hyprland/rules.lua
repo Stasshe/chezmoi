@@ -80,8 +80,14 @@ local configHome = os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME") .. "/.confi
 
 local function readWorkspaceMonitorOrder()
     local path = configHome .. "/hypr/custom/workspace-order.conf"
-    local file = assert(io.open(path, "r"))
     local order = {}
+    local file, message, code = io.open(path, "r")
+    if not file then
+        if code == 2 then
+            return order
+        end
+        error(message)
+    end
 
     for line in file:lines() do
         if line ~= "" then

@@ -66,10 +66,6 @@ def connected_monitors() -> list[Monitor]:
     return sorted(monitors, key=lambda monitor: (monitor.x, monitor.y, monitor.output))
 
 
-def source_path() -> Path:
-    return Path(run(["chezmoi", "source-path", str(TARGET)]).strip())
-
-
 def read_saved(path: Path) -> list[Monitor]:
     if not path.exists():
         return []
@@ -132,7 +128,6 @@ def save(monitors: list[Monitor], path: Path) -> None:
         temporary.write(content)
         temporary_path = Path(temporary.name)
     os.replace(temporary_path, path)
-    run(["chezmoi", "apply", str(TARGET)])
     run(["hyprctl", "reload"])
 
 
@@ -172,7 +167,7 @@ def draw(
             style |= curses.A_DIM
         screen.addnstr(row, 0, label, width - 1, style)
 
-    footer = status or "j/k select   J/K move   s save & apply   q quit"
+    footer = status or "j/k select   J/K move   s save & reload   q quit"
     screen.addnstr(height - 1, 0, footer, width - 1, curses.color_pair(2))
     screen.refresh()
 
@@ -211,13 +206,13 @@ def tui(screen: curses.window, monitors: list[Monitor], path: Path) -> None:
         elif key == ord("s"):
             try:
                 save(monitors, path)
-                status = "Saved, applied, and reloaded Hyprland."
+                status = "Saved and reloaded Hyprland."
             except (OSError, subprocess.CalledProcessError) as error:
                 status = f"Save failed: {error}"
 
 
 def main() -> None:
-    path = source_path()
+    path = TARGET
     monitors = merge_monitors(read_saved(path), connected_monitors())
     if not monitors:
         raise SystemExit("No saved or connected monitors found.")

@@ -28,6 +28,7 @@ desktop/
 .config/hypr/monitors.lua
 .config/hypr/workspaces.conf
 .config/hypr/workspaces.lua
+.config/hypr/custom/workspace-order.conf
 
 
 memo.md
