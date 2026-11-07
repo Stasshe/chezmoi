@@ -15,13 +15,6 @@ local navigation_keys = {
     { key = "L", arrow = "Right", direction = "r", workspace = "+1", workspace_offset = 1 },
 }
 
-local window_move_keys = {
-    { key = "Y", direction = "l" },
-    { key = "U", direction = "d" },
-    { key = "I", direction = "u" },
-    { key = "O", direction = "r" },
-}
-
 local arrow_keys = {
     { key = "H", arrow = "Left" },
     { key = "J", arrow = "Down" },
@@ -56,12 +49,9 @@ for _, binding in ipairs(navigation_keys) do
             move_window_to_workspace(binding.workspace_offset)
         end
     )
-end
 
-for _, binding in ipairs(window_move_keys) do
-    hl.unbind("SUPER + SHIFT + " .. binding.key)
     hl.bind(
-        "SUPER + SHIFT + " .. binding.key,
+        "CTRL + ALT + " .. binding.key,
         hl.dsp.window.move({ direction = binding.direction }),
         { description = "Window: Move " .. binding.direction }
     )

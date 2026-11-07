@@ -34,7 +34,8 @@ install Hyprland. Ubuntu remains GNOME-only. Japanese input uses IBus + Mozc on
 Ubuntu and Fcitx5 + Mozc on Arch. On Arch, run `keyboard-layout us` or
 `keyboard-layout jis` to switch the keyboard layout. The selection and Fcitx5
 profile are machine-local and are not managed by chezmoi. Caps Lock or
-`Ctrl+Space` toggles Japanese input without enabling caps. Ubuntu uses the JIS
+`Ctrl+Space` toggles Japanese input without enabling caps. Fcitx5 keyboard
+completion hints and their toggle shortcuts are disabled. Ubuntu uses the JIS
 (`jp`) layout. On Arch, the physical Menu key between right `Alt` and `Ctrl`
 types `` ` `` or `~`; Caps Lock remains the Menu-key input toggle. GNOME
 uses the standard Mozc engine; its direct and hiragana modes are switched
@@ -194,7 +195,7 @@ Key shortcuts:
 `Super+D` (maximize), `Super+Alt+Space` (float/tile toggle), `Super+H/J/K/L`
 (focus a window), `Ctrl+Super+H/J/K/L` or `Ctrl+Super+Arrow` (focus a workspace by
 relative position without wrapping at 1–10), `Super+Alt+H/L`
-(send a window to the adjacent workspace), `Super+Shift+Y/U/I/O` (move a window
+(send a window to the adjacent workspace), `Ctrl+Alt+H/J/K/L` (move a window
 left/down/up/right), `Alt+H/J/K/L` (send Left/Down/Up/Right to the focused
 application), `Alt+G`/`Alt+;` (send Home/End to the focused application),
 `Caps Lock` or `Ctrl+Space` (toggle Japanese input),
