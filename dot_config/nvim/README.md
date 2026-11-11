@@ -4,6 +4,21 @@
 
 A template for getting started with [AstroNvim](https://github.com/AstroNvim/AstroNvim)
 
+## Versions and updates
+
+Neovim is pinned to `0.12.6` in the mise configuration. AstroNvim is pinned to
+`v6.1.1` in `lua/lazy_setup.lua`; its snapshot selects compatible core plugin
+versions. `lazy-lock.json` records the resolved plugin commits.
+
+Update plugins against the chezmoi source, then apply the resulting lockfile:
+
+```sh
+XDG_CONFIG_HOME="$HOME/.local/share/chezmoi/dot_config" nvim
+# Run :Lazy update, then quit Neovim.
+chezmoi apply ~/.config/nvim ~/.config/mise/config.toml
+mise install neovim
+```
+
 ## 🛠️ Installation
 
 #### Make a backup of your current nvim and shared folder
