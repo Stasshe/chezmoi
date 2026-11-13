@@ -13,6 +13,15 @@ cd ~/.local/share/chezmoi
 chezmoi、Saya管理のAPT packages、mise tools、Zellij、zsh環境を順に構成する。
 Docker group反映のため、完了後はWSL sessionを開き直す。
 
+Sayaの`absent`でGNOME Shell、QEMUのGUI、Wayland clipboardを削除対象にする。
+既存環境では次を実行する。GNOME Shellに依存するGDMやsessionも削除対象になる。
+QEMU本体はheadless用に維持する。
+
+```sh
+chezmoi apply ~/.config/saya/packages.toml
+saya uninstall gnome-shell qemu-system-gui wl-clipboard
+```
+
 ## CLI and editor
 
 Neovimは`0.12.6`、AstroNvimは`v6.1.1`に固定する。C開発用のGDB・manualと

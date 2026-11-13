@@ -32,3 +32,10 @@ present = [
     "qemu-system-x86",
     "qemu-utils",
 ]
+absent = [
+    "gnome-shell",
+    "qemu-system-gui",
+    "wl-clipboard",
+]
+
+[yay]

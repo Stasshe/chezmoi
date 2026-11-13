@@ -11,6 +11,10 @@ chezmoiをbootstrap、管理ファイル適用後にSayaでAPT packages、mise�
 
 OS package宣言はSayaの`apt`配列だけに置く。GUI shell、IME、Wayland、Arch packageを
 持たぬ。miseはCLI・言語toolchainを管理し、FlutterとJavaを持たぬ。
+Saya schema必須の`yay` tableは空で保持する。
+
+Sayaの`absent`は`gnome-shell`、`qemu-system-gui`、`wl-clipboard`を指定する。
+QEMUはheadless用のsystem emulatorとdisk toolsを維持する。
 
 Neovimは`0.12.6`、AstroNvimは`v6.1.1`へ固定し、plugin commitはlockfileで揃える。
 Cのcompiler・debugger・manualはSaya、Go tools・lazydocker・gcloudはmiseが担う。
