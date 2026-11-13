@@ -13,6 +13,22 @@ cd ~/.local/share/chezmoi
 chezmoi、Saya管理のAPT packages、mise tools、Zellij、zsh環境を順に構成する。
 Docker group反映のため、完了後はWSL sessionを開き直す。
 
+## CLI and editor
+
+Neovimは`0.12.6`、AstroNvimは`v6.1.1`に固定する。C開発用のGDB・manualと
+tmux・Docker BuildxはSaya、lazydocker・gcloud・Go toolsはmiseで管理する。
+Neovimの操作と更新手順は[Neovim README](dot_config/nvim/README.md)を参照する。
+
+`lad`はlazydocker、`nvi`はNeovimを開く。`clean-cache`はDocker・Go・uv・npm・pnpmの
+cacheを掃除する。`ai-usage`はCodexとClaudeの使用量をJSONで表示する。
+
+Claudeは単独のstatus lineとSessionStart hookを使う。Codexはproject trustとUI設定を
+端末に残し、共通の実行設定だけをchezmoiで管理する。
+
+Docker bridgeの設定は`init/docker/daemon.json`を正本とし、`init/docker.sh`で配置する。
+既存環境への変更にはDocker serviceの再起動が要る。lazydockerのcontainer menuから
+Compose projectのresourceを削除できる。volumeも対象になるため、実行前に確認が入る。
+
 管理をやめたファイルは`run_once_before_cleanup.sh.tmpl`へ明示的に追加する。
 chezmoiはscript内容が変わったときだけcleanupを再実行する。列挙していないファイルと、
 空でないディレクトリは削除しない。
@@ -20,7 +36,7 @@ chezmoiはscript内容が変わったときだけcleanupを再実行する。列
 ## Windows integration
 
 Windows側へ`win32yank`を入れる。Neovimの通常yankはこれを通してWindows clipboardへ
-送られる。`dd`はWindows clipboardを更新しない。
+送られる。normal・visual modeの`d`はWindows clipboardを更新しない。
 
 ```powershell
 winget install -e --id equalsraf.win32yank

@@ -25,71 +25,10 @@
       "Bash(gh issue *)",
       "Bash(cargo clippy *)",
       "Bash(cargo test *)",
-      "Bash(rm -rf /tmp/*)"
+      "Bash(rm -rf /tmp/*)",
+      "Bash(docker exec *)"
     ],
     "deny": [
-      "Bash(rm -rf /)",
-      "Bash(rm -rf /*)",
-      "Bash(rm -rf /* *)",
-      "Bash(rm -rf -- /)",
-      "Bash(rm -rf -- /*)",
-      "Bash(rm -rf ~)",
-      "Bash(rm -rf ~/*)",
-      "Bash(rm -rf ~/.*)",
-      "Bash(rm -rf $HOME)",
-      "Bash(rm -rf $HOME/*)",
-      "Bash(rm -rf $HOME/.*)",
-      "Bash(rm -rf /bin)",
-      "Bash(rm -rf /bin/*)",
-      "Bash(rm -rf /boot)",
-      "Bash(rm -rf /boot/*)",
-      "Bash(rm -rf /dev)",
-      "Bash(rm -rf /dev/*)",
-      "Bash(rm -rf /etc)",
-      "Bash(rm -rf /etc/*)",
-      "Bash(rm -rf /home)",
-      "Bash(rm -rf /lib)",
-      "Bash(rm -rf /lib/*)",
-      "Bash(rm -rf /lib64)",
-      "Bash(rm -rf /lib64/*)",
-      "Bash(rm -rf /media)",
-      "Bash(rm -rf /media/*)",
-      "Bash(rm -rf /mnt)",
-      "Bash(rm -rf /mnt/*)",
-      "Bash(rm -rf /opt)",
-      "Bash(rm -rf /opt/*)",
-      "Bash(rm -rf /proc)",
-      "Bash(rm -rf /proc/*)",
-      "Bash(rm -rf /root)",
-      "Bash(rm -rf /root/*)",
-      "Bash(rm -rf /run)",
-      "Bash(rm -rf /run/*)",
-      "Bash(rm -rf /sbin)",
-      "Bash(rm -rf /sbin/*)",
-      "Bash(rm -rf /srv)",
-      "Bash(rm -rf /srv/*)",
-      "Bash(rm -rf /sys)",
-      "Bash(rm -rf /sys/*)",
-      "Bash(rm -rf /tmp)",
-      "Bash(rm -rf /tmp/*)",
-      "Bash(rm -rf /usr)",
-      "Bash(rm -rf /usr/*)",
-      "Bash(rm -rf /var)",
-      "Bash(rm -rf /var/*)",
-      "Bash(rm -fr /)",
-      "Bash(rm -fr /*)",
-      "Bash(rm -fr ~)",
-      "Bash(rm -fr ~/*)",
-      "Bash(rm -fr $HOME)",
-      "Bash(rm -fr $HOME/*)",
-      "Bash(rm -fr /var)",
-      "Bash(rm -fr /var/*)",
-      "Bash(rm -fr /etc)",
-      "Bash(rm -fr /etc/*)",
-      "Bash(rm -fr /usr)",
-      "Bash(rm -fr /usr/*)",
-      "Bash(rm -fr /home)",
-      "Bash(rm -fr /home/*)",
       "Bash(find / -delete)",
       "Bash(find / * -delete)",
       "Bash(find ~ -delete)",
@@ -129,8 +68,6 @@
       "Bash(curl * | bash)",
       "Bash(wget * | sh)",
       "Bash(wget * | bash)",
-      "Bash(git commit)",
-      "Bash(git commit *)",
       "Bash(git push)",
       "Bash(git push *)",
       "Bash(git reset --hard)",
@@ -155,33 +92,10 @@
       "Read(~/.aws/**)",
       "Read(~/.config/gh/**)",
       "Read(~/.npmrc)",
-      "Read(~/.pypirc)",
-      "Read(**/.env)",
-      "Read(**/.env.local)"
+      "Read(~/.pypirc)"
     ]
   },
   "hooks": {
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "gle _user-prompt-submit"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "gle _stop",
-            "async": true
-          }
-        ]
-      }
-    ],
     "SessionStart": [
       {
         "hooks": [
@@ -195,12 +109,11 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "bash ~/.claude/plugins/marketplaces/genshijin/hooks/genshijin-statusline.sh"
+    "command": "bash ~/.claude/hooks/statusline.sh"
   },
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true,
     "caveman@caveman": true,
-    "genshijin@genshijin": true,
     "rust-analyzer-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
@@ -208,12 +121,6 @@
       "source": {
         "source": "github",
         "repo": "JuliusBrussee/caveman"
-      }
-    },
-    "genshijin": {
-      "source": {
-        "source": "github",
-        "repo": "InterfaceX-co-jp/genshijin"
       }
     }
   },

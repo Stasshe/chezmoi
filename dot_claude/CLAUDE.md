@@ -8,48 +8,73 @@ Don't use pip directory. use uv.
 
 コードファイルは英語で書け
 
-git操作はするな。こちらでやる。git操作はreadonly。
-restore, staging, commitなどは禁止する。
-git diffなどの読み取りのみは完全に許可する。
-git restoreは例外として許可する
+git add, commit, pushを禁止する
 git操作があった場合、大方私がやったことだから無視しろ
+例外として、issue,pr作成は許可性とする。私から許可が出ればghコマンドを使え。
+sandbox制限でghがログインしてないように表示されることがあるが、気にするな。
 
-親Folder名をFile名で繰り返さない規則
+親Folder名をFile名で繰り返すな。ただし、理解しやすさなどの十分な意図があるならok
 
-コードファイルは英語で書け
 無意味にechoを使うな。Readを使え。
 
-plan modeの時は、さいごにplan.txtだけでなく、プロジェクトに
-SPECIFICATION.md　を追加しろ。
-設計書・仕様書などはgenshijin口調だが、それより以下の設計書仕様書の極意を優先しろ。
-
 ブラウザを介する確認は最初からagent-browserを使え。
-画面表示・画面遷移・認証・フォーム・Server Action・Cookie/Session・Client-side JavaScriptの確認をcurlやwgetで代用するな。Next.jsでは正しく検証できない。
-curlを使ってよいのは、明示的なAPI endpointやhealth checkのHTTP契約だけを確認するときに限る。
+agent-browserはこまめにプロセス終了しろ
+画面表示・画面遷移・認証・フォーム・Server Action・Cookie/Session・Client-side JavaScriptの確認をcurlやwgetで代用するな。Next.jsでは正しく検証できない。 curlを使ってよいのは、明示的なAPI endpointやhealth checkのHTTP契約だけを確認するときに限る。
 
 release.ymlにはpatch minor majorの選択肢でbump versionするやつを。
-workflowの中のビルドにはキャッシュも使え。
 
-
-plan modeのときは、必ずそのリポジトリにplan.mdもしくはSPECIFICATION.mdを置くように。
-
-設計・仕様変更があった場合は必ずREADME,SPECIFICATION,docs/(specとdocsはない可能性がある。)に該当箇所があるか確認し、それを修正しろ
+設計・仕様変更があった場合は必ずREADME,docsに該当箇所があるか確認し、それを修正しろ
 
 この環境ではrgが使える
 
-/home/からではなく~/からor pwdからパスは指定しろ
+prは日本語で、そしてbodyは長めで詳細に体系的な。
+純粋なgh pr create --bodyだけ。
+
+セッションの最後には、数行で今回何をやったかをまとめろ
+
+biomejsを使え
+tree.txtは触るな
+
+tmuxを使え
+tmuxは落ちない。`tmux new-session -d 'cmd'`はcmd終了でwindow閉じ→session消滅→最後のsessionならserver終了。socketだけ残り"no server running"表示。
+だから直接cmdを渡すな。`tmux new-session -d -s NAME`でshellだけ起こし、`tmux send-keys -t NAME 'cmd' Enter`で流せ。cmdが死んでもsession生存、`tmux capture-pane -p -t NAME`で出力読める。
+serverは最初のclientのenvを全sessionに配る。mise配下のbinはPATH不備で即死しうる。
+new-sessionは同期。exit 0で戻れば session存在確定→待機ループ不要。生存判定は`tmux ls`のパースでなく`tmux has-session -t NAME`のexit code。session不在は「開始前」でなく「終了済みor起動失敗」。
+codex等のTUIへの入力は、本文と同時に送ったEnterがpaste扱いで改行になり未送信になる。本文を送る→間を置く→`Enter`を別送。送信後は`capture-pane`で「Working」等の実行開始を確認するまで送信済みと扱うな。
+
+shellでは、環境変数・複雑な batch を重ねるな。シンプルに使え
+
+無駄に実データを避けようとするな。開発DBなら書き換え削除可能
+必要のない退避をするな
+
+AIのお前はshell scriptの完了などがうまく検知できないことが多い
+
+codex execは絶対に使うな。禁止。tmux使え tmuxの使い方は正しく。
+
+私の名前はStasshe。「ユーザーが」とかをdocsに書くな。Stassheが、としろ。
+
 
 @~/.claude/ATTENTIONS.md
 @~/.claude/DESIGN.md
 
+重要!!↓
 # 設計書・仕様書の極意
 
 設計書は抽象度を分離した文書構成であれ
 設計段階での、保存するべき意図は\*\_INTENT.mdで書け。
 単なる特徴ではなく、重要な設計判断に必要であったBackgroundなどのコンテキスト外のことを書け。
 却下理由はいらない。判断した理由を書け。
-設計仕様をここに乗せるな。
 MVP専用の設計書・仕様書にはするな、設計書は不変である
 細かすぎて逆にＡＩが実装しずらくなるようなところまでは絞るな
 本当に必要な情報だけを書け。文字数あたりの情報量を限りなく濃くしろ。
 丁寧である必要はない。雑でより少ない文字数を目指せ。
+
+# ドキュメントの書き方
+## 通常ドキュメント
+肯定系の文書。今の実装状態、実装途中ならその実装計画の最終地点の状態のみを書くべき
+## _INTENT
+特定の判断に関する、判断意図を残すもの　なぜこれにして、これはしなかったか
+## _HISTORY
+通常ドキュメントでは過去を遡れない。timestampつきで、どのときにどうであったか、というもの。
+修正ではなく、仕様変更に対して書く。
+すべてを残す必要はないが、デカいものは書くべき。_INTENTがある場合はいらないときもある。使い分けに注意

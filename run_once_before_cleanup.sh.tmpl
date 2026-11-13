@@ -4,10 +4,12 @@ set -euo pipefail
 user_home="${HOME:?}"
 
 files=(
+  ".claude/skills/genshijin/SKILL.md"
   ".claude/hooks/noctalia-pulse"
   ".config/burn-my-windows/profiles/smooth.conf"
   ".config/fcitx5/private_profile"
   ".config/ghostty/config"
+  ".config/genshijin/config.json"
   ".config/hypr/custom/env.lua"
   ".config/hypr/custom/execs.lua"
   ".config/hypr/custom/general.lua"
@@ -32,6 +34,7 @@ files=(
   ".config/mimeapps.list"
   ".config/mozc/ibus_config.textproto"
   ".config/noctalia/config.toml"
+  ".config/nvim/lua/plugins/lang/oxc.lua"
   ".config/xdg-desktop-portal/hyprland-portals.conf"
   ".config/zellij/config.kdl.bak"
   ".local/bin/screen-capture"
@@ -45,10 +48,12 @@ files=(
 )
 
 directories=(
+  ".claude/skills/genshijin"
   ".config/burn-my-windows/profiles"
   ".config/burn-my-windows"
   ".config/fcitx5"
   ".config/ghostty"
+  ".config/genshijin"
   ".config/hypr/custom"
   ".config/hypr/hyprland/lib"
   ".config/hypr/hyprland/scripts/ai"
@@ -70,6 +75,10 @@ directories=(
 for file in "${files[@]}"; do
   rm -f -- "$user_home/$file"
 done
+
+if [ -f "$user_home/.gitconfig" ]; then
+  sed -i '\|^[[:space:]]*hooksPath[[:space:]]*=[[:space:]]*.*/\.gle/hooks[[:space:]]*$|d' "$user_home/.gitconfig"
+fi
 
 for directory in "${directories[@]}"; do
   target="$user_home/$directory"

@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+set -uo pipefail
+
+container_id=${1:-}
+if [ -z "$container_id" ]; then
+  printf 'A container ID is required.\n' >&2
+  exit 1
+fi
+
+project=$(
+  docker container inspect \
+    --format '{{ index .Config.Labels "com.docker.compose.project" }}' \
+    "$container_id"
+)
+if [ -z "$project" ] || [ "$project" = '<no value>' ]; then
+  printf 'The selected container is not managed by Docker Compose.\n' >&2
+  exit 1
+fi
+
+mapfile -t container_ids < <(
+  docker container ls --all --no-trunc --quiet \
+    --filter "label=com.docker.compose.project=$project"
+)
+mapfile -t network_ids < <(
+  docker network ls --quiet \
+    --filter "label=com.docker.compose.project=$project"
+)
+mapfile -t volume_names < <(
+  docker volume ls --quiet \
+    --filter "label=com.docker.compose.project=$project"
+)
+
+declare -A image_ids=()
+declare -A project_container_ids=()
+declare -A shared_image_ids=()
+
+for id in "${container_ids[@]}"; do
+  image_reference=$(docker container inspect --format '{{ .Config.Image }}' "$id")
+  image_id=$(docker container inspect --format '{{ .Image }}' "$id")
+  image_ids["$image_reference"]=$image_id
+  project_container_ids["$id"]=1
+done
+
+mapfile -t all_container_ids < <(
+  docker container ls --all --no-trunc --quiet
+)
+for id in "${all_container_ids[@]}"; do
+  if [ -n "${project_container_ids[$id]+present}" ]; then
+    continue
+  fi
+  image_id=$(docker container inspect --format '{{ .Image }}' "$id")
+  shared_image_ids["$image_id"]=1
+done
+
+image_references=("${!image_ids[@]}")
+
+printf 'Delete Compose project %q?\n' "$project"
+printf '  containers: %d\n' "${#container_ids[@]}"
+printf '  images:     %d\n' "${#image_references[@]}"
+printf '  volumes:    %d\n' "${#volume_names[@]}"
+printf '  networks:   %d\n' "${#network_ids[@]}"
+read -r -p 'This permanently deletes project data. Continue? [y/N] ' reply
+if [ "$reply" != 'y' ] && [ "$reply" != 'Y' ]; then
+  exit 0
+fi
+
+status=0
+
+if [ "${#container_ids[@]}" -gt 0 ]; then
+  docker container rm --force --volumes "${container_ids[@]}" || status=1
+fi
+
+if [ "${#network_ids[@]}" -gt 0 ]; then
+  docker network rm "${network_ids[@]}" || status=1
+fi
+
+if [ "${#volume_names[@]}" -gt 0 ]; then
+  docker volume rm "${volume_names[@]}" || status=1
+fi
+
+for image in "${image_references[@]}"; do
+  image_id=${image_ids[$image]}
+  if [ -n "${shared_image_ids[$image_id]+present}" ]; then
+    printf 'Preserved shared image %q.\n' "$image"
+    continue
+  fi
+  docker image rm "$image" || status=1
+done
+
+if [ "$status" -ne 0 ]; then
+  printf 'Some shared or in-use resources were preserved.\n' >&2
+  exit "$status"
+fi
+
+printf 'Deleted Compose project %q.\n' "$project"

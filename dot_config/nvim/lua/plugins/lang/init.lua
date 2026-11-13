@@ -2,6 +2,7 @@
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 
 return {
+  { import = "plugins.lang.c" },
   { import = "plugins.lang.go" },
   { import = "plugins.lang.html-css" },
   { import = "plugins.lang.json" },
@@ -11,5 +12,4 @@ return {
   { import = "plugins.lang.svelte" },
   { import = "plugins.lang.toml" },
   { import = "plugins.lang.typescript" },
-  { import = "plugins.lang.oxc" },
 }

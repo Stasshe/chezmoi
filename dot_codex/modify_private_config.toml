@@ -1,0 +1,23 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* Keep Codex-owned project trust and UI state local. */ -}}
+{{- $config := .chezmoi.stdin -}}
+{{- if regexMatch `(?m)^approval_policy\s*=` $config -}}
+{{- $config = regexReplaceAll `(?m)^approval_policy\s*=.*$` $config `approval_policy = "never"` -}}
+{{- else -}}
+{{- $config = printf "approval_policy = \"never\"\n%s" $config -}}
+{{- end -}}
+{{- if regexMatch `(?m)^sandbox_mode\s*=` $config -}}
+{{- $config = regexReplaceAll `(?m)^sandbox_mode\s*=.*$` $config `sandbox_mode = "danger-full-access"` -}}
+{{- else -}}
+{{- $config = printf "sandbox_mode = \"danger-full-access\"\n%s" $config -}}
+{{- end -}}
+{{- $agentsPattern := `(?m)^\[agents\][^\n]*(?:\n|$)(?:[^\[\n][^\n]*(?:\n|$)|\n)*` -}}
+{{- $agents := regexFind $agentsPattern $config -}}
+{{- if not $agents -}}
+{{- $config = printf "%s\n\n[agents]\n" (trimSuffix "\n" $config) -}}
+{{- $agents = "[agents]\n" -}}
+{{- end -}}
+{{- $updatedAgents := regexReplaceAll `(?m)^(max_threads|max_concurrent_threads_per_session|max_depth)\s*=[^\n]*\n?` $agents "" -}}
+{{- $updatedAgents = printf "%s\nmax_concurrent_threads_per_session = 40\nmax_depth = 2\n" (trimSuffix "\n" $updatedAgents) -}}
+{{- $config = replace $agents $updatedAgents $config -}}
+{{ $config -}}

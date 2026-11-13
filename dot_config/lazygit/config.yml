@@ -6,9 +6,8 @@ gui:
     inactiveViewSelectedLineBgColor:
       - "#45475a"
       - bold
-
 git:
   diffContextSize: 3000
-  pagers:
+  diffRenderers:
     - colorArg: always
-      pager: delta --dark --hunk-header-style=omit --line-numbers --paging=never
+      command: delta --dark --hunk-header-style=omit --line-numbers --paging=never

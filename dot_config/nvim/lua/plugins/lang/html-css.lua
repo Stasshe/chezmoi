@@ -8,6 +8,30 @@ return {
         postcss = "postcss",
       } },
       treesitter = { ensure_installed = { "html", "css", "scss", "styled" } },
+      autocmds = {
+        html_browser = {
+          {
+            event = "FileType",
+            pattern = "html",
+            callback = function(event)
+              vim.keymap.set("n", "<Leader>fB", function()
+                local path = vim.api.nvim_buf_get_name(0)
+                if vim.fn.filereadable(path) == 0 then
+                  vim.notify("Save the HTML file before opening it in a browser", vim.log.levels.WARN)
+                  return
+                end
+                local windows_path = vim.fn.system { "wslpath", "-w", path }
+                if vim.v.shell_error ~= 0 then
+                  vim.notify(windows_path, vim.log.levels.ERROR)
+                  return
+                end
+                local _, err = vim.ui.open(vim.trim(windows_path), { cmd = { "explorer.exe" } })
+                if err then vim.notify(err, vim.log.levels.ERROR) end
+              end, { buffer = event.buf, desc = "Open HTML in browser" })
+            end,
+          },
+        },
+      },
     },
   },
   {

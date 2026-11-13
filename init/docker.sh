@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+
 . /etc/os-release
 
 sudo apt-get update
@@ -18,3 +20,6 @@ Components: stable
 Architectures: $(dpkg --print-architecture)
 Signed-By: /etc/apt/keyrings/docker.asc
 EOF
+
+sudo install -m 0755 -d /etc/docker
+sudo install -m 0644 "$root/docker/daemon.json" /etc/docker/daemon.json

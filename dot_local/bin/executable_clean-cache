@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+printf '=== before ===\n'
+df -h / | tail -1
+
+printf '=== docker build cache + unused images ===\n'
+docker builder prune -af
+docker image prune -af
+
+printf '=== go build cache ===\n'
+go clean -cache
+
+printf '=== uv cache ===\n'
+uv cache clean
+
+printf '=== npm cache ===\n'
+npm cache clean --force
+
+printf '=== pnpm store ===\n'
+pnpm store prune
+
+printf '=== after ===\n'
+df -h / | tail -1

@@ -23,7 +23,6 @@
 - 「README/docsに書け」→そのターンで実行。チャットでの決定事項→即docs反映
 - workflows: 長いインラインscript禁止。現行公式手法・最新actions。hooks/設定にmise/nvm等の絶対パス禁止（環境で壊れる）。デプロイ環境差（base path等）考慮
 - Bash: `cd`とredirect/writeを同一複合commandにするな。作業dir指定option（`pnpm --dir`等）を使え。dev server等の長時間processは必ず`run_in_background: true`、shellの`&`/`$!`/`nohup`/手動`/tmp` log redirect/不要な`timeout`は禁止
-- rmはpwdパスから
 - 3項演算子は可読性が落ちるからやめろ。リーダブルコードを保て。
 - セキュリティチェックには悪意あるプレイやー/初学者/攻撃者の目線で
 - 環境変更は要求された対象だけを行う。対象が特定できないなら、一般的な候補を推測して追加せず、必要な名前・再現コマンドを確認する。
