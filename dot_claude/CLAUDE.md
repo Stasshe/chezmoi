@@ -53,6 +53,8 @@ codex execは絶対に使うな。禁止。tmux使え tmuxの使い方は正し�
 
 私の名前はStasshe。「ユーザーが」とかをdocsに書くな。Stassheが、としろ。
 
+サブエージェント使って良い
+
 
 @~/.claude/ATTENTIONS.md
 @~/.claude/DESIGN.md
