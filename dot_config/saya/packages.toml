@@ -135,6 +135,7 @@ present = [
     "grim",
     "blender",
     "zip",
+    "pinta",
 ]
 absent = [
     "fcitx5-gtk",
