@@ -88,7 +88,6 @@ present = [
     "xdg-desktop-portal-gtk",
     "xdg-desktop-portal-hyprland",
     "zenity",
-    "zellij",
     "zsh",
     "gum",
     "libinput-tools",
@@ -139,6 +138,9 @@ present = [
 ]
 absent = [
     "fcitx5-gtk",
+    "flatpak",
     "lazydocker",
+    "obsidian",
     "tailscale",
+    "zellij",
 ]
